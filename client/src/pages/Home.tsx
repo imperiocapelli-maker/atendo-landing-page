@@ -1,15 +1,19 @@
 import Footer from "@/components/Footer";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import CurrencySwitcher from "@/components/CurrencySwitcher";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { translations } from "@/lib/translations";
 import { Check, ChevronRight, DollarSign, LayoutDashboard, Star, TrendingUp, Users } from "lucide-react";
 
 export default function Home() {
   const { language } = useLanguage();
+  const { convertPrice, formatPrice } = useCurrency();
+  
   const t = (key: string) => {
     const keys = key.split(".");
     let value: any = translations[language];
@@ -23,6 +27,7 @@ export default function Home() {
     <div className="min-h-screen bg-background font-sans selection:bg-primary/20">
       <Navbar />
       <LanguageSwitcher />
+      <CurrencySwitcher />
       
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
@@ -300,7 +305,7 @@ export default function Home() {
                 <CardTitle className="text-2xl">{t("pricing.essential.name")}</CardTitle>
                 <CardDescription className="text-base mt-2">{t("pricing.essential.subtitle")}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-3xl font-extrabold">{t("pricing.essential.price")}</span>
+                  <span className="text-3xl font-extrabold">{formatPrice(convertPrice(89))}</span>
                   <span className="text-muted-foreground">{t("pricing.essential.period")}</span>
                 </div>
               </CardHeader>
@@ -332,7 +337,7 @@ export default function Home() {
                 <CardTitle className="text-2xl">{t("pricing.pro.name")}</CardTitle>
                 <CardDescription className="text-base mt-2">{t("pricing.pro.subtitle")}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-3xl font-extrabold">{t("pricing.pro.price")}</span>
+                  <span className="text-3xl font-extrabold">{formatPrice(convertPrice(149))}</span>
                   <span className="text-muted-foreground">{t("pricing.pro.period")}</span>
                 </div>
               </CardHeader>
@@ -362,7 +367,7 @@ export default function Home() {
                 <CardTitle className="text-2xl text-white">{t("pricing.premium.name")}</CardTitle>
                 <CardDescription className="text-base mt-2 text-gray-400">{t("pricing.premium.subtitle")}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-3xl font-extrabold">{t("pricing.premium.price")}</span>
+                  <span className="text-3xl font-extrabold">{formatPrice(convertPrice(249))}</span>
                   <span className="text-gray-400">{t("pricing.premium.period")}</span>
                 </div>
               </CardHeader>
@@ -394,7 +399,7 @@ export default function Home() {
                 <CardTitle className="text-2xl">{t("pricing.scale.name")}</CardTitle>
                 <CardDescription className="text-base mt-2">{t("pricing.scale.subtitle")}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-3xl font-extrabold text-primary">{t("pricing.scale.price")}</span>
+                  <span className="text-3xl font-extrabold text-primary">{formatPrice(convertPrice(399))}+</span>
                   <span className="text-muted-foreground">{t("pricing.scale.period")}</span>
                 </div>
               </CardHeader>
