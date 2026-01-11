@@ -3,16 +3,22 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import CurrencySwitcher from "@/components/CurrencySwitcher";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import PlanCheckoutButton from "@/components/PlanCheckoutButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { translations } from "@/lib/translations";
 import { Check, ChevronRight, DollarSign, LayoutDashboard, Star, TrendingUp, Users } from "lucide-react";
 
 export default function Home() {
+  // The userAuth hooks provides authentication state
+  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const { language } = useLanguage();
-  const { convertPrice, formatPrice } = useCurrency();
+  const { currency, convertPrice, formatPrice } = useCurrency();
   
   const t = (key: string) => {
     const keys = key.split(".");
@@ -323,7 +329,14 @@ export default function Home() {
                 ))}
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full bg-blue-100 text-primary hover:bg-blue-200 font-bold">{t("pricing.essential.cta")}</Button>
+                <PlanCheckoutButton
+                  planName="essential"
+                  currency={currency}
+                  language={language}
+                  className="w-full bg-blue-100 text-primary hover:bg-blue-200 font-bold"
+                >
+                  {t("pricing.essential.cta")}
+                </PlanCheckoutButton>
               </CardFooter>
             </Card>
 
@@ -356,7 +369,14 @@ export default function Home() {
                 ))}
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full bg-primary text-white hover:bg-primary/90 font-bold shadow-lg">{t("pricing.pro.cta")}</Button>
+                <PlanCheckoutButton
+                  planName="pro"
+                  currency={currency}
+                  language={language}
+                  className="w-full bg-primary text-white hover:bg-primary/90 font-bold shadow-lg"
+                >
+                  {t("pricing.pro.cta")}
+                </PlanCheckoutButton>
               </CardFooter>
             </Card>
 
@@ -388,7 +408,14 @@ export default function Home() {
                 ))}
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full bg-secondary text-white hover:bg-secondary/90 font-bold shadow-lg border-none">{t("pricing.premium.cta")}</Button>
+                <PlanCheckoutButton
+                  planName="premium"
+                  currency={currency}
+                  language={language}
+                  className="w-full bg-secondary text-white hover:bg-secondary/90 font-bold shadow-lg border-none"
+                >
+                  {t("pricing.premium.cta")}
+                </PlanCheckoutButton>
               </CardFooter>
             </Card>
 
@@ -418,7 +445,14 @@ export default function Home() {
                 ))}
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full bg-primary text-white hover:bg-primary/90 font-bold">{t("pricing.scale.cta")}</Button>
+                <PlanCheckoutButton
+                  planName="scale"
+                  currency={currency}
+                  language={language}
+                  className="w-full bg-primary text-white hover:bg-primary/90 font-bold"
+                >
+                  {t("pricing.scale.cta")}
+                </PlanCheckoutButton>
               </CardFooter>
             </Card>
           </div>
