@@ -20,9 +20,9 @@
 - [x] Histórico de pedidos do usuário
 
 ## Funcionalidades Futuras
+- [x] Vídeo de Demonstração do sistema (carrossel animado)
+- [x] Calculadora de ROI
 - [ ] Tabela de comparação interativa dos planos
 - [ ] FAQ dinâmico por região
-- [ ] Vídeo de demonstração do sistema
-- [ ] Calculadora de ROI
 - [ ] Integração com chat widget
 - [ ] Termos legais em PT e ES

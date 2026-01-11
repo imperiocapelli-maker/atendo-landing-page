@@ -4,6 +4,8 @@ import CurrencySwitcher from "@/components/CurrencySwitcher";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import PlanCheckoutButton from "@/components/PlanCheckoutButton";
+import DemoCarousel from "@/components/DemoCarousel";
+import ROICalculator from "@/components/ROICalculator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -95,40 +97,9 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative lg:h-[600px] flex items-center justify-center animate-in slide-in-from-right-10 duration-1000 fade-in delay-200">
-              <div className="relative z-10 w-full max-w-md lg:max-w-full">
-                <div className="glass-card p-2 transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
-                  <img 
-                    src="/images/dashboard-mockup.png" 
-                    alt="Dashboard" 
-                    className="rounded-xl w-full shadow-2xl border border-border/50"
-                  />
-                </div>
-                
-                {/* Floating Elements */}
-                <div className="absolute -top-10 -right-10 glass p-4 rounded-2xl shadow-soft animate-bounce duration-[3000ms]">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                      <TrendingUp size={20} />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground font-bold">{language === "pt" ? "Receita Hoje" : "Ingresos Hoy"}</p>
-                      <p className="text-lg font-extrabold text-foreground">R$ 1.580,00</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute -bottom-5 -left-5 glass p-4 rounded-2xl shadow-soft animate-bounce duration-[4000ms] delay-700">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                      <Users size={20} />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground font-bold">{language === "pt" ? "Novos Clientes" : "Nuevos Clientes"}</p>
-                      <p className="text-lg font-extrabold text-foreground">+12</p>
-                    </div>
-                  </div>
-                </div>
+            <div className="relative lg:h-auto flex items-center justify-center animate-in slide-in-from-right-10 duration-1000 fade-in delay-200">
+              <div className="relative z-10 w-full">
+                <DemoCarousel />
               </div>
             </div>
           </div>
@@ -456,6 +427,21 @@ export default function Home() {
               </CardFooter>
             </Card>
           </div>
+        </div>
+      </section>
+
+      {/* ROI CALCULATOR SECTION */}
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
+              Quanto você pode ganhar?
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Use nossa calculadora para descobrir o impacto da precificação inteligente no seu negócio
+            </p>
+          </div>
+          <ROICalculator />
         </div>
       </section>
 
