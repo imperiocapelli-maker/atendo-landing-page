@@ -1,14 +1,28 @@
 import Footer from "@/components/Footer";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 import { Check, ChevronRight, DollarSign, LayoutDashboard, Star, TrendingUp, Users } from "lucide-react";
 
 export default function Home() {
+  const { language } = useLanguage();
+  const t = (key: string) => {
+    const keys = key.split(".");
+    let value: any = translations[language];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  };
+
   return (
     <div className="min-h-screen bg-background font-sans selection:bg-primary/20">
       <Navbar />
+      <LanguageSwitcher />
       
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
@@ -26,34 +40,40 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
                 </span>
-                Novo: Precificação Inteligente 2.0
+                {t("hero.badge")}
               </div>
               
               <h1 className="text-5xl lg:text-6xl font-heading font-extrabold leading-tight text-foreground">
-                Gestão, atendimento e <span className="text-primary relative">
-                  lucro
-                  <svg className="absolute w-full h-3 -bottom-1 left-0 text-secondary/30 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
-                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
-                  </svg>
-                </span> em um único sistema
+                {t("hero.headline").split(" ").map((word: string, i: number) => 
+                  word === "lucro" || word === "ganancias" ? (
+                    <span key={i} className="text-primary relative">
+                      {word}
+                      <svg className="absolute w-full h-3 -bottom-1 left-0 text-secondary/30 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                        <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
+                      </svg>
+                    </span>
+                  ) : (
+                    <span key={i}>{word} </span>
+                  )
+                )}
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-                O <strong>Atendo</strong> organiza sua agenda, controla seu financeiro e te ensina a precificar certo para crescer de forma previsível.
+                {t("hero.subheadline")}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="bg-primary hover:bg-primary/90 text-white text-lg px-8 py-6 rounded-xl shadow-soft hover:shadow-soft-hover transition-all transform hover:-translate-y-1">
-                  Quero testar o sistema
+                  {t("hero.cta1")}
                   <ChevronRight className="ml-2 w-5 h-5" />
                 </Button>
                 <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-muted/50">
-                  Ver planos
+                  {t("hero.cta2")}
                 </Button>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
-                {["Agenda inteligente", "Controle financeiro", "Relatórios claros"].map((item, i) => (
+                {[t("hero.bullet1"), t("hero.bullet2"), t("hero.bullet3")].map((item: string, i: number) => (
                   <div key={i} className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                     <div className="w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
                       <Check size={12} strokeWidth={3} />
@@ -69,7 +89,7 @@ export default function Home() {
                 <div className="glass-card p-2 transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
                   <img 
                     src="/images/dashboard-mockup.png" 
-                    alt="Dashboard do Sistema Atendo" 
+                    alt="Dashboard" 
                     className="rounded-xl w-full shadow-2xl border border-border/50"
                   />
                 </div>
@@ -81,7 +101,7 @@ export default function Home() {
                       <TrendingUp size={20} />
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground font-bold">Receita Hoje</p>
+                      <p className="text-xs text-muted-foreground font-bold">{language === "pt" ? "Receita Hoje" : "Ingresos Hoy"}</p>
                       <p className="text-lg font-extrabold text-foreground">R$ 1.580,00</p>
                     </div>
                   </div>
@@ -93,7 +113,7 @@ export default function Home() {
                       <Users size={20} />
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground font-bold">Novos Clientes</p>
+                      <p className="text-xs text-muted-foreground font-bold">{language === "pt" ? "Novos Clientes" : "Nuevos Clientes"}</p>
                       <p className="text-lg font-extrabold text-foreground">+12</p>
                     </div>
                   </div>
@@ -109,19 +129,19 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-              Seu negócio cresce, mas o <span className="text-destructive">controle não acompanha</span>
+              {t("problem.title")}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Salões e clínicas perdem dinheiro todos os dias por falta de controle, agenda desorganizada, preços mal calculados e decisões no “achismo”.
+              {t("problem.description")}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "Agenda cheia, lucro baixo", desc: "Você trabalha muito, mas não vê a cor do dinheiro no final do mês.", icon: "😫" },
-              { title: "Preço no 'achismo'", desc: "Cobra o que o vizinho cobra e não sabe se está pagando para trabalhar.", icon: "💸" },
-              { title: "Falta de dados", desc: "Não sabe qual serviço dá mais lucro ou qual profissional performa melhor.", icon: "📊" }
-            ].map((card, i) => (
+              { title: t("problem.card1Title"), desc: t("problem.card1Desc"), icon: "😫" },
+              { title: t("problem.card2Title"), desc: t("problem.card2Desc"), icon: "💸" },
+              { title: t("problem.card3Title"), desc: t("problem.card3Desc"), icon: "📊" }
+            ].map((card: any, i: number) => (
               <div key={i} className="bg-muted/30 p-8 rounded-3xl border border-border hover:border-primary/30 transition-all hover:shadow-lg group">
                 <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">{card.icon}</div>
                 <h3 className="text-xl font-bold mb-3">{card.title}</h3>
@@ -139,28 +159,23 @@ export default function Home() {
             <div className="order-2 lg:order-1">
               <img 
                 src="/images/hero-salon.jpg" 
-                alt="Salão organizado" 
+                alt="Salon" 
                 className="rounded-3xl shadow-2xl object-cover h-[500px] w-full"
               />
             </div>
             <div className="order-1 lg:order-2 space-y-8">
               <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-bold text-sm">
-                A SOLUÇÃO COMPLETA
+                {t("solution.badge")}
               </div>
               <h2 className="text-4xl font-heading font-bold">
-                O Atendo resolve isso na raiz
+                {t("solution.title")}
               </h2>
               <p className="text-lg text-muted-foreground">
-                Criado para quem quer <strong>organização, clareza e crescimento</strong>, o Atendo une gestão, atendimento e estratégia em uma única plataforma simples.
+                {t("solution.description")}
               </p>
               
               <div className="space-y-4">
-                {[
-                  "Tudo em um só lugar: Agenda, Financeiro e Estoque",
-                  "Fácil de usar: Treine sua equipe em minutos",
-                  "Pensado para salão, clínica e estética",
-                  "Funciona no Brasil, Argentina e Paraguai"
-                ].map((item, i) => (
+                {[t("solution.point1"), t("solution.point2"), t("solution.point3"), t("solution.point4")].map((item: string, i: number) => (
                   <div key={i} className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm border border-border/50">
                     <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center">
                       <Check size={14} strokeWidth={3} />
@@ -179,33 +194,33 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-              Funcionalidades que fazem a diferença
+              {t("features.title")}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Ferramentas poderosas simplificadas para o seu dia a dia.
+              {t("features.subtitle")}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: "Agenda Inteligente", icon: <LayoutDashboard className="w-6 h-6" />, desc: "Organize horários por profissional e evite conflitos." },
-              { title: "Controle Financeiro", icon: <DollarSign className="w-6 h-6" />, desc: "Saiba exatamente quanto entra e sai do seu caixa." },
-              { title: "Gestão de Clientes", icon: <Users className="w-6 h-6" />, desc: "Histórico completo e preferências de cada cliente." },
-              { title: "Relatórios Claros", icon: <TrendingUp className="w-6 h-6" />, desc: "Tome decisões baseadas em dados reais, não em achismos." },
-              { title: "Metas e Comissões", icon: <Star className="w-6 h-6" />, desc: "Cálculo automático de comissões e acompanhamento de metas." },
-              { title: "Automação WhatsApp", icon: <div className="i-lucide-message-circle w-6 h-6" />, desc: "Lembretes automáticos para reduzir faltas." },
-              { title: "Assinatura Digital", icon: <div className="i-lucide-pen-tool w-6 h-6" />, desc: "Contratos e termos assinados digitalmente." },
-              { title: "Precificação", icon: <div className="i-lucide-calculator w-6 h-6" />, desc: "Calcule o preço ideal para cada serviço." }
-            ].map((feature, i) => (
+              { key: "agenda", icon: <LayoutDashboard className="w-6 h-6" /> },
+              { key: "financeiro", icon: <DollarSign className="w-6 h-6" /> },
+              { key: "clientes", icon: <Users className="w-6 h-6" /> },
+              { key: "relatorios", icon: <TrendingUp className="w-6 h-6" /> },
+              { key: "metas", icon: <Star className="w-6 h-6" /> },
+              { key: "whatsapp", icon: <div className="i-lucide-message-circle w-6 h-6" /> },
+              { key: "assinatura", icon: <div className="i-lucide-pen-tool w-6 h-6" /> },
+              { key: "precificacao", icon: <div className="i-lucide-calculator w-6 h-6" /> },
+            ].map((feature: any, i: number) => (
               <Card key={i} className="border-none shadow-soft hover:shadow-soft-hover transition-all duration-300 hover:-translate-y-1 bg-muted/20">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary mb-2">
                     {feature.icon}
                   </div>
-                  <CardTitle className="text-lg">{feature.title}</CardTitle>
+                  <CardTitle className="text-lg">{t(`features.${feature.key}.title`)}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground text-sm">{feature.desc}</p>
+                  <p className="text-muted-foreground text-sm">{t(`features.${feature.key}.desc`)}</p>
                 </CardContent>
               </Card>
             ))}
@@ -213,7 +228,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* DIFFERENTIAL SECTION */}
+      {/* DIFFERENTIALS SECTION */}
       <section className="py-24 bg-primary text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
           <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full bg-white blur-3xl"></div>
@@ -223,10 +238,10 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
               <h2 className="text-4xl font-heading font-bold">
-                Pare de cobrar no "achismo"
+                {t("differentials.pricing.title")}
               </h2>
               <p className="text-xl text-blue-100 leading-relaxed">
-                No plano Premium, você tem acesso à <strong>Precificação Inteligente</strong>, com tabelas e métodos claros para definir preços corretos com base nos seus custos, margem e realidade do negócio.
+                {t("differentials.pricing.description")}
               </p>
               <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
                 <div className="flex items-start gap-4">
@@ -234,20 +249,25 @@ export default function Home() {
                     <TrendingUp size={20} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg mb-1">Crescimento Seguro</h4>
-                    <p className="text-blue-100 text-sm">Negócios que precificam certo crescem com mais segurança e lucro real, não apenas faturamento.</p>
+                    <h4 className="font-bold text-lg mb-1">{t("differentials.pricing.highlight")}</h4>
+                    <p className="text-blue-100 text-sm">{t("differentials.pricing.highlightDesc")}</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="glass-card bg-white/10 p-8 rounded-3xl border border-white/20">
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold mb-4">Não é só sistema. É acompanhamento.</h3>
+                <h3 className="text-2xl font-bold mb-4">{t("differentials.consulting.title")}</h3>
                 <p className="text-blue-100">
-                  No plano Premium, você recebe <strong>consultoria empresarial</strong> focada em organização, precificação e crescimento.
+                  {t("differentials.consulting.description")}
                 </p>
                 <ul className="space-y-3">
-                  {["Orientação prática de especialistas", "Visão de dono para dono", "Decisões mais seguras", "Crescimento estruturado"].map((item, i) => (
+                  {[
+                    t("differentials.consulting.point1"),
+                    t("differentials.consulting.point2"),
+                    t("differentials.consulting.point3"),
+                    t("differentials.consulting.point4")
+                  ].map((item: string, i: number) => (
                     <li key={i} className="flex items-center gap-3">
                       <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center text-xs font-bold">✓</div>
                       <span>{item}</span>
@@ -265,23 +285,32 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-              Escolha o plano ideal para o seu momento
+              {t("pricing.title")}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Comece pequeno e cresça com a gente. Sem contratos de fidelidade abusivos.
+              {t("pricing.subtitle")}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {/* ESSENTIAL */}
             <Card className="border-none shadow-soft hover:shadow-xl transition-all duration-300 relative overflow-hidden">
               <CardHeader className="pb-8">
                 <div className="w-12 h-1 bg-blue-300 mb-6 rounded-full"></div>
-                <CardTitle className="text-2xl">Essencial</CardTitle>
-                <CardDescription className="text-base mt-2">Para quem quer sair da bagunça</CardDescription>
+                <CardTitle className="text-2xl">{t("pricing.essential.name")}</CardTitle>
+                <CardDescription className="text-base mt-2">{t("pricing.essential.subtitle")}</CardDescription>
+                <div className="mt-4">
+                  <span className="text-3xl font-extrabold">{t("pricing.essential.price")}</span>
+                  <span className="text-muted-foreground">{t("pricing.essential.period")}</span>
+                </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                {["Agenda Simples", "Cadastro de Clientes", "Financeiro Básico", "Relatórios Simples"].map((item, i) => (
+                {[
+                  t("pricing.essential.features.0"),
+                  t("pricing.essential.features.1"),
+                  t("pricing.essential.features.2"),
+                  t("pricing.essential.features.3")
+                ].map((item: string, i: number) => (
                   <div key={i} className="flex items-center gap-3 text-sm">
                     <Check size={16} className="text-primary" />
                     <span>{item}</span>
@@ -289,22 +318,32 @@ export default function Home() {
                 ))}
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full bg-blue-100 text-primary hover:bg-blue-200 font-bold">Começar Agora</Button>
+                <Button className="w-full bg-blue-100 text-primary hover:bg-blue-200 font-bold">{t("pricing.essential.cta")}</Button>
               </CardFooter>
             </Card>
 
             {/* PRO */}
             <Card className="border-2 border-primary shadow-2xl relative transform md:-translate-y-4 z-10">
               <div className="absolute top-0 left-0 w-full bg-primary text-white text-center text-xs font-bold py-1 uppercase tracking-wider">
-                Mais Popular
+                {t("pricing.pro.badge")}
               </div>
               <CardHeader className="pb-8 pt-10">
                 <div className="w-12 h-1 bg-primary mb-6 rounded-full"></div>
-                <CardTitle className="text-2xl">Profissional</CardTitle>
-                <CardDescription className="text-base mt-2">Para quem quer controle e gestão</CardDescription>
+                <CardTitle className="text-2xl">{t("pricing.pro.name")}</CardTitle>
+                <CardDescription className="text-base mt-2">{t("pricing.pro.subtitle")}</CardDescription>
+                <div className="mt-4">
+                  <span className="text-3xl font-extrabold">{t("pricing.pro.price")}</span>
+                  <span className="text-muted-foreground">{t("pricing.pro.period")}</span>
+                </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                {["Tudo do Essencial", "Financeiro Avançado", "Metas e Comissões", "Relatórios Completos", "Múltiplos Profissionais"].map((item, i) => (
+                {[
+                  t("pricing.pro.features.0"),
+                  t("pricing.pro.features.1"),
+                  t("pricing.pro.features.2"),
+                  t("pricing.pro.features.3"),
+                  t("pricing.pro.features.4")
+                ].map((item: string, i: number) => (
                   <div key={i} className="flex items-center gap-3 text-sm font-medium">
                     <Check size={16} className="text-primary" />
                     <span>{item}</span>
@@ -312,7 +351,7 @@ export default function Home() {
                 ))}
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full bg-primary text-white hover:bg-primary/90 font-bold shadow-lg">Quero mais controle</Button>
+                <Button className="w-full bg-primary text-white hover:bg-primary/90 font-bold shadow-lg">{t("pricing.pro.cta")}</Button>
               </CardFooter>
             </Card>
 
@@ -320,11 +359,21 @@ export default function Home() {
             <Card className="border-none shadow-soft hover:shadow-xl transition-all duration-300 relative overflow-hidden bg-gray-900 text-white">
               <CardHeader className="pb-8">
                 <div className="w-12 h-1 bg-secondary mb-6 rounded-full"></div>
-                <CardTitle className="text-2xl text-white">Premium</CardTitle>
-                <CardDescription className="text-base mt-2 text-gray-400">Para quem quer crescer com lucro</CardDescription>
+                <CardTitle className="text-2xl text-white">{t("pricing.premium.name")}</CardTitle>
+                <CardDescription className="text-base mt-2 text-gray-400">{t("pricing.premium.subtitle")}</CardDescription>
+                <div className="mt-4">
+                  <span className="text-3xl font-extrabold">{t("pricing.premium.price")}</span>
+                  <span className="text-gray-400">{t("pricing.premium.period")}</span>
+                </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                {["Tudo do Profissional", "Precificação Inteligente", "Consultoria Empresarial", "Relatórios Estratégicos", "Prioridade no Suporte"].map((item, i) => (
+                {[
+                  t("pricing.premium.features.0"),
+                  t("pricing.premium.features.1"),
+                  t("pricing.premium.features.2"),
+                  t("pricing.premium.features.3"),
+                  t("pricing.premium.features.4")
+                ].map((item: string, i: number) => (
                   <div key={i} className="flex items-center gap-3 text-sm">
                     <div className="bg-secondary/20 p-1 rounded-full">
                       <Check size={12} className="text-secondary" />
@@ -334,7 +383,37 @@ export default function Home() {
                 ))}
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full bg-secondary text-white hover:bg-secondary/90 font-bold shadow-lg border-none">Quero escalar</Button>
+                <Button className="w-full bg-secondary text-white hover:bg-secondary/90 font-bold shadow-lg border-none">{t("pricing.premium.cta")}</Button>
+              </CardFooter>
+            </Card>
+
+            {/* SCALE */}
+            <Card className="border-none shadow-soft hover:shadow-xl transition-all duration-300 relative overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10">
+              <CardHeader className="pb-8">
+                <div className="w-12 h-1 bg-gradient-to-r from-primary to-secondary mb-6 rounded-full"></div>
+                <CardTitle className="text-2xl">{t("pricing.scale.name")}</CardTitle>
+                <CardDescription className="text-base mt-2">{t("pricing.scale.subtitle")}</CardDescription>
+                <div className="mt-4">
+                  <span className="text-3xl font-extrabold text-primary">{t("pricing.scale.price")}</span>
+                  <span className="text-muted-foreground">{t("pricing.scale.period")}</span>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {[
+                  t("pricing.scale.features.0"),
+                  t("pricing.scale.features.1"),
+                  t("pricing.scale.features.2"),
+                  t("pricing.scale.features.3"),
+                  t("pricing.scale.features.4")
+                ].map((item: string, i: number) => (
+                  <div key={i} className="flex items-center gap-3 text-sm">
+                    <Check size={16} className="text-primary" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </CardContent>
+              <CardFooter className="pt-8">
+                <Button className="w-full bg-primary text-white hover:bg-primary/90 font-bold">{t("pricing.scale.cta")}</Button>
               </CardFooter>
             </Card>
           </div>
@@ -345,17 +424,17 @@ export default function Home() {
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-4xl md:text-5xl font-heading font-extrabold mb-6">
-            Pare de improvisar. <br/>Comece a gerir de verdade.
+            {t("finalCta.title")}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            O Atendo é a base que seu negócio precisa para crescer com organização e lucro. Junte-se a centenas de gestores que transformaram seus negócios.
+            {t("finalCta.description")}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-white text-lg px-10 py-6 rounded-xl shadow-soft hover:shadow-soft-hover transition-all transform hover:-translate-y-1">
-              Começar Agora
+              {t("finalCta.cta1")}
             </Button>
             <Button size="lg" variant="outline" className="text-lg px-10 py-6 rounded-xl">
-              Falar com Especialista
+              {t("finalCta.cta2")}
             </Button>
           </div>
         </div>
