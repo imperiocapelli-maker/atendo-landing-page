@@ -119,6 +119,12 @@ export const translations = {
       },
     },
 
+    // Comparison
+    comparison: {
+      title: "Compare os Planos",
+      subtitle: "Veja todas as funcionalidades de cada plano e escolha o melhor para seu negócio",
+    },
+
     // Final CTA
     finalCta: {
       title: "Pare de improvisar. Comece a gerir de verdade.",
@@ -268,6 +274,12 @@ export const translations = {
         features: ["Todo de Premium", "API Personalizada", "Integraciones Ilimitadas", "Soporte Dedicado", "Capacitación Personalizada"],
         cta: "Hablar con especialista",
       },
+    },
+
+    // Comparison
+    comparison: {
+      title: "Compara los Planes",
+      subtitle: "Ve todas las características de cada plan y elige la mejor para tu negocio",
     },
 
     // Final CTA

@@ -6,6 +6,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import PlanCheckoutButton from "@/components/PlanCheckoutButton";
 import DemoCarousel from "@/components/DemoCarousel";
 import ROICalculator from "@/components/ROICalculator";
+import PlanComparison from "@/components/PlanComparison";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -427,6 +428,21 @@ export default function Home() {
               </CardFooter>
             </Card>
           </div>
+        </div>
+      </section>
+
+      {/* PLAN COMPARISON SECTION */}
+      <section id="comparacao" className="py-24 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
+              {t("comparison.title") || "Compare os Planos"}
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              {t("comparison.subtitle") || "Veja todas as funcionalidades de cada plano e escolha o melhor para seu negócio"}
+            </p>
+          </div>
+          <PlanComparison />
         </div>
       </section>
 
