@@ -23,6 +23,7 @@
 - [x] Vídeo de Demonstração do sistema (carrossel animado)
 - [x] Calculadora de ROI
 - [x] Tabela de comparação interativa dos planos
+- [x] Botão de agendamento Calendly
 - [ ] FAQ dinâmico por região
 - [ ] Integração com chat widget
 - [ ] Termos legais em PT e ES

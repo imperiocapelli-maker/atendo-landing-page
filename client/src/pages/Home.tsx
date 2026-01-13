@@ -7,6 +7,8 @@ import PlanCheckoutButton from "@/components/PlanCheckoutButton";
 import DemoCarousel from "@/components/DemoCarousel";
 import ROICalculator from "@/components/ROICalculator";
 import PlanComparison from "@/components/PlanComparison";
+import CalendlyModal from "@/components/CalendlyModal";
+import { useCalendly } from "@/hooks/useCalendly";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -22,6 +24,9 @@ export default function Home() {
 
   const { language } = useLanguage();
   const { currency, convertPrice, formatPrice } = useCurrency();
+  const { isOpen: isCalendlyOpen, open: openCalendly, close: closeCalendly } = useCalendly();
+  
+  const calendlyUrl = "https://calendly.com/seu-usuario/demo";
   
   const t = (key: string) => {
     const keys = key.split(".");
@@ -81,8 +86,8 @@ export default function Home() {
                   {t("hero.cta1")}
                   <ChevronRight className="ml-2 w-5 h-5" />
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-muted/50">
-                  {t("hero.cta2")}
+                <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-muted/50" onClick={openCalendly}>
+                  {language === "pt" ? "Agendar Demo" : "Agendar Demo"}
                 </Button>
               </div>
 
@@ -443,6 +448,16 @@ export default function Home() {
             </p>
           </div>
           <PlanComparison />
+          
+          <div className="mt-12 text-center">
+            <Button 
+              size="lg" 
+              onClick={openCalendly}
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow-soft hover:shadow-lg"
+            >
+              {language === "pt" ? "Agendar Demonstração Agora" : "Agendar Demostración Ahora"}
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -474,13 +489,14 @@ export default function Home() {
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-white text-lg px-10 py-6 rounded-xl shadow-soft hover:shadow-soft-hover transition-all transform hover:-translate-y-1">
               {t("finalCta.cta1")}
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-10 py-6 rounded-xl">
-              {t("finalCta.cta2")}
+            <Button size="lg" variant="outline" className="text-lg px-10 py-6 rounded-xl border-2 hover:bg-muted/50" onClick={openCalendly}>
+              {language === "pt" ? "Agendar Demonstração" : "Agendar Demostración"}
             </Button>
           </div>
         </div>
       </section>
 
+      <CalendlyModal isOpen={isCalendlyOpen} onClose={closeCalendly} calendlyUrl={calendlyUrl} />
       <WhatsAppButton />
       <Footer />
     </div>
