@@ -8,6 +8,7 @@ import DemoCarousel from "@/components/DemoCarousel";
 import ROICalculator from "@/components/ROICalculator";
 import PlanComparison from "@/components/PlanComparison";
 import CalendlyModal from "@/components/CalendlyModal";
+import FAQSection from "@/components/FAQSection";
 import { useCalendly } from "@/hooks/useCalendly";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -475,6 +476,9 @@ export default function Home() {
           <ROICalculator />
         </div>
       </section>
+
+      {/* FAQ SECTION */}
+      <FAQSection countryCode={currency === "ARS" ? "ar" : currency === "PYG" ? "py" : "br"} />
 
       {/* FINAL CTA */}
       <section className="py-24 bg-white relative overflow-hidden">
