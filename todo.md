@@ -25,5 +25,5 @@
 - [x] Tabela de comparação interativa dos planos
 - [x] Botão de agendamento Calendly
 - [x] FAQ dinâmico por região
-- [ ] Integração com chat widget
+- [x] Integração com chatbot de IA
 - [ ] Termos legais em PT e ES
