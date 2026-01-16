@@ -10,6 +10,7 @@ import PlanComparison from "@/components/PlanComparison";
 import CalendlyModal from "@/components/CalendlyModal";
 import FAQSection from "@/components/FAQSection";
 import ChatbotWidget from "@/components/ChatbotWidget";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
 import { useCalendly } from "@/hooks/useCalendly";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -503,6 +504,7 @@ export default function Home() {
 
       <CalendlyModal isOpen={isCalendlyOpen} onClose={closeCalendly} calendlyUrl={calendlyUrl} />
       <ChatbotWidget countryCode={currency === "ARS" ? "ar" : currency === "PYG" ? "py" : "br"} />
+      <ExitIntentPopup />
       <WhatsAppButton />
       <Footer />
     </div>

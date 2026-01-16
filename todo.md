@@ -26,4 +26,5 @@
 - [x] Botão de agendamento Calendly
 - [x] FAQ dinâmico por região
 - [x] Integração com chatbot de IA
+- [x] Pop-up de captura de WhatsApp (exit-intent)
 - [ ] Termos legais em PT e ES
