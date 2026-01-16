@@ -27,4 +27,6 @@
 - [x] FAQ dinâmico por região
 - [x] Integração com chatbot de IA
 - [x] Pop-up de captura de WhatsApp (exit-intent)
+- [x] Integração com ferramenta de automação (Zapier/Make)
+- [x] Dashboard de leads
 - [ ] Termos legais em PT e ES

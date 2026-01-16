@@ -42,3 +42,22 @@ export const orders = mysqlTable("orders", {
 
 export type Order = typeof orders.$inferSelect;
 export type InsertOrder = typeof orders.$inferInsert;
+
+export const leads = mysqlTable("leads", {
+  id: int("id").autoincrement().primaryKey(),
+  phoneNumber: varchar("phoneNumber", { length: 20 }).notNull(),
+  formattedPhone: varchar("formattedPhone", { length: 30 }).notNull(),
+  country: varchar("country", { length: 2 }).notNull(),
+  language: varchar("language", { length: 5 }).default("pt").notNull(),
+  currency: varchar("currency", { length: 3 }).default("BRL").notNull(),
+  source: varchar("source", { length: 50 }).default("exit_intent").notNull(),
+  status: mysqlEnum("status", ["new", "contacted", "interested", "converted", "rejected"]).default("new").notNull(),
+  zapierWebhookSent: mysqlEnum("zapierWebhookSent", ["pending", "sent", "failed"]).default("pending").notNull(),
+  zapierWebhookResponse: text("zapierWebhookResponse"),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Lead = typeof leads.$inferSelect;
+export type InsertLead = typeof leads.$inferInsert;

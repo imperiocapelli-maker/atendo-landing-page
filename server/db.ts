@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, InsertLead, leads } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -87,6 +87,107 @@ export async function getUserByOpenId(openId: string) {
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
 
   return result.length > 0 ? result[0] : undefined;
+}
+
+// Lead functions
+export async function createLead(lead: InsertLead) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create lead: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.insert(leads).values(lead);
+    // Retornar o lead criado
+    const createdLeads = await db.select().from(leads).orderBy(desc(leads.createdAt)).limit(1);
+    return createdLeads[0];
+  } catch (error) {
+    console.error("[Database] Failed to create lead:", error);
+    throw error;
+  }
+}
+
+export async function getLeads(limit = 100) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get leads: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(leads)
+      .orderBy(desc(leads.createdAt))
+      .limit(limit);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get leads:", error);
+    return [];
+  }
+}
+
+export async function getLeadsByStatus(status: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get leads: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(leads)
+      .where(eq(leads.status, status as any))
+      .orderBy(desc(leads.createdAt));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get leads by status:", error);
+    return [];
+  }
+}
+
+export async function updateLeadStatus(leadId: number, status: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update lead: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db
+      .update(leads)
+      .set({ status: status as any, updatedAt: new Date() })
+      .where(eq(leads.id, leadId));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to update lead status:", error);
+    throw error;
+  }
+}
+
+export async function updateLeadWebhookStatus(leadId: number, webhookStatus: string, response?: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update lead: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db
+      .update(leads)
+      .set({
+        zapierWebhookSent: webhookStatus as any,
+        zapierWebhookResponse: response,
+        updatedAt: new Date(),
+      })
+      .where(eq(leads.id, leadId));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to update lead webhook status:", error);
+    throw error;
+  }
 }
 
 // TODO: add feature queries here as your schema grows.

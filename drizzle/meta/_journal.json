@@ -15,6 +15,13 @@
       "when": 1768170446758,
       "tag": "0001_awesome_nekra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1768597856086,
+      "tag": "0002_bitter_darwin",
+      "breakpoints": true
     }
   ]
 }
