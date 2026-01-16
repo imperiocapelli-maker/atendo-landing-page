@@ -2,6 +2,7 @@ import { z } from "zod";
 import { publicProcedure, router } from "../_core/trpc";
 import { createLead, getLeads, getLeadsByStatus, updateLeadStatus, updateLeadWebhookStatus } from "../db";
 import axios from "axios";
+import { sendWhatsAppMessage } from "../whatsapp";
 
 // Validação de número de WhatsApp
 const phoneSchema = z.object({
@@ -28,6 +29,20 @@ export const leadsRouter = router({
         status: "new",
         zapierWebhookSent: "pending",
       });
+
+      // Enviar mensagem de boas-vindas via WhatsApp
+      if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
+        try {
+          const whatsappSent = await sendWhatsAppMessage({
+            to: input.formattedPhone,
+            country: input.country as any,
+            messageType: "welcome",
+          });
+          console.log(`[WhatsApp] Message sent: ${whatsappSent}`);
+        } catch (whatsappError) {
+          console.error("[WhatsApp] Error:", whatsappError);
+        }
+      }
 
       // Enviar para Zapier/Make webhook (se configurado)
       if (process.env.ZAPIER_WEBHOOK_URL) {

@@ -29,4 +29,5 @@
 - [x] Pop-up de captura de WhatsApp (exit-intent)
 - [x] Integração com ferramenta de automação (Zapier/Make)
 - [x] Dashboard de leads
+- [x] Envio automático de mensagem WhatsApp
 - [ ] Termos legais em PT e ES
