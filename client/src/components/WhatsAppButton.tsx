@@ -27,7 +27,7 @@ export default function WhatsAppButton() {
   return (
     <>
       {/* Botão Flutuante */}
-      <div className="fixed bottom-6 right-6 z-40 group">
+      <div className="fixed bottom-6 left-6 z-40 group">
         {/* Tooltip */}
         <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           <div className="glass-card px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-lg">
@@ -57,7 +57,7 @@ export default function WhatsAppButton() {
 
       {/* Menu Flutuante */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-40 animate-in slide-in-from-bottom-5 fade-in duration-300">
+        <div className="fixed bottom-24 left-6 z-40 animate-in slide-in-from-bottom-5 fade-in duration-300">
           <div className="glass-card p-6 rounded-3xl max-w-xs shadow-2xl border border-white/30">
             <h3 className="text-lg font-bold text-foreground mb-2">{t("whatsapp.greeting")}</h3>
             <p className="text-muted-foreground text-sm mb-4">

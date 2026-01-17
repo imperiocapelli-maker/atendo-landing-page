@@ -31,4 +31,5 @@
 - [x] Dashboard de leads
 - [x] Envio automático de mensagem WhatsApp
 - [x] Seção de depoimentos de clientes
+- [x] Reposicionar botão WhatsApp para canto inferior esquerdo
 - [ ] Termos legais em PT e ES
