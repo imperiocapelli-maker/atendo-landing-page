@@ -30,4 +30,5 @@
 - [x] Integração com ferramenta de automação (Zapier/Make)
 - [x] Dashboard de leads
 - [x] Envio automático de mensagem WhatsApp
+- [x] Seção de depoimentos de clientes
 - [ ] Termos legais em PT e ES
