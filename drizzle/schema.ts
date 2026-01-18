@@ -61,3 +61,19 @@ export const leads = mysqlTable("leads", {
 
 export type Lead = typeof leads.$inferSelect;
 export type InsertLead = typeof leads.$inferInsert;
+export const calendlyWebhooksTable = mysqlTable("calendlyWebhooks", {
+  id: int("id").autoincrement().primaryKey(),
+  eventType: varchar("eventType", { length: 100 }).notNull(),
+  payload: text("payload").notNull(),
+  inviteeName: varchar("inviteeName", { length: 255 }).notNull(),
+  inviteeEmail: varchar("inviteeEmail", { length: 320 }).notNull(),
+  inviteePhone: varchar("inviteePhone", { length: 20 }).notNull(),
+  scheduledAt: timestamp("scheduledAt").notNull(),
+  notificationSent: mysqlEnum("notificationSent", ["pending", "sent", "failed"]).default("pending").notNull(),
+  notificationError: text("notificationError"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CalendlyWebhook = typeof calendlyWebhooksTable.$inferSelect;
+export type InsertCalendlyWebhook = typeof calendlyWebhooksTable.$inferInsert;

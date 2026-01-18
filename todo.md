@@ -41,3 +41,5 @@
 - [x] Corrigir modal Calendly cortado em mobile durante carregamento
 - [x] Corrigir carregamento dos horários disponíveis do Calendly
 - [x] Corrigir widget Calendly com iframe direto para carregar horários
+- [x] Sincronização automática de agendamentos Calendly com WhatsApp
+- [ ] Configurar CALENDLY_API_KEY para sincronização automática (opcional)

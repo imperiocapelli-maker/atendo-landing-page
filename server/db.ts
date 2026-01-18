@@ -1,6 +1,6 @@
 import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, InsertLead, leads } from "../drizzle/schema";
+import { InsertUser, users, InsertLead, leads, InsertCalendlyWebhook, calendlyWebhooksTable } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -191,3 +191,64 @@ export async function updateLeadWebhookStatus(leadId: number, webhookStatus: str
 }
 
 // TODO: add feature queries here as your schema grows.
+
+// Calendly Webhook functions
+export async function createCalendlyWebhook(webhook: InsertCalendlyWebhook) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create webhook: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.insert(calendlyWebhooksTable).values(webhook);
+    const createdWebhooks = await db.select().from(calendlyWebhooksTable).orderBy(desc(calendlyWebhooksTable.createdAt)).limit(1);
+    return createdWebhooks[0];
+  } catch (error) {
+    console.error("[Database] Failed to create webhook:", error);
+    throw error;
+  }
+}
+
+export async function getCalendlyWebhooks(limit = 50) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get webhooks: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(calendlyWebhooksTable)
+      .orderBy(desc(calendlyWebhooksTable.createdAt))
+      .limit(limit);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get webhooks:", error);
+    return [];
+  }
+}
+
+export async function updateCalendlyWebhookStatus(webhookId: number, notificationStatus: string, error?: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update webhook: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db
+      .update(calendlyWebhooksTable)
+      .set({
+        notificationSent: notificationStatus as any,
+        notificationError: error,
+        updatedAt: new Date(),
+      })
+      .where(eq(calendlyWebhooksTable.id, webhookId));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to update webhook status:", error);
+    throw error;
+  }
+}
