@@ -35,3 +35,4 @@
 - [x] Adicionar logo do Atendo na Navbar e Footer
 - [ ] Termos legais em PT e ES
 - [x] Navbar com fundo azul e logo em texto branco
+- [x] Animação de fade-in suave para itens do menu da navbar

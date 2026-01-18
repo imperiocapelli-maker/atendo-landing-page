@@ -29,11 +29,11 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
-          <a href="#funcionalidades" className="text-white/80 hover:text-white font-medium transition-colors">{t("navbar.funcionalidades")}</a>
-          <a href="#planos" className="text-white/80 hover:text-white font-medium transition-colors">{t("navbar.planos")}</a>
-          <a href="#sobre" className="text-white/80 hover:text-white font-medium transition-colors">{t("navbar.sobre")}</a>
-          <Button variant="ghost" className="font-bold text-white hover:bg-white/10">{t("navbar.entrar")}</Button>
-          <Button className="bg-white hover:bg-white/90 text-primary shadow-soft hover:shadow-soft-hover transition-all transform hover:-translate-y-0.5 font-bold">
+          <a href="#funcionalidades" className="navbar-link text-white/80 hover:text-white font-medium transition-colors">{t("navbar.funcionalidades")}</a>
+          <a href="#planos" className="navbar-link text-white/80 hover:text-white font-medium transition-colors">{t("navbar.planos")}</a>
+          <a href="#sobre" className="navbar-link text-white/80 hover:text-white font-medium transition-colors">{t("navbar.sobre")}</a>
+          <Button variant="ghost" className="navbar-button font-bold text-white hover:bg-white/10">{t("navbar.entrar")}</Button>
+          <Button className="navbar-button bg-white hover:bg-white/90 text-primary shadow-soft hover:shadow-soft-hover transition-all transform hover:-translate-y-0.5 font-bold">
             {t("navbar.comecaAgora")}
           </Button>
         </div>
