@@ -39,3 +39,4 @@
 - [x] Aumentar altura do modal Calendly para melhor visualização
 - [x] Modal Calendly responsivo para dispositivos móveis
 - [x] Corrigir modal Calendly cortado em mobile durante carregamento
+- [x] Corrigir carregamento dos horários disponíveis do Calendly

@@ -21,13 +21,31 @@ export default function CalendlyModal({
       const script = document.createElement("script");
       script.src = "https://assets.calendly.com/assets/external/widget.js";
       script.async = true;
+      script.onload = () => {
+        // Após carregar o script, reinicializar o widget
+        if (window.Calendly) {
+          window.Calendly.initInlineWidgets();
+          setIframeLoaded(true);
+        }
+      };
       document.body.appendChild(script);
 
       return () => {
-        document.body.removeChild(script);
+        try {
+          document.body.removeChild(script);
+        } catch (e) {
+          // Script já foi removido
+        }
       };
     }
   }, [isOpen]);
+
+  // Reinicializar widget quando a URL muda
+  useEffect(() => {
+    if (isOpen && window.Calendly) {
+      window.Calendly.initInlineWidgets();
+    }
+  }, [calendlyUrl, isOpen]);
 
   if (!isOpen) return null;
 
@@ -61,7 +79,7 @@ export default function CalendlyModal({
             <div
               className="calendly-inline-widget"
               data-url={calendlyUrl}
-              style={{ minHeight: "350px" }}
+              style={{ minHeight: "500px", width: "100%" }}
             />
 
             {!iframeLoaded && (
@@ -88,4 +106,11 @@ export default function CalendlyModal({
       </div>
     </div>
   );
+}
+
+// Adicionar tipagem para window.Calendly
+declare global {
+  interface Window {
+    Calendly: any;
+  }
 }
