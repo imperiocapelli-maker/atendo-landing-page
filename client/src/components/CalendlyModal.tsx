@@ -33,7 +33,7 @@ export default function CalendlyModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-primary/5 to-secondary/5">
           <div className="flex items-center gap-3">
@@ -61,7 +61,7 @@ export default function CalendlyModal({
             <div
               className="calendly-inline-widget"
               data-url={calendlyUrl}
-              style={{ minHeight: "600px" }}
+              style={{ minHeight: "700px", width: "100%" }}
             />
 
             {!iframeLoaded && (
