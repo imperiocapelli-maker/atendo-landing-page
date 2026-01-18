@@ -30,7 +30,7 @@ export default function Home() {
   const { currency, convertPrice, formatPrice } = useCurrency();
   const { isOpen: isCalendlyOpen, open: openCalendly, close: closeCalendly } = useCalendly();
   
-  const calendlyUrl = "https://calendly.com/seu-usuario/demo";
+  const calendlyUrl = "https://calendly.com/agendo-suporte";
   
   const t = (key: string) => {
     const keys = key.split(".");
@@ -91,7 +91,7 @@ export default function Home() {
                   <ChevronRight className="ml-2 w-5 h-5" />
                 </Button>
                 <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-muted/50" onClick={openCalendly}>
-                  {language === "pt" ? "Agendar Demo" : "Agendar Demo"}
+                  {language === "pt" ? "Agendar Demo" : "Agendar Demostración"}
                 </Button>
               </div>
 

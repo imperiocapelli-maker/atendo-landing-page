@@ -11,7 +11,7 @@ interface CalendlyModalProps {
 export default function CalendlyModal({
   isOpen,
   onClose,
-  calendlyUrl = "https://calendly.com/seu-usuario/demo",
+  calendlyUrl = "https://calendly.com/agendo-suporte",
 }: CalendlyModalProps) {
   const [iframeLoaded, setIframeLoaded] = useState(false);
 

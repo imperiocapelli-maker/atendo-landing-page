@@ -23,7 +23,7 @@
 - [x] Vídeo de Demonstração do sistema (carrossel animado)
 - [x] Calculadora de ROI
 - [x] Tabela de comparação interativa dos planos
-- [x] Botão de agendamento Calendly
+- [x] Botão de agendamento Calendly (conectado com https://calendly.com/agendo-suporte)
 - [x] FAQ dinâmico por região
 - [x] Integração com chatbot de IA
 - [x] Pop-up de captura de WhatsApp (exit-intent)
