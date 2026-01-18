@@ -15,6 +15,12 @@ export default function CalendlyModal({
 }: CalendlyModalProps) {
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
+  // Converter URL do Calendly para URL de embed
+  const getEmbedUrl = (url: string) => {
+    const username = url.split("/").pop();
+    return `https://calendly.com/${username}?embed_domain=${typeof window !== 'undefined' ? window.location.hostname : ''}`;
+  };
+
   useEffect(() => {
     if (isOpen) {
       // Carregar script do Calendly
@@ -22,7 +28,7 @@ export default function CalendlyModal({
       script.src = "https://assets.calendly.com/assets/external/widget.js";
       script.async = true;
       script.onload = () => {
-        // Após carregar o script, reinicializar o widget
+        // Reinicializar widgets após carregamento
         if (window.Calendly) {
           window.Calendly.initInlineWidgets();
           setIframeLoaded(true);
@@ -32,7 +38,9 @@ export default function CalendlyModal({
 
       return () => {
         try {
-          document.body.removeChild(script);
+          if (document.body.contains(script)) {
+            document.body.removeChild(script);
+          }
         } catch (e) {
           // Script já foi removido
         }
@@ -40,14 +48,9 @@ export default function CalendlyModal({
     }
   }, [isOpen]);
 
-  // Reinicializar widget quando a URL muda
-  useEffect(() => {
-    if (isOpen && window.Calendly) {
-      window.Calendly.initInlineWidgets();
-    }
-  }, [calendlyUrl, isOpen]);
-
   if (!isOpen) return null;
+
+  const embedUrl = getEmbedUrl(calendlyUrl);
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
@@ -75,21 +78,27 @@ export default function CalendlyModal({
               Você receberá um link de videoconferência por email.
             </p>
 
-            {/* Calendly Embed - Responsivo */}
-            <div
-              className="calendly-inline-widget"
-              data-url={calendlyUrl}
-              style={{ minHeight: "500px", width: "100%" }}
-            />
-
-            {!iframeLoaded && (
-              <div className="flex items-center justify-center h-32 sm:h-48">
-                <div className="text-center">
-                  <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-primary mx-auto mb-2 sm:mb-4"></div>
-                  <p className="text-xs sm:text-sm text-gray-600">Carregando calendário...</p>
+            {/* Calendly Embed - Usando iframe diretamente */}
+            <div className="relative w-full" style={{ minHeight: "600px" }}>
+              <iframe
+                src={embedUrl}
+                width="100%"
+                height="600"
+                frameBorder="0"
+                title="Calendly Scheduling"
+                onLoad={() => setIframeLoaded(true)}
+                style={{ minHeight: "600px" }}
+              />
+              
+              {!iframeLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-primary mx-auto mb-2 sm:mb-4"></div>
+                    <p className="text-xs sm:text-sm text-gray-600">Carregando calendário...</p>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
 

@@ -40,3 +40,4 @@
 - [x] Modal Calendly responsivo para dispositivos móveis
 - [x] Corrigir modal Calendly cortado em mobile durante carregamento
 - [x] Corrigir carregamento dos horários disponíveis do Calendly
+- [x] Corrigir widget Calendly com iframe direto para carregar horários
