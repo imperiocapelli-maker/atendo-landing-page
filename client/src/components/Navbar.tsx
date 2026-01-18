@@ -19,28 +19,28 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary transition-all duration-300">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/">
           <div className="cursor-pointer flex items-center gap-2">
-            <img src="/logo-atendo.png" alt="Atendo Logo" className="h-10 w-auto" />
+            <span className="text-white font-bold text-2xl">Atendo</span>
           </div>
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
-          <a href="#funcionalidades" className="text-foreground/80 hover:text-primary font-medium transition-colors">{t("navbar.funcionalidades")}</a>
-          <a href="#planos" className="text-foreground/80 hover:text-primary font-medium transition-colors">{t("navbar.planos")}</a>
-          <a href="#sobre" className="text-foreground/80 hover:text-primary font-medium transition-colors">{t("navbar.sobre")}</a>
-          <Button variant="ghost" className="font-bold text-primary hover:bg-primary/10">{t("navbar.entrar")}</Button>
-          <Button className="bg-primary hover:bg-primary/90 text-white shadow-soft hover:shadow-soft-hover transition-all transform hover:-translate-y-0.5">
+          <a href="#funcionalidades" className="text-white/80 hover:text-white font-medium transition-colors">{t("navbar.funcionalidades")}</a>
+          <a href="#planos" className="text-white/80 hover:text-white font-medium transition-colors">{t("navbar.planos")}</a>
+          <a href="#sobre" className="text-white/80 hover:text-white font-medium transition-colors">{t("navbar.sobre")}</a>
+          <Button variant="ghost" className="font-bold text-white hover:bg-white/10">{t("navbar.entrar")}</Button>
+          <Button className="bg-white hover:bg-white/90 text-primary shadow-soft hover:shadow-soft-hover transition-all transform hover:-translate-y-0.5 font-bold">
             {t("navbar.comecaAgora")}
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-foreground p-2"
+          className="md:hidden text-white p-2"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -55,7 +55,7 @@ export default function Navbar() {
           <a href="#sobre" className="text-lg font-medium p-2 hover:bg-muted rounded-lg" onClick={() => setIsOpen(false)}>{t("navbar.sobre")}</a>
           <div className="flex flex-col gap-2 mt-2">
             <Button variant="outline" className="w-full justify-center">{t("navbar.entrar")}</Button>
-            <Button className="w-full justify-center bg-primary text-white">{t("navbar.comecaAgora")}</Button>
+            <Button className="w-full justify-center bg-white text-primary font-bold">{t("navbar.comecaAgora")}</Button>
           </div>
         </div>
       )}

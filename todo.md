@@ -34,3 +34,4 @@
 - [x] Reposicionar botão WhatsApp para canto inferior esquerdo
 - [x] Adicionar logo do Atendo na Navbar e Footer
 - [ ] Termos legais em PT e ES
+- [x] Navbar com fundo azul e logo em texto branco
