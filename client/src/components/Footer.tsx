@@ -19,11 +19,8 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-1">
-            <div className="text-2xl font-heading font-extrabold text-primary mb-4 flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-soft">
-                A
-              </div>
-              Atendo
+            <div className="mb-4 flex items-center gap-2">
+              <img src="/logo-atendo.png" alt="Atendo Logo" className="h-12 w-auto" />
             </div>
             <p className="text-muted-foreground mb-6">
               {t("footer.description")}

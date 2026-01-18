@@ -32,4 +32,5 @@
 - [x] Envio automático de mensagem WhatsApp
 - [x] Seção de depoimentos de clientes
 - [x] Reposicionar botão WhatsApp para canto inferior esquerdo
+- [x] Adicionar logo do Atendo na Navbar e Footer
 - [ ] Termos legais em PT e ES

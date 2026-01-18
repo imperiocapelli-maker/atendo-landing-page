@@ -22,11 +22,8 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 glass transition-all duration-300">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/">
-          <div className="text-2xl font-heading font-extrabold text-primary cursor-pointer flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-soft">
-              A
-            </div>
-            Atendo
+          <div className="cursor-pointer flex items-center gap-2">
+            <img src="/logo-atendo.png" alt="Atendo Logo" className="h-10 w-auto" />
           </div>
         </Link>
 
