@@ -37,3 +37,4 @@
 - [x] Navbar com fundo azul e logo em texto branco
 - [x] Animação de fade-in suave para itens do menu da navbar
 - [x] Aumentar altura do modal Calendly para melhor visualização
+- [x] Modal Calendly responsivo para dispositivos móveis

@@ -32,17 +32,17 @@ export default function CalendlyModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] sm:max-h-[95vh] overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-primary/5 to-secondary/5">
-          <div className="flex items-center gap-3">
-            <Calendar className="w-6 h-6 text-primary" />
-            <h2 className="text-xl font-bold text-gray-900">Agende sua Demonstração</h2>
+        <div className="flex items-center justify-between p-3 sm:p-6 border-b border-gray-200 bg-gradient-to-r from-primary/5 to-secondary/5 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary shrink-0" />
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 truncate">Agende sua Demonstração</h2>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors shrink-0 ml-2"
             aria-label="Fechar"
           >
             <X className="w-5 h-5 text-gray-600" />
@@ -51,24 +51,24 @@ export default function CalendlyModal({
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto">
-          <div className="p-6">
-            <p className="text-gray-600 mb-6">
+          <div className="p-3 sm:p-6">
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
               Escolha o melhor horário para uma conversa com nosso especialista. 
               Você receberá um link de videoconferência por email.
             </p>
 
-            {/* Calendly Embed */}
+            {/* Calendly Embed - Responsivo */}
             <div
               className="calendly-inline-widget"
               data-url={calendlyUrl}
-              style={{ minHeight: "700px", width: "100%" }}
+              style={{ minHeight: "450px" }}
             />
 
             {!iframeLoaded && (
               <div className="flex items-center justify-center h-96">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-                  <p className="text-gray-600">Carregando calendário...</p>
+                  <p className="text-sm sm:text-base text-gray-600">Carregando calendário...</p>
                 </div>
               </div>
             )}
@@ -76,11 +76,11 @@ export default function CalendlyModal({
         </div>
 
         {/* Footer */}
-        <div className="border-t border-gray-200 p-6 bg-gray-50 flex justify-end">
+        <div className="border-t border-gray-200 p-3 sm:p-6 bg-gray-50 flex justify-end shrink-0">
           <Button
             variant="outline"
             onClick={onClose}
-            className="px-6"
+            className="px-4 sm:px-6 text-sm sm:text-base"
           >
             Fechar
           </Button>
