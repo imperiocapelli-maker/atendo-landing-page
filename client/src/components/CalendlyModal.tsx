@@ -61,14 +61,14 @@ export default function CalendlyModal({
             <div
               className="calendly-inline-widget"
               data-url={calendlyUrl}
-              style={{ minHeight: "450px" }}
+              style={{ minHeight: "350px" }}
             />
 
             {!iframeLoaded && (
-              <div className="flex items-center justify-center h-96">
+              <div className="flex items-center justify-center h-32 sm:h-48">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-                  <p className="text-sm sm:text-base text-gray-600">Carregando calendário...</p>
+                  <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-primary mx-auto mb-2 sm:mb-4"></div>
+                  <p className="text-xs sm:text-sm text-gray-600">Carregando calendário...</p>
                 </div>
               </div>
             )}
