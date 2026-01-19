@@ -1,4 +1,4 @@
-import Footer from "@/components/Footer";
+
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import CurrencySwitcher from "@/components/CurrencySwitcher";
 import Navbar from "@/components/Navbar";
@@ -12,6 +12,9 @@ import FAQSection from "@/components/FAQSection";
 import ChatbotWidget from "@/components/ChatbotWidget";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import FloatingCTA from "@/components/FloatingCTA";
+import FooterImproved from "@/components/FooterImproved";
 import { useCalendly } from "@/hooks/useCalendly";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -48,7 +51,7 @@ export default function Home() {
       <CurrencySwitcher />
       
       {/* HERO SECTION */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-br from-background via-background to-muted/30">
         {/* Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
           <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-3xl"></div>
@@ -57,7 +60,7 @@ export default function Home() {
 
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8 animate-in slide-in-from-bottom-10 duration-700 fade-in">
+            <div className="space-y-8 animate-slide-in-left">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-primary/10 shadow-sm text-primary text-sm font-bold">
                 <span className="relative flex h-3 w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -107,7 +110,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative lg:h-auto flex items-center justify-center animate-in slide-in-from-right-10 duration-1000 fade-in delay-200">
+            <div className="relative lg:h-auto flex items-center justify-center animate-slide-in-right" style={{ animationDelay: "0.2s" }}>
               <div className="relative z-10 w-full">
                 <DemoCarousel />
               </div>
@@ -117,9 +120,9 @@ export default function Home() {
       </section>
 
       {/* PROBLEM SECTION */}
-      <section className="py-20 bg-white relative">
+      <section className="py-20 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16">
+          <div className="max-w-3xl mx-auto text-center mb-16 animate-slide-in-up">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
               {t("problem.title")}
             </h2>
@@ -134,8 +137,12 @@ export default function Home() {
               { title: t("problem.card2Title"), desc: t("problem.card2Desc"), icon: "💸" },
               { title: t("problem.card3Title"), desc: t("problem.card3Desc"), icon: "📊" }
             ].map((card: any, i: number) => (
-              <div key={i} className="bg-muted/30 p-8 rounded-3xl border border-border hover:border-primary/30 transition-all hover:shadow-lg group">
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">{card.icon}</div>
+              <div
+                key={i}
+                className="bg-muted/30 p-8 rounded-3xl border border-border hover:border-primary/30 transition-all hover:shadow-lg group animate-slide-in-up"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 animate-float" style={{ animationDelay: `${0.5 + i * 0.2}s` }}>{card.icon}</div>
                 <h3 className="text-xl font-bold mb-3">{card.title}</h3>
                 <p className="text-muted-foreground">{card.desc}</p>
               </div>
@@ -148,14 +155,14 @@ export default function Home() {
       <section className="py-24 bg-muted/30 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="order-2 lg:order-1">
+            <div className="order-2 lg:order-1 animate-slide-in-left" style={{ animationDelay: "0.2s" }}>
               <img 
                 src="/images/hero-salon.jpg" 
                 alt="Salon" 
                 className="rounded-3xl shadow-2xl object-cover h-[500px] w-full"
               />
             </div>
-            <div className="order-1 lg:order-2 space-y-8">
+            <div className="order-1 lg:order-2 space-y-8 animate-slide-in-right">
               <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-bold text-sm">
                 {t("solution.badge")}
               </div>
@@ -182,9 +189,13 @@ export default function Home() {
       </section>
 
       {/* FEATURES SECTION */}
-      <section id="funcionalidades" className="py-24 bg-white">
+      <section id="funcionalidades" className="py-24 bg-white relative overflow-hidden">
+        {/* Background Decorations */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl -z-10"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-16 animate-slide-in-up">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
               {t("features.title")}
             </h2>
@@ -204,7 +215,11 @@ export default function Home() {
               { key: "assinatura", icon: <div className="i-lucide-pen-tool w-6 h-6" /> },
               { key: "precificacao", icon: <div className="i-lucide-calculator w-6 h-6" /> },
             ].map((feature: any, i: number) => (
-              <Card key={i} className="border-none shadow-soft hover:shadow-soft-hover transition-all duration-300 hover:-translate-y-1 bg-muted/20">
+              <Card
+                key={i}
+                className="border-none shadow-soft hover:shadow-soft-hover transition-all duration-300 hover:-translate-y-1 bg-muted/20 animate-slide-in-up feature-card"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
                 <CardHeader>
                   <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary mb-2">
                     {feature.icon}
@@ -228,7 +243,7 @@ export default function Home() {
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
+            <div className="space-y-6 animate-slide-in-left">
               <h2 className="text-4xl font-heading font-bold">
                 {t("differentials.pricing.title")}
               </h2>
@@ -247,7 +262,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="glass-card bg-white/10 p-8 rounded-3xl border border-white/20">
+            <div className="glass-card bg-white/10 p-8 rounded-3xl border border-white/20 animate-slide-in-right" style={{ animationDelay: "0.2s" }}>
               <div className="space-y-6">
                 <h3 className="text-2xl font-bold mb-4">{t("differentials.consulting.title")}</h3>
                 <p className="text-blue-100">
@@ -284,7 +299,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto animate-slide-in-up">
             {/* ESSENTIAL */}
             <Card className="border-none shadow-soft hover:shadow-xl transition-all duration-300 relative overflow-hidden">
               <CardHeader className="pb-8">
@@ -321,10 +336,12 @@ export default function Home() {
               </CardFooter>
             </Card>
 
-            {/* PRO */}
-            <Card className="border-2 border-primary shadow-2xl relative transform md:-translate-y-4 z-10">
-              <div className="absolute top-0 left-0 w-full bg-primary text-white text-center text-xs font-bold py-1 uppercase tracking-wider">
-                {t("pricing.pro.badge")}
+            {/* PRO - MOST POPULAR */}
+            <Card className="border-2 border-primary shadow-2xl relative transform md:-translate-y-4 z-10 animate-scale-in hover:shadow-3xl transition-all duration-300">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <div className="bg-gradient-to-r from-primary to-secondary text-white text-center text-xs font-bold py-2 px-4 rounded-full uppercase tracking-wider shadow-lg">
+                  ⭐ {t("pricing.pro.badge")} ⭐
+                </div>
               </div>
               <CardHeader className="pb-8 pt-10">
                 <div className="w-12 h-1 bg-primary mb-6 rounded-full"></div>
@@ -443,7 +460,7 @@ export default function Home() {
       {/* PLAN COMPARISON SECTION */}
       <section id="comparacao" className="py-24 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-16 animate-slide-in-up">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
               {t("comparison.title") || "Compare os Planos"}
             </h2>
@@ -468,7 +485,7 @@ export default function Home() {
       {/* ROI CALCULATOR SECTION */}
       <section className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-16 animate-slide-in-up">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
               Quanto você pode ganhar?
             </h2>
@@ -480,15 +497,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIALS SECTION */}
-      <TestimonialCarousel />
+      {/* TESTIMONIALS SECTION - IMPROVED */}
+      <TestimonialsSection />
 
       {/* FAQ SECTION */}
       <FAQSection countryCode={currency === "ARS" ? "ar" : currency === "PYG" ? "py" : "br"} />
 
       {/* FINAL CTA */}
       <section className="py-24 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-4 text-center relative z-10">
+        <div className="container mx-auto px-4 text-center relative z-10 animate-slide-in-up">
           <h2 className="text-4xl md:text-5xl font-heading font-extrabold mb-6">
             {t("finalCta.title")}
           </h2>
@@ -510,7 +527,8 @@ export default function Home() {
       <ChatbotWidget countryCode={currency === "ARS" ? "ar" : currency === "PYG" ? "py" : "br"} />
       <ExitIntentPopup />
       <WhatsAppButton />
-      <Footer />
+      <FloatingCTA onScheduleDemo={openCalendly} />
+      <FooterImproved />
     </div>
   );
 }

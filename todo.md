@@ -43,3 +43,14 @@
 - [x] Corrigir widget Calendly com iframe direto para carregar horários
 - [x] Sincronização automática de agendamentos Calendly com WhatsApp
 - [ ] Configurar CALENDLY_API_KEY para sincronização automática (opcional)
+
+## Melhorias de UI/UX
+
+- [x] Hero Section com background visual mais impactante (gradient background)
+- [x] Seção de Features expandida com grid de 3-4 cards e animações stagger
+- [x] Destaque do plano recomendado com badge "Mais Popular" e animação scale
+- [x] CTAs flutuantes com FloatingCTA component
+- [x] Seção de depoimentos com Social Proof (TestimonialsSection)
+- [x] Animações e micro-interações (slide-in, scale, float, hover effects)
+- [x] Otimização de responsividade mobile (FloatingCTA e Footer responsivos)
+- [x] Footer melhorado com conteúdo útil (FooterImproved com newsletter)
