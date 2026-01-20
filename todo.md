@@ -109,3 +109,12 @@
 - [x] Testar cálculos e visualizações
 - [x] Verificar isolamento de dados por usuário
 - [x] Corrigir cálculo de lucro médio
+
+## Autenticação de Teste
+
+- [x] Criar página de login de teste
+- [x] Implementar endpoint de login de teste no backend
+- [x] Integrar login de teste no frontend
+- [x] Testar acesso à página de Precificação com usuário de teste
+- [x] Página de login disponível em /test-login
+- [x] Credenciais: teste@example.com / senha123
