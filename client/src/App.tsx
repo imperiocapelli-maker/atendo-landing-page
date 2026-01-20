@@ -11,6 +11,7 @@ import CheckoutSuccess from "./pages/CheckoutSuccess";
 import CheckoutCancel from "./pages/CheckoutCancel";
 import LeadsDashboard from "./pages/LeadsDashboard";
 import PricingDashboard from "./pages/PricingDashboard";
+import Precificacao from "./pages/Precificacao";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -20,7 +21,8 @@ function Router() {
       <Route path={"/checkout/success"} component={CheckoutSuccess} />
       <Route path={"/checkout/cancel"} component={CheckoutCancel} />
       <Route path={"/dashboard/leads"} component={LeadsDashboard} />
-      <Route path={"/dashboard/pricing"} component={PricingDashboard} />
+      <Route path={"dashboard/pricing"} component={PricingDashboard} />
+      <Route path={"dashboard/precificacao"} component={Precificacao} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

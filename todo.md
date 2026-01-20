@@ -87,3 +87,13 @@
 - [x] Criar testes unitários para autenticação e persistência (6 testes passando)
 - [x] Proteger rota /dashboard/pricing com autenticação
 - [x] Salvar configurações por usuário no banco de dados
+
+## Nova Aba de Precificação com Isolamento por Usuário
+
+- [x] Criar nova página `/dashboard/precificacao` separada
+- [x] Integrar autenticação obrigatória na nova página
+- [x] Implementar carregamento de dados por usuário
+- [x] Adicionar rota no App.tsx
+- [x] Testar isolamento de dados entre usuários
+- [x] Testar adição de novo serviço (Pedicure Completo)
+- [x] Verificar que dados são isolados por usuário
