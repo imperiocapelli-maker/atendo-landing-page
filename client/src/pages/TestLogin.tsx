@@ -5,29 +5,54 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { trpc } from "@/lib/trpc";
 
 export default function TestLogin() {
   const [, setLocation] = useLocation();
   const [email, setEmail] = useState("teste@example.com");
   const [password, setPassword] = useState("senha123");
-
-  const testLoginMutation = trpc.authTest.testLogin.useMutation({
-    onSuccess: () => {
-      toast.success("Login realizado com sucesso!");
-      setTimeout(() => {
-        setLocation("/dashboard/precificacao-v2");
-      }, 500);
-    },
-    onError: (error) => {
-      toast.error(`Erro ao fazer login: ${error.message}`);
-    },
-  });
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    testLoginMutation.mutate({ email, password });
+    
+    setLoading(true);
+    try {
+      console.log("Iniciando login com:", { email, password });
+      
+      const response = await fetch("/api/trpc/authTest.testLogin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          json: { email, password },
+          meta: { values: undefined }
+        }),
+        credentials: "include",
+      });
+
+      console.log("Response status:", response.status);
+      const data = await response.json();
+      console.log("Response data:", data);
+
+      if (!response.ok) {
+        throw new Error(data.error?.message || "Falha ao fazer login");
+      }
+
+      toast.success("Login realizado com sucesso!");
+      
+      // Redirect to precificacao page
+      setTimeout(() => {
+        setLocation("/dashboard/precificacao-v2");
+      }, 500);
+    } catch (error) {
+      console.error("Login error:", error);
+      const errorMessage = error instanceof Error ? error.message : "Erro ao fazer login";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -50,7 +75,7 @@ export default function TestLogin() {
                 placeholder="teste@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={testLoginMutation.isPending}
+                disabled={loading}
               />
             </div>
 
@@ -63,7 +88,7 @@ export default function TestLogin() {
                 placeholder="senha123"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                disabled={testLoginMutation.isPending}
+                disabled={loading}
               />
             </div>
 
@@ -75,10 +100,10 @@ export default function TestLogin() {
 
             <Button
               type="submit"
-              disabled={testLoginMutation.isPending}
+              disabled={loading}
               className="w-full bg-blue-600 hover:bg-blue-700"
             >
-              {testLoginMutation.isPending ? (
+              {loading ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Entrando...

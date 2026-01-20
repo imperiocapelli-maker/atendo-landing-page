@@ -118,3 +118,12 @@
 - [x] Testar acesso à página de Precificação com usuário de teste
 - [x] Página de login disponível em /test-login
 - [x] Credenciais: teste@example.com / senha123
+
+## Correção do Botão de Login de Teste
+
+- [x] Investigar por que o botão "Entrar" não funciona
+- [x] Corrigir endpoint tRPC de autenticação de teste
+- [x] Criar página de demo sem autenticação (/demo)
+- [x] Testar todas as abas do Dashboard
+- [x] Verificar cálculos automáticos
+- [x] Página de demo disponível e funcionando 100%

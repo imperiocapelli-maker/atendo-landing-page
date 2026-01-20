@@ -13,6 +13,7 @@ import LeadsDashboard from "./pages/LeadsDashboard";
 import PricingDashboard from "./pages/PricingDashboard";
 import Precificacao from "./pages/Precificacao";
 import PrecificacaoV2 from "./pages/PrecificacaoV2";
+import PrecificacaoDemo from "./pages/PrecificacaoDemo";
 import TestLogin from "./pages/TestLogin";
 
 function Router() {
@@ -23,10 +24,11 @@ function Router() {
       <Route path={"/checkout/success"} component={CheckoutSuccess} />
       <Route path={"/checkout/cancel"} component={CheckoutCancel} />
       <Route path={"/dashboard/leads"} component={LeadsDashboard} />
-      <Route path={"dashboard/pricing"} component={PricingDashboard} />
-      <Route path={"dashboard/precificacao"} component={Precificacao} />
-      <Route path={"dashboard/precificacao-v2"} component={PrecificacaoV2} />
-      <Route path={"test-login"} component={TestLogin} />
+      <Route path={"/dashboard/pricing"} component={PricingDashboard} />
+      <Route path={"/dashboard/precificacao"} component={Precificacao} />
+      <Route path={"/dashboard/precificacao-v2"} component={PrecificacaoV2} />
+      <Route path={"/test-login"} component={TestLogin} />
+      <Route path={"/demo"} component={PrecificacaoDemo} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
