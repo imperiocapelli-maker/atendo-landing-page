@@ -76,3 +76,4 @@
 - [x] Rota /dashboard/pricing disponível
 - [x] Recriar Dashboard de Precificação exatamente como modelo do Google Sheets
 - [x] Criar guia rápido (tutorial) sobre como preencher Parâmetros
+- [x] Adicionar link do Dashboard de Precificação na seção de Funcionalidades

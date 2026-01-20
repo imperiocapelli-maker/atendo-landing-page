@@ -214,23 +214,36 @@ export default function Home() {
               { key: "whatsapp", icon: <div className="i-lucide-message-circle w-6 h-6" /> },
               { key: "assinatura", icon: <div className="i-lucide-pen-tool w-6 h-6" /> },
               { key: "precificacao", icon: <div className="i-lucide-calculator w-6 h-6" /> },
-            ].map((feature: any, i: number) => (
-              <Card
+            ].map((feature: any, i: number) => {
+              const isClickable = feature.key === "precificacao";
+              return (
+              <div
                 key={i}
-                className="border-none shadow-soft hover:shadow-soft-hover transition-all duration-300 hover:-translate-y-1 bg-muted/20 animate-slide-in-up feature-card"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                onClick={() => {
+                  if (isClickable) {
+                    window.location.href = "/dashboard/pricing";
+                  }
+                }}
+                className={isClickable ? "cursor-pointer" : ""}
               >
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary mb-2">
-                    {feature.icon}
-                  </div>
-                  <CardTitle className="text-lg">{t(`features.${feature.key}.title`)}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-sm">{t(`features.${feature.key}.desc`)}</p>
-                </CardContent>
-              </Card>
-            ))}
+                <Card
+                  className="border-none shadow-soft hover:shadow-soft-hover transition-all duration-300 hover:-translate-y-1 bg-muted/20 animate-slide-in-up feature-card"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
+                  <CardHeader>
+                    <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary mb-2">
+                      {feature.icon}
+                    </div>
+                    <CardTitle className="text-lg">{t(`features.${feature.key}.title`)}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground text-sm">{t(`features.${feature.key}.desc`)}</p>
+                  </CardContent>
+                </Card>
+              </div>
+            );
+            })
+            }
           </div>
         </div>
       </section>
