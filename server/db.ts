@@ -1,6 +1,6 @@
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, InsertLead, leads, InsertCalendlyWebhook, calendlyWebhooksTable, InsertFixedCost, fixedCosts, InsertPricingConfig, pricingConfig, InsertPricingHistory, pricingHistory } from "../drizzle/schema";
+import { InsertUser, users, InsertLead, leads, InsertCalendlyWebhook, calendlyWebhooksTable, InsertFixedCost, fixedCosts, InsertPricingConfig, pricingConfig, InsertPricingHistory, pricingHistory, services, InsertService, pricingSettings, InsertPricingSettings } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -392,6 +392,161 @@ export async function getLatestPricingHistory(userId: number) {
     return result[0];
   } catch (error) {
     console.error("[Database] Failed to get latest pricing history:", error);
+    return undefined;
+  }
+}
+
+
+// ============ SERVICES ============
+
+export async function createService(userId: number, data: InsertService) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create service: database not available");
+    return undefined;
+  }
+
+  try {
+    await db.insert(services).values({ ...data, userId } as InsertService);
+    const result = await db.select().from(services).where(eq(services.userId, userId)).orderBy(desc(services.createdAt)).limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to create service:", error);
+    throw error;
+  }
+}
+
+export async function getServices(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get services: database not available");
+    return [];
+  }
+
+  try {
+    return await db.select().from(services).where(eq(services.userId, userId)).execute();
+  } catch (error) {
+    console.error("[Database] Failed to get services:", error);
+    return [];
+  }
+}
+
+export async function getService(id: number, userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get service: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(services)
+      .where(and(eq(services.id, id), eq(services.userId, userId)))
+      .execute();
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get service:", error);
+    return undefined;
+  }
+}
+
+export async function updateService(id: number, userId: number, data: Partial<InsertService>) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update service: database not available");
+    return undefined;
+  }
+
+  try {
+    await db
+      .update(services)
+      .set({ ...data, updatedAt: new Date() })
+      .where(and(eq(services.id, id), eq(services.userId, userId)))
+      .execute();
+    return await getService(id, userId);
+  } catch (error) {
+    console.error("[Database] Failed to update service:", error);
+    throw error;
+  }
+}
+
+export async function deleteService(id: number, userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete service: database not available");
+    return undefined;
+  }
+
+  try {
+    return await db
+      .delete(services)
+      .where(and(eq(services.id, id), eq(services.userId, userId)))
+      .execute();
+  } catch (error) {
+    console.error("[Database] Failed to delete service:", error);
+    throw error;
+  }
+}
+
+// ============ PRICING SETTINGS ============
+
+export async function upsertPricingSettings(userId: number, data: Partial<InsertPricingSettings>) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot upsert pricing settings: database not available");
+    return undefined;
+  }
+
+  try {
+    const existing = await db
+      .select()
+      .from(pricingSettings)
+      .where(eq(pricingSettings.userId, userId))
+      .limit(1);
+
+    if (existing.length > 0) {
+      await db
+        .update(pricingSettings)
+        .set({ ...data, updatedAt: new Date() })
+        .where(eq(pricingSettings.userId, userId))
+        .execute();
+    } else {
+      await db
+        .insert(pricingSettings)
+        .values({ ...data, userId } as InsertPricingSettings)
+        .execute();
+    }
+
+    const result = await db
+      .select()
+      .from(pricingSettings)
+      .where(eq(pricingSettings.userId, userId))
+      .limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to upsert pricing settings:", error);
+    throw error;
+  }
+}
+
+export async function getPricingSettings(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get pricing settings: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(pricingSettings)
+      .where(eq(pricingSettings.userId, userId))
+      .limit(1)
+      .execute();
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get pricing settings:", error);
     return undefined;
   }
 }

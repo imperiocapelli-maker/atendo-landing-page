@@ -64,3 +64,13 @@
 - [x] Adicionar testes unitários (9 testes passando)
 - [ ] Criar interface de calculadora de custos para clientes
 - [ ] Criar dashboard de visualização de custos
+
+## Dashboard de Precificação Inteligente
+
+- [x] Criar tabelas de banco para serviços e precificação
+- [x] Implementar API tRPC para gerenciar serviços
+- [x] Criar aba Parâmetros com inputs e gráfico pizza
+- [x] Criar aba Definição de Serviços com tabela de serviços
+- [x] Criar aba Dashboard de Preço com tabela completa e gráficos (bar, line, KPIs)
+- [x] Integrar todas as abas em página única
+- [x] Rota /dashboard/pricing disponível

@@ -165,3 +165,70 @@ export const pricingHistory = mysqlTable("pricingHistory", {
 
 export type PricingHistory = typeof pricingHistory.$inferSelect;
 export type InsertPricingHistory = typeof pricingHistory.$inferInsert;
+
+// Tabela de Serviços para o Dashboard de Precificação
+export const services = mysqlTable("services", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  
+  // Informações do Serviço
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  
+  // Custos e Comissões
+  commissionPercentage: decimal("commissionPercentage", { precision: 5, scale: 2 }).default("0").notNull(),
+  productCost: decimal("productCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  
+  // Preço
+  currentPrice: decimal("currentPrice", { precision: 10, scale: 2 }).notNull(),
+  suggestedPrice: decimal("suggestedPrice", { precision: 10, scale: 2 }),
+  
+  // Métricas
+  profitMargin: decimal("profitMargin", { precision: 5, scale: 2 }),
+  profitAmount: decimal("profitAmount", { precision: 10, scale: 2 }),
+  
+  // Status
+  isActive: int("isActive").default(1).notNull(),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Service = typeof services.$inferSelect;
+export type InsertService = typeof services.$inferInsert;
+
+// Tabela de Configuração de Precificação por Usuário
+export const pricingSettings = mysqlTable("pricingSettings", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().unique().references(() => users.id, { onDelete: "cascade" }),
+  
+  // Custos Fixos
+  rentCost: decimal("rentCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  employeeCount: int("employeeCount").default(0).notNull(),
+  averageSalary: decimal("averageSalary", { precision: 10, scale: 2 }).default("0").notNull(),
+  utilitiesCost: decimal("utilitiesCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  insuranceCost: decimal("insuranceCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  maintenanceCost: decimal("maintenanceCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  marketingCost: decimal("marketingCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  materialsCost: decimal("materialsCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  softwareLicenses: decimal("softwareLicenses", { precision: 10, scale: 2 }).default("0").notNull(),
+  otherCosts: decimal("otherCosts", { precision: 10, scale: 2 }).default("0").notNull(),
+  
+  // Configurações de Precificação
+  desiredProfitMargin: decimal("desiredProfitMargin", { precision: 5, scale: 2 }).default("30").notNull(),
+  cardTaxPercentage: decimal("cardTaxPercentage", { precision: 5, scale: 2 }).default("0").notNull(),
+  taxPercentage: decimal("taxPercentage", { precision: 5, scale: 2 }).default("0").notNull(),
+  
+  // Configurações de Horário
+  workingDaysPerMonth: int("workingDaysPerMonth").default(22).notNull(),
+  workingHoursPerDay: decimal("workingHoursPerDay", { precision: 4, scale: 2 }).default("8").notNull(),
+  
+  // Metadados
+  currency: varchar("currency", { length: 3 }).default("BRL").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PricingSettings = typeof pricingSettings.$inferSelect;
+export type InsertPricingSettings = typeof pricingSettings.$inferInsert;
