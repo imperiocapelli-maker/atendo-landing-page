@@ -54,3 +54,13 @@
 - [x] Animações e micro-interações (slide-in, scale, float, hover effects)
 - [x] Otimização de responsividade mobile (FloatingCTA e Footer responsivos)
 - [x] Footer melhorado com conteúdo útil (FooterImproved com newsletter)
+
+## Funcionalidade de Cálculo de Custos e Precificação
+
+- [x] Criar tabelas de banco de dados para custos fixos
+- [x] Implementar API de cálculo de custos com tRPC
+- [x] Criar serviço de cálculo de precificação inteligente
+- [x] Implementar sugestão de precificação com margem de lucro
+- [x] Adicionar testes unitários (9 testes passando)
+- [ ] Criar interface de calculadora de custos para clientes
+- [ ] Criar dashboard de visualização de custos

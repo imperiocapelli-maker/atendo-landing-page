@@ -1,6 +1,6 @@
 import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, InsertLead, leads, InsertCalendlyWebhook, calendlyWebhooksTable } from "../drizzle/schema";
+import { InsertUser, users, InsertLead, leads, InsertCalendlyWebhook, calendlyWebhooksTable, InsertFixedCost, fixedCosts, InsertPricingConfig, pricingConfig, InsertPricingHistory, pricingHistory } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -250,5 +250,148 @@ export async function updateCalendlyWebhookStatus(webhookId: number, notificatio
   } catch (error) {
     console.error("[Database] Failed to update webhook status:", error);
     throw error;
+  }
+}
+
+
+// Fixed Costs functions
+export async function upsertFixedCosts(userId: number, costs: InsertFixedCost) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot upsert fixed costs: database not available");
+    return undefined;
+  }
+
+  try {
+    const existing = await db.select().from(fixedCosts).where(eq(fixedCosts.userId, userId)).limit(1);
+    
+    if (existing.length > 0) {
+      await db.update(fixedCosts).set({ ...costs, updatedAt: new Date() }).where(eq(fixedCosts.userId, userId));
+    } else {
+      await db.insert(fixedCosts).values({ ...costs, userId });
+    }
+    
+    const result = await db.select().from(fixedCosts).where(eq(fixedCosts.userId, userId)).limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to upsert fixed costs:", error);
+    throw error;
+  }
+}
+
+export async function getFixedCosts(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get fixed costs: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(fixedCosts).where(eq(fixedCosts.userId, userId)).limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get fixed costs:", error);
+    return undefined;
+  }
+}
+
+// Pricing Config functions
+export async function upsertPricingConfig(userId: number, config: InsertPricingConfig) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot upsert pricing config: database not available");
+    return undefined;
+  }
+
+  try {
+    const existing = await db.select().from(pricingConfig).where(eq(pricingConfig.userId, userId)).limit(1);
+    
+    if (existing.length > 0) {
+      await db.update(pricingConfig).set({ ...config, updatedAt: new Date() }).where(eq(pricingConfig.userId, userId));
+    } else {
+      await db.insert(pricingConfig).values({ ...config, userId });
+    }
+    
+    const result = await db.select().from(pricingConfig).where(eq(pricingConfig.userId, userId)).limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to upsert pricing config:", error);
+    throw error;
+  }
+}
+
+export async function getPricingConfig(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get pricing config: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(pricingConfig).where(eq(pricingConfig.userId, userId)).limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get pricing config:", error);
+    return undefined;
+  }
+}
+
+// Pricing History functions
+export async function createPricingHistory(history: InsertPricingHistory) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create pricing history: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.insert(pricingHistory).values(history);
+    const created = await db.select().from(pricingHistory).orderBy(desc(pricingHistory.createdAt)).limit(1);
+    return created[0];
+  } catch (error) {
+    console.error("[Database] Failed to create pricing history:", error);
+    throw error;
+  }
+}
+
+export async function getPricingHistory(userId: number, limit = 10) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get pricing history: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(pricingHistory)
+      .where(eq(pricingHistory.userId, userId))
+      .orderBy(desc(pricingHistory.createdAt))
+      .limit(limit);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get pricing history:", error);
+    return [];
+  }
+}
+
+export async function getLatestPricingHistory(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get pricing history: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(pricingHistory)
+      .where(eq(pricingHistory.userId, userId))
+      .orderBy(desc(pricingHistory.createdAt))
+      .limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get latest pricing history:", error);
+    return undefined;
   }
 }

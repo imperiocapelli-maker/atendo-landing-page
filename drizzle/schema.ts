@@ -77,3 +77,91 @@ export const calendlyWebhooksTable = mysqlTable("calendlyWebhooks", {
 
 export type CalendlyWebhook = typeof calendlyWebhooksTable.$inferSelect;
 export type InsertCalendlyWebhook = typeof calendlyWebhooksTable.$inferInsert;
+
+// Tabela de Custos Fixos por Usuário
+export const fixedCosts = mysqlTable("fixedCosts", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  
+  // Custos de Aluguel/Espaço
+  rentCost: decimal("rentCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  rentFrequency: mysqlEnum("rentFrequency", ["monthly", "yearly"]).default("monthly").notNull(),
+  
+  // Custos de Pessoal
+  employeeCount: int("employeeCount").default(0).notNull(),
+  averageSalary: decimal("averageSalary", { precision: 10, scale: 2 }).default("0").notNull(),
+  
+  // Custos Operacionais
+  utilitiesCost: decimal("utilitiesCost", { precision: 10, scale: 2 }).default("0").notNull(), // Água, luz, internet
+  insuranceCost: decimal("insuranceCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  maintenanceCost: decimal("maintenanceCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  marketingCost: decimal("marketingCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  
+  // Custos de Materiais/Insumos
+  materialsCost: decimal("materialsCost", { precision: 10, scale: 2 }).default("0").notNull(),
+  
+  // Custos de Tecnologia
+  softwareLicenses: decimal("softwareLicenses", { precision: 10, scale: 2 }).default("0").notNull(),
+  
+  // Outros custos
+  otherCosts: decimal("otherCosts", { precision: 10, scale: 2 }).default("0").notNull(),
+  otherCostsDescription: text("otherCostsDescription"),
+  
+  // Metadados
+  currency: varchar("currency", { length: 3 }).default("BRL").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type FixedCost = typeof fixedCosts.$inferSelect;
+export type InsertFixedCost = typeof fixedCosts.$inferInsert;
+
+// Tabela de Configuração de Precificação
+export const pricingConfig = mysqlTable("pricingConfig", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  
+  // Configurações de Precificação
+  desiredProfitMargin: decimal("desiredProfitMargin", { precision: 5, scale: 2 }).default("30").notNull(), // Percentual de lucro desejado
+  workingDaysPerMonth: int("workingDaysPerMonth").default(22).notNull(),
+  workingHoursPerDay: decimal("workingHoursPerDay", { precision: 4, scale: 2 }).default("8").notNull(),
+  
+  // Configurações de Serviços
+  averageServiceDuration: decimal("averageServiceDuration", { precision: 5, scale: 2 }).default("60").notNull(), // em minutos
+  
+  // Metadados
+  currency: varchar("currency", { length: 3 }).default("BRL").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PricingConfig = typeof pricingConfig.$inferSelect;
+export type InsertPricingConfig = typeof pricingConfig.$inferInsert;
+
+// Tabela de Histórico de Cálculos
+export const pricingHistory = mysqlTable("pricingHistory", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  
+  // Custos Calculados
+  totalMonthlyCost: decimal("totalMonthlyCost", { precision: 10, scale: 2 }).notNull(),
+  costPerDay: decimal("costPerDay", { precision: 10, scale: 2 }).notNull(),
+  costPerHour: decimal("costPerHour", { precision: 10, scale: 2 }).notNull(),
+  costPerService: decimal("costPerService", { precision: 10, scale: 2 }).notNull(),
+  
+  // Preços Sugeridos
+  suggestedServicePrice: decimal("suggestedServicePrice", { precision: 10, scale: 2 }).notNull(),
+  suggestedHourlyRate: decimal("suggestedHourlyRate", { precision: 10, scale: 2 }).notNull(),
+  
+  // Projeção de Lucro
+  projectedMonthlyRevenue: decimal("projectedMonthlyRevenue", { precision: 10, scale: 2 }).notNull(),
+  projectedMonthlyProfit: decimal("projectedMonthlyProfit", { precision: 10, scale: 2 }).notNull(),
+  profitMarginAchieved: decimal("profitMarginAchieved", { precision: 5, scale: 2 }).notNull(),
+  
+  // Metadados
+  currency: varchar("currency", { length: 3 }).default("BRL").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PricingHistory = typeof pricingHistory.$inferSelect;
+export type InsertPricingHistory = typeof pricingHistory.$inferInsert;
