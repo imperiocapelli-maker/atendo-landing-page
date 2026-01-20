@@ -75,3 +75,4 @@
 - [x] Integrar todas as abas em página única
 - [x] Rota /dashboard/pricing disponível
 - [x] Recriar Dashboard de Precificação exatamente como modelo do Google Sheets
+- [x] Criar guia rápido (tutorial) sobre como preencher Parâmetros

@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 import { Plus, Trash2 } from "lucide-react";
+import { ParametersGuide } from "@/components/pricing/ParametersGuide";
 
 const COLORS = ["#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#3b82f6"];
 
@@ -134,6 +135,7 @@ export default function PricingDashboard() {
 
           {/* TAB 1: PARÂMETROS */}
           <TabsContent value="parametros" className="space-y-6">
+            <ParametersGuide />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Inputs */}
               <Card>
