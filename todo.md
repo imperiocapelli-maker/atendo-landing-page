@@ -97,3 +97,15 @@
 - [x] Testar isolamento de dados entre usuários
 - [x] Testar adição de novo serviço (Pedicure Completo)
 - [x] Verificar que dados são isolados por usuário
+
+## Redesenho da Página Baseado em Planilha Google Sheets
+
+- [x] Implementar estrutura de abas (Parâmetros, Como Atualizar, Dashboard de Preço)
+- [x] Aba Parâmetros: Dados Financeiros com gráficos de pizza
+- [x] Aba Como Atualizar: Tabela de Serviços, Comissões e Custos
+- [x] Aba Dashboard de Preço: Tabela completa com cálculos e cores
+- [x] Implementar fórmulas de cálculo automático
+- [x] Adicionar gráficos (pizza, barras, linha)
+- [x] Testar cálculos e visualizações
+- [x] Verificar isolamento de dados por usuário
+- [x] Corrigir cálculo de lucro médio
