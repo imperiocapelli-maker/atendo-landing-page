@@ -127,3 +127,16 @@
 - [x] Testar todas as abas do Dashboard
 - [x] Verificar cálculos automáticos
 - [x] Página de demo disponível e funcionando 100%
+
+## Campos Editáveis de Precificação
+
+- [x] Adicionar campos de entrada para Lucro Desejado
+- [x] Adicionar campos de entrada para Marketing
+- [x] Adicionar campos de entrada para Taxa de Cartão
+- [x] Adicionar campos de entrada para Imposto
+- [x] Adicionar campos de entrada para Custo Fixo + Investimento
+- [x] Implementar atualização em tempo real do gráfico de pizza
+- [x] Atualizar cálculos da tabela Dashboard de Preço em tempo real
+- [x] Testar edição de parâmetros
+- [x] Implementar botão "Restaurar Valores Padrão"
+- [x] Página de demo disponível em /demo com campos editáveis

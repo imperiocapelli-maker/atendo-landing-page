@@ -6,11 +6,11 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, BarChart, Ba
 import { LogOut } from "lucide-react";
 
 export default function PrecificacaoDemo() {
-  const [lucroDesejado] = useState(10);
-  const [marketing] = useState(2);
-  const [taxaCartao] = useState(4);
-  const [imposto] = useState(4.8);
-  const [custoFixo] = useState(36.45);
+  const [lucroDesejado, setLucroDesejado] = useState(10);
+  const [marketing, setMarketing] = useState(2);
+  const [taxaCartao, setTaxaCartao] = useState(4);
+  const [imposto, setImposto] = useState(4.8);
+  const [custoFixo, setCustoFixo] = useState(36.45);
 
   const totalCustos = lucroDesejado + marketing + taxaCartao + imposto + custoFixo;
 
@@ -59,6 +59,14 @@ export default function PrecificacaoDemo() {
     window.location.href = "/";
   };
 
+  const handleReset = () => {
+    setLucroDesejado(10);
+    setMarketing(2);
+    setTaxaCartao(4);
+    setImposto(4.8);
+    setCustoFixo(36.45);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -90,32 +98,83 @@ export default function PrecificacaoDemo() {
                     Definição de Custos
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
+                    {/* Lucro Desejado */}
                     <div>
-                      <label className="text-sm font-medium">Lucro Desejado</label>
-                      <p className="text-2xl font-bold text-green-600">{lucroDesejado}%</p>
+                      <label className="text-sm font-medium block mb-2">Lucro Desejado (%)</label>
+                      <input
+                        type="number"
+                        value={lucroDesejado}
+                        onChange={(e) => setLucroDesejado(parseFloat(e.target.value) || 0)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                        step="0.1"
+                      />
+                      <p className="text-2xl font-bold text-green-600 mt-2">{lucroDesejado}%</p>
                     </div>
+
+                    {/* Marketing */}
                     <div>
-                      <label className="text-sm font-medium">Marketing</label>
-                      <p className="text-2xl font-bold text-yellow-600">{marketing}%</p>
+                      <label className="text-sm font-medium block mb-2">Marketing (%)</label>
+                      <input
+                        type="number"
+                        value={marketing}
+                        onChange={(e) => setMarketing(parseFloat(e.target.value) || 0)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        step="0.1"
+                      />
+                      <p className="text-2xl font-bold text-yellow-600 mt-2">{marketing}%</p>
                     </div>
+
+                    {/* Taxa de Cartão */}
                     <div>
-                      <label className="text-sm font-medium">Taxa de Cartão</label>
-                      <p className="text-2xl font-bold text-blue-600">{taxaCartao}%</p>
+                      <label className="text-sm font-medium block mb-2">Taxa de Cartão (%)</label>
+                      <input
+                        type="number"
+                        value={taxaCartao}
+                        onChange={(e) => setTaxaCartao(parseFloat(e.target.value) || 0)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        step="0.1"
+                      />
+                      <p className="text-2xl font-bold text-blue-600 mt-2">{taxaCartao}%</p>
                     </div>
+
+                    {/* Imposto */}
                     <div>
-                      <label className="text-sm font-medium">Imposto</label>
-                      <p className="text-2xl font-bold text-red-600">{imposto}%</p>
+                      <label className="text-sm font-medium block mb-2">Imposto (%)</label>
+                      <input
+                        type="number"
+                        value={imposto}
+                        onChange={(e) => setImposto(parseFloat(e.target.value) || 0)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        step="0.1"
+                      />
+                      <p className="text-2xl font-bold text-red-600 mt-2">{imposto}%</p>
                     </div>
+
+                    {/* Custo Fixo + Investimento */}
                     <div className="col-span-2">
-                      <label className="text-sm font-medium">Custo Fixo + Investimento</label>
-                      <p className="text-2xl font-bold text-purple-600">{custoFixo}%</p>
+                      <label className="text-sm font-medium block mb-2">Custo Fixo + Investimento (%)</label>
+                      <input
+                        type="number"
+                        value={custoFixo}
+                        onChange={(e) => setCustoFixo(parseFloat(e.target.value) || 0)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        step="0.1"
+                      />
+                      <p className="text-2xl font-bold text-purple-600 mt-2">{custoFixo}%</p>
                     </div>
                   </div>
-                  <div className="pt-4 border-t">
-                    <p className="text-sm font-medium text-gray-600">Total de Custos + Investimentos</p>
-                    <p className="text-3xl font-bold text-gray-900">{totalCustos}%</p>
+
+                  {/* Total e Botão Reset */}
+                  <div className="pt-4 border-t space-y-4">
+                    <div>
+                      <p className="text-sm font-medium text-gray-600">Total de Custos + Investimentos</p>
+                      <p className="text-3xl font-bold text-gray-900">{totalCustos.toFixed(2)}%</p>
+                    </div>
+                    <Button onClick={handleReset} variant="outline" className="w-full">
+                      Restaurar Valores Padrão
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -132,7 +191,7 @@ export default function PrecificacaoDemo() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, value }) => `${name}: ${value}%`}
+                        label={({ name, value }) => `${name}: ${value.toFixed(2)}%`}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
@@ -141,7 +200,7 @@ export default function PrecificacaoDemo() {
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip formatter={(value) => `${value}%`} />
+                      <Tooltip formatter={(value: any) => `${typeof value === 'number' ? value.toFixed(2) : value}%`} />
                       <Legend />
                     </PieChart>
                   </ResponsiveContainer>
