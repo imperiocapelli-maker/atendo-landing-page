@@ -77,3 +77,13 @@
 - [x] Recriar Dashboard de Precificação exatamente como modelo do Google Sheets
 - [x] Criar guia rápido (tutorial) sobre como preencher Parâmetros
 - [x] Adicionar link do Dashboard de Precificação na seção de Funcionalidades
+
+## Autenticação e Persistência de Dados
+
+- [x] Atualizar schema para associar parâmetros ao usuário
+- [x] Criar API tRPC para CRUD de configurações por usuário
+- [x] Integrar autenticação no Dashboard de Precificação
+- [x] Implementar persistência de dados no frontend
+- [x] Criar testes unitários para autenticação e persistência (6 testes passando)
+- [x] Proteger rota /dashboard/pricing com autenticação
+- [x] Salvar configurações por usuário no banco de dados
