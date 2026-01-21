@@ -75,7 +75,7 @@ export default function Home() {
                 {t("hero.headline").split(" ").map((word: string, i: number) => 
                   word === "lucro" || word === "ganancias" ? (
                     <span key={i} className="text-primary relative">
-                      {word}
+                      {word}{" "}
                       <svg className="absolute w-full h-3 -bottom-1 left-0 text-secondary/30 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
                         <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
                       </svg>

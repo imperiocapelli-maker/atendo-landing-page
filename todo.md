@@ -172,3 +172,9 @@
 - [x] Logo com letra branca muito mais destacada
 - [x] Favicon atualizado com letra branca
 - [x] Consistência visual em todas as páginas
+
+## Correção de Espaçamento de Texto
+
+- [x] Corrigir "lucroem" para "lucro em" na página Home
+- [x] Texto renderizado corretamente com espaço entre "lucro" e "em"
+- [x] Testado no navegador e funcionando
