@@ -254,3 +254,11 @@
 - [x] Todos os 4 botões de planos funcionando corretamente
 - [x] Modal aparecendo com email pré-preenchido
 - [x] Redirecionamento para Stripe Checkout confirmado
+
+## Debug - Erro## Debug - Botão Premium não Mostra Modal
+
+- [x] Verificar arquivo Home.tsx para ver como botão Premium está configurado
+- [x] Encontrar problema: mapeamento duplicado de "premium" e "scale" para "Enterprise"
+- [x] Corrigir PlanCheckoutButton.tsx com lógica especial para Scale
+- [x] Testar botão Premium - FUNCIONANDO 100%
+- [x] Todos os 4 botões de planos funcionando perfeitamente
