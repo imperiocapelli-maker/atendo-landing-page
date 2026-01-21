@@ -219,3 +219,14 @@
 - [x] Fluxo completo testado: email -> checkout Stripe funcionando
 - [ ] Atualizar webhook para criar usuário após pagamento bem-sucedido
 - [ ] Criar página de sucesso após pagamento (checkout-success)
+
+## Email de Boas-vindas com Credenciais
+
+- [x] Criar tabela de usuários pendentes (pending_users)
+- [x] Gerar senha temporária após pagamento
+- [x] Implementar webhook customer.subscription.created
+- [x] Configurar envio de email com credenciais (nodemailer)
+- [x] Criar página /checkout-success com instruções
+- [x] Adicionar rota /checkout-success no App.tsx
+- [x] Criar testes de email service (7 testes passando)
+- [ ] Testar fluxo completo: pagamento -> email -> login (manual)

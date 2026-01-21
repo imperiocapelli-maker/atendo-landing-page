@@ -1,8 +1,9 @@
 import Stripe from "stripe";
 import { Request, Response } from "express";
 import { getDb } from "../db";
-import { subscriptions, payments, subscriptionPlans } from "../../drizzle/schema";
+import { subscriptions, payments, subscriptionPlans, pendingUsers, users } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
+import { sendWelcomeEmail, generateTempPassword } from "./emailService";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   apiVersion: "2025-12-15.clover",
@@ -42,44 +43,113 @@ export async function handleStripeWebhook(req: Request, res: Response) {
         const session = event.data.object as Stripe.Checkout.Session;
         console.log("[Webhook] Checkout session completed:", session.id);
 
-        const userId = parseInt((session as any).metadata?.user_id || "0");
         const planId = parseInt((session as any).metadata?.plan_id || "0");
+        const customerEmail = (session as any).metadata?.customer_email || (session as any).customer_email;
 
-        if (!userId || !planId) {
-          console.error("[Webhook] Missing userId or planId in metadata");
+        if (!planId || !customerEmail) {
+          console.error("[Webhook] Missing planId or customerEmail in metadata");
           return res.status(400).json({ error: "Missing metadata" });
         }
 
-        // Criar/atualizar assinatura
-        const existingSubscription = await db
+        // Verificar se é um usuário existente ou novo
+        const existingUser = await db
           .select()
-          .from(subscriptions)
-          .where(eq(subscriptions.userId, userId));
+          .from(users)
+          .where(eq(users.email, customerEmail));
 
-        if (existingSubscription.length > 0) {
-          // Atualizar assinatura existente
-          await db
-            .update(subscriptions)
-            .set({
+        if (existingUser.length > 0) {
+          // Usuário existente - processar como antes
+          const userId = existingUser[0].id;
+          const existingSubscription = await db
+            .select()
+            .from(subscriptions)
+            .where(eq(subscriptions.userId, userId));
+
+          if (existingSubscription.length > 0) {
+            await db
+              .update(subscriptions)
+              .set({
+                planId,
+                status: "active",
+                updatedAt: new Date(),
+              })
+              .where(eq(subscriptions.id, existingSubscription[0].id));
+          } else {
+            await db.insert(subscriptions).values({
+              userId,
               planId,
+              stripeCustomerId: (session as any).customer as string,
+              stripeSubscriptionId: (session as any).subscription as string,
               status: "active",
-              updatedAt: new Date(),
-            })
-            .where(eq(subscriptions.id, existingSubscription[0].id));
+              currentPeriodStart: new Date(),
+              currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+            });
+          }
+          console.log("[Webhook] Subscription created/updated for existing user:", userId);
         } else {
-          // Criar nova assinatura
-          await db.insert(subscriptions).values({
-            userId,
-            planId,
-            stripeCustomerId: (session as any).customer as string,
-            stripeSubscriptionId: (session as any).subscription as string,
-            status: "active",
-            currentPeriodStart: new Date(),
-            currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 dias
-          });
+          // Novo usuário - criar registro pendente
+          const tempPassword = generateTempPassword();
+          
+          try {
+            await db.insert(pendingUsers).values({
+              email: customerEmail,
+              planId,
+              stripeCheckoutSessionId: session.id,
+              stripeCustomerId: (session as any).customer as string,
+              stripeSubscriptionId: (session as any).subscription as string,
+              tempPassword,
+              status: "confirmed",
+            });
+            console.log("[Webhook] Pending user created:", customerEmail);
+          } catch (error) {
+            console.error("[Webhook] Error creating pending user:", error);
+          }
         }
 
-        console.log("[Webhook] Subscription created/updated for user:", userId);
+        break;
+      }
+
+      case "customer.subscription.created": {
+        const subscription = event.data.object as Stripe.Subscription;
+        console.log("[Webhook] Subscription created:", subscription.id);
+
+        // Buscar usuário pendente com este stripeSubscriptionId
+        const pendingUser = await db
+          .select()
+          .from(pendingUsers)
+          .where(eq(pendingUsers.stripeSubscriptionId, subscription.id));
+
+        if (pendingUser.length > 0) {
+          const pending = pendingUser[0];
+          
+          // Enviar email de boas-vindas
+          const plan = await db
+            .select()
+            .from(subscriptionPlans)
+            .where(eq(subscriptionPlans.id, pending.planId));
+
+          if (plan.length > 0) {
+            const loginUrl = `${process.env.VITE_FRONTEND_URL || "http://localhost:3000"}/entrar`;
+            const emailSent = await sendWelcomeEmail({
+              email: pending.email,
+              tempPassword: pending.tempPassword,
+              planName: plan[0].name,
+              loginUrl,
+            });
+
+            // Atualizar status do usuário pendente
+            await db
+              .update(pendingUsers)
+              .set({
+                emailSent: emailSent ? 1 : 0,
+                emailSentAt: new Date(),
+                updatedAt: new Date(),
+              })
+              .where(eq(pendingUsers.id, pending.id));
+
+            console.log("[Webhook] Welcome email sent to:", pending.email);
+          }
+        }
         break;
       }
 

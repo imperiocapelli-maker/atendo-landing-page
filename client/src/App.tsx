@@ -23,6 +23,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/checkout/success"} component={CheckoutSuccess} />
+      <Route path={"/checkout-success"} component={CheckoutSuccess} />
       <Route path={"/checkout/cancel"} component={CheckoutCancel} />
       <Route path={"/dashboard/leads"} component={LeadsDashboard} />
       <Route path={"/dashboard/pricing"} component={PricingDashboard} />

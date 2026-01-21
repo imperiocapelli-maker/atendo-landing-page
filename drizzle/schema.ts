@@ -300,3 +300,32 @@ export const payments = mysqlTable("payments", {
 
 export type Payment = typeof payments.$inferSelect;
 export type InsertPayment = typeof payments.$inferInsert;
+
+// Tabela de Usuários Pendentes (aguardando confirmação de pagamento)
+export const pendingUsers = mysqlTable("pendingUsers", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  planId: int("planId").notNull().references(() => subscriptionPlans.id, { onDelete: "restrict" }),
+  
+  // Stripe IDs
+  stripeCheckoutSessionId: varchar("stripeCheckoutSessionId", { length: 255 }).notNull().unique(),
+  stripeCustomerId: varchar("stripeCustomerId", { length: 255 }),
+  stripeSubscriptionId: varchar("stripeSubscriptionId", { length: 255 }),
+  
+  // Credenciais Temporárias
+  tempPassword: varchar("tempPassword", { length: 255 }).notNull(),
+  passwordResetToken: varchar("passwordResetToken", { length: 255 }),
+  passwordResetExpires: timestamp("passwordResetExpires"),
+  
+  // Status
+  status: mysqlEnum("status", ["pending", "confirmed", "failed"]).default("pending").notNull(),
+  emailSent: int("emailSent").default(0).notNull(),
+  emailSentAt: timestamp("emailSentAt"),
+  
+  // Metadados
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PendingUser = typeof pendingUsers.$inferSelect;
+export type InsertPendingUser = typeof pendingUsers.$inferInsert;
