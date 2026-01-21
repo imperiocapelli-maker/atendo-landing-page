@@ -8,6 +8,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { handleStripeWebhook } from "./stripeWebhook";
+import { seedSubscriptionPlans } from "../products";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -29,6 +30,13 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 }
 
 async function startServer() {
+  // Seed subscription plans on startup
+  try {
+    await seedSubscriptionPlans();
+  } catch (error) {
+    console.error("Error seeding subscription plans:", error);
+  }
+
   const app = express();
   const server = createServer(app);
   

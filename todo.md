@@ -195,6 +195,17 @@
 - [x] Integrar Stripe Checkout
 - [x] Implementar webhook para processar eventos
 - [x] Criar testes unitários para subscription (5 testes passando)
-- [ ] Debugar página de planos (planos não aparecem)
+- [x] Criar seed automático de planos na inicialização
+- [x] Página de planos exibindo 3 planos corretamente
+- [x] Fluxo de Stripe Checkout funcionando
 - [ ] Criar dashboard de assinatura para usuário
-- [ ] Testar fluxo completo de assinatura
+- [ ] Testar fluxo completo de assinatura com pagamento real
+
+## Configuração de Chaves API do Stripe
+
+- [x] Obter chaves API do Stripe (Publishable Key e Secret Key)
+- [x] Configurar variáveis de ambiente STRIPE_PUBLISHABLE_KEY e STRIPE_SECRET_KEY
+- [x] Testar conexão com Stripe (27 testes passando)
+- [x] Página /planos exibindo 3 planos de assinatura
+- [x] Fluxo de checkout Stripe funcionando
+- [ ] Validar webhooks do Stripe com pagamentos reais

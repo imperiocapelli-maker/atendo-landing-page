@@ -5,50 +5,49 @@
 
 export const STRIPE_PRODUCTS = {
   BASIC: {
-    name: "Plano Básico",
-    description: "Perfeito para pequenos negócios começando",
-    price: 29.90,
-    stripePriceId: process.env.STRIPE_BASIC_PRICE_ID || "price_basic_placeholder",
-    stripeProductId: process.env.STRIPE_BASIC_PRODUCT_ID || "prod_basic_placeholder",
+    name: "Básico",
+    description: "Perfeito para começar",
+    price: 99.99,
+    stripePriceId: process.env.STRIPE_BASIC_PRICE_ID || "",
+    stripeProductId: process.env.STRIPE_BASIC_PRODUCT_ID || "",
     billingInterval: "monthly" as const,
     features: [
-      "Dashboard de Precificação",
-      "Até 10 serviços",
-      "Relatórios básicos",
+      "Até 10 clientes",
+      "Agendamentos básicos",
+      "Relatórios simples",
       "Suporte por email",
     ],
   },
   PROFESSIONAL: {
-    name: "Plano Profissional",
-    description: "Para negócios em crescimento",
-    price: 79.90,
-    stripePriceId: process.env.STRIPE_PROFESSIONAL_PRICE_ID || "price_professional_placeholder",
-    stripeProductId: process.env.STRIPE_PROFESSIONAL_PRODUCT_ID || "prod_professional_placeholder",
+    name: "Profissional",
+    description: "Mais popular",
+    price: 199.99,
+    stripePriceId: process.env.STRIPE_PROFESSIONAL_PRICE_ID || "",
+    stripeProductId: process.env.STRIPE_PROFESSIONAL_PRODUCT_ID || "",
     billingInterval: "monthly" as const,
     features: [
-      "Dashboard de Precificação avançado",
-      "Serviços ilimitados",
-      "Histórico de preços",
-      "Análise de lucratividade",
-      "Integração com WhatsApp",
+      "Até 100 clientes",
+      "Agendamentos avançados",
+      "Relatórios detalhados",
+      "Precificação inteligente",
       "Suporte prioritário",
+      "Integrações",
     ],
   },
   ENTERPRISE: {
-    name: "Plano Enterprise",
-    description: "Solução completa para grandes operações",
-    price: 199.90,
-    stripePriceId: process.env.STRIPE_ENTERPRISE_PRICE_ID || "price_enterprise_placeholder",
-    stripeProductId: process.env.STRIPE_ENTERPRISE_PRODUCT_ID || "prod_enterprise_placeholder",
+    name: "Enterprise",
+    description: "Para grandes operações",
+    price: 499.99,
+    stripePriceId: process.env.STRIPE_ENTERPRISE_PRICE_ID || "",
+    stripeProductId: process.env.STRIPE_ENTERPRISE_PRODUCT_ID || "",
     billingInterval: "monthly" as const,
     features: [
-      "Todos os recursos do Profissional",
+      "Clientes ilimitados",
+      "Todas as funcionalidades",
       "API customizada",
-      "Integração com CRM",
-      "Relatórios avançados",
-      "Múltiplos usuários",
-      "Suporte 24/7 dedicado",
-      "Consultoria de precificação",
+      "Suporte 24/7",
+      "Gerenciador dedicado",
+      "Integrações ilimitadas",
     ],
   },
 };
@@ -57,3 +56,90 @@ export const SUBSCRIPTION_PLANS = Object.entries(STRIPE_PRODUCTS).map(([key, pla
   id: key,
   ...plan,
 }));
+
+
+/**
+ * Função para seed dos planos no banco de dados
+ * Cria os produtos e preços no Stripe se não existirem
+ */
+import Stripe from "stripe";
+import { getDb } from "./db";
+import { subscriptionPlans } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
+
+export async function seedSubscriptionPlans() {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+    apiVersion: "2025-12-15.clover" as any,
+  });
+
+  const db = await getDb();
+  if (!db) {
+    console.error("Database not available");
+    return;
+  }
+
+  console.log("🚀 Seeding subscription plans...\n");
+
+  for (const [key, plan] of Object.entries(STRIPE_PRODUCTS)) {
+    try {
+      // Verificar se o plano já existe
+      const existing = await db
+        .select()
+        .from(subscriptionPlans)
+        .where(eq(subscriptionPlans.name, plan.name))
+        .limit(1);
+
+      if (existing.length > 0) {
+        console.log(`✅ Plan "${plan.name}" already exists, skipping...\n`);
+        continue;
+      }
+
+      console.log(`📦 Creating plan: ${plan.name}`);
+
+      // Criar produto no Stripe
+      console.log(`   → Creating Stripe product...`);
+      const product = await stripe.products.create({
+        name: plan.name,
+        description: plan.description,
+        metadata: {
+          plan_key: key,
+        },
+      });
+      console.log(`   ✅ Product created: ${product.id}`);
+
+      // Criar preço no Stripe
+      console.log(`   → Creating Stripe price...`);
+      const price = await stripe.prices.create({
+        product: product.id,
+        unit_amount: Math.round(plan.price * 100), // Convert to cents
+        currency: "brl",
+        recurring: {
+          interval: "month",
+          interval_count: 1,
+        },
+        metadata: {
+          plan_key: key,
+        },
+      });
+      console.log(`   ✅ Price created: ${price.id}`);
+
+      // Inserir plano no banco de dados
+      console.log(`   → Inserting plan into database...`);
+      await db.insert(subscriptionPlans).values({
+        name: plan.name,
+        description: plan.description,
+        price: plan.price.toString(),
+        stripePriceId: price.id,
+        stripeProductId: product.id,
+        billingInterval: plan.billingInterval,
+        features: JSON.stringify(plan.features),
+        isActive: 1,
+      });
+      console.log(`   ✅ Plan inserted into database\n`);
+    } catch (error) {
+      console.error(`❌ Error creating plan "${plan.name}":`, error);
+    }
+  }
+
+  console.log("✅ Seeding completed!");
+}
