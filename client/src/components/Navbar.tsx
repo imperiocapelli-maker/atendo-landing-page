@@ -24,7 +24,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/">
           <div className="cursor-pointer">
-            <AtendoLogo size="md" showText={true} className="text-white" />
+            <AtendoLogo size="md" showText={true} textColor="light" className="text-white" />
           </div>
         </Link>
 

@@ -178,3 +178,10 @@
 - [x] Corrigir "lucroem" para "lucro em" na página Home
 - [x] Texto renderizado corretamente com espaço entre "lucro" e "em"
 - [x] Testado no navegador e funcionando
+
+## Correção de Cor do Logo na Navbar
+
+- [x] Alterar letra "A" do logo de preto para branco
+- [x] Testar logo branco na Navbar
+- [x] Logo agora aparece em branco na Navbar
+- [x] Adicionado prop textColor ao componente AtendoLogo

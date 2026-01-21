@@ -4,12 +4,14 @@ interface AtendoLogoProps {
   size?: 'sm' | 'md' | 'lg';
   showText?: boolean;
   className?: string;
+  textColor?: 'dark' | 'light';
 }
 
 export const AtendoLogo: React.FC<AtendoLogoProps> = ({
   size = 'md',
   showText = true,
   className = '',
+  textColor = 'dark',
 }) => {
   const sizeMap = {
     sm: { icon: 28, text: 16 },
@@ -56,7 +58,7 @@ export const AtendoLogo: React.FC<AtendoLogoProps> = ({
       {/* Logo Text */}
       {showText && (
         <span
-          className="font-bold text-foreground"
+          className={`font-bold ${textColor === 'light' ? 'text-white' : 'text-foreground'}`}
           style={{ fontSize: `${text}px` }}
         >
           Atendo
