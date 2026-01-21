@@ -151,3 +151,14 @@
 - [x] Testar responsividade do logo
 - [x] Garantir consistência visual em todas as páginas
 - [x] Logo aparecendo em todas as páginas do site
+
+## Favicon e Título da Aba do Navegador
+
+- [x] Criar favicon do logo Atendo
+- [x] Adicionar favicon em index.html
+- [x] Atualizar título padrão da página
+- [x] Adicionar título dinâmico em cada página
+- [x] Testar favicon em todas as páginas
+- [x] Testar título em todas as páginas
+- [x] Favicon aparecendo em todas as abas do navegador
+- [x] Título dinâmico funcionando em Home e Dashboard

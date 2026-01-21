@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -7,6 +8,7 @@ import { LogOut } from "lucide-react";
 import { AtendoLogo } from "@/components/AtendoLogo";
 
 export default function PrecificacaoDemo() {
+  usePageTitle('Dashboard de Precificacao');
   const [lucroDesejado, setLucroDesejado] = useState(10);
   const [marketing, setMarketing] = useState(2);
   const [taxaCartao, setTaxaCartao] = useState(4);
