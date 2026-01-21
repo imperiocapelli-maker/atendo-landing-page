@@ -185,3 +185,16 @@
 - [x] Testar logo branco na Navbar
 - [x] Logo agora aparece em branco na Navbar
 - [x] Adicionado prop textColor ao componente AtendoLogo
+
+## Integração Stripe - Pagamento de Planos/Assinatura
+
+- [x] Adicionar feature Stripe ao projeto
+- [x] Criar tabelas de Planos e Assinaturas no banco
+- [x] Implementar endpoints tRPC para criar/gerenciar assinaturas
+- [x] Criar página de Planos com botões de "Assinar"
+- [x] Integrar Stripe Checkout
+- [x] Implementar webhook para processar eventos
+- [x] Criar testes unitários para subscription (5 testes passando)
+- [ ] Debugar página de planos (planos não aparecem)
+- [ ] Criar dashboard de assinatura para usuário
+- [ ] Testar fluxo completo de assinatura

@@ -15,6 +15,7 @@ import Precificacao from "./pages/Precificacao";
 import PrecificacaoV2 from "./pages/PrecificacaoV2";
 import PrecificacaoDemo from "./pages/PrecificacaoDemo";
 import TestLogin from "./pages/TestLogin";
+import Plans from "./pages/Plans";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -29,6 +30,7 @@ function Router() {
       <Route path={"/dashboard/precificacao-v2"} component={PrecificacaoV2} />
       <Route path={"/test-login"} component={TestLogin} />
       <Route path={"/demo"} component={PrecificacaoDemo} />
+      <Route path={"/planos"} component={Plans} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

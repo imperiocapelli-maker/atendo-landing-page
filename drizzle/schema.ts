@@ -232,3 +232,71 @@ export const pricingSettings = mysqlTable("pricingSettings", {
 
 export type PricingSettings = typeof pricingSettings.$inferSelect;
 export type InsertPricingSettings = typeof pricingSettings.$inferInsert;
+
+// Tabela de Planos de Assinatura
+export const subscriptionPlans = mysqlTable("subscriptionPlans", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 100 }).notNull(),
+  description: text("description"),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  currency: varchar("currency", { length: 3 }).default("BRL").notNull(),
+  stripePriceId: varchar("stripePriceId", { length: 255 }).notNull().unique(),
+  stripeProductId: varchar("stripeProductId", { length: 255 }).notNull(),
+  billingInterval: mysqlEnum("billingInterval", ["monthly", "yearly"]).default("monthly").notNull(),
+  features: text("features"), // JSON array de features
+  isActive: int("isActive").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type SubscriptionPlan = typeof subscriptionPlans.$inferSelect;
+export type InsertSubscriptionPlan = typeof subscriptionPlans.$inferInsert;
+
+// Tabela de Assinaturas de Usuários
+export const subscriptions = mysqlTable("subscriptions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  planId: int("planId").notNull().references(() => subscriptionPlans.id, { onDelete: "restrict" }),
+  
+  // Stripe IDs
+  stripeCustomerId: varchar("stripeCustomerId", { length: 255 }).notNull(),
+  stripeSubscriptionId: varchar("stripeSubscriptionId", { length: 255 }).notNull().unique(),
+  
+  // Status da Assinatura
+  status: mysqlEnum("status", ["active", "past_due", "canceled", "paused"]).default("active").notNull(),
+  
+  // Datas
+  currentPeriodStart: timestamp("currentPeriodStart"),
+  currentPeriodEnd: timestamp("currentPeriodEnd"),
+  canceledAt: timestamp("canceledAt"),
+  
+  // Metadados
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Subscription = typeof subscriptions.$inferSelect;
+export type InsertSubscription = typeof subscriptions.$inferInsert;
+
+// Tabela de Pagamentos/Invoices
+export const payments = mysqlTable("payments", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  subscriptionId: int("subscriptionId").references(() => subscriptions.id, { onDelete: "set null" }),
+  
+  // Stripe IDs
+  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 255 }).notNull().unique(),
+  stripeInvoiceId: varchar("stripeInvoiceId", { length: 255 }),
+  
+  // Informações de Pagamento
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  currency: varchar("currency", { length: 3 }).default("BRL").notNull(),
+  status: mysqlEnum("status", ["succeeded", "processing", "requires_payment_method", "failed"]).default("processing").notNull(),
+  
+  // Metadados
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Payment = typeof payments.$inferSelect;
+export type InsertPayment = typeof payments.$inferInsert;
