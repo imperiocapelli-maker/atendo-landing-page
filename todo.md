@@ -140,3 +140,14 @@
 - [x] Testar edição de parâmetros
 - [x] Implementar botão "Restaurar Valores Padrão"
 - [x] Página de demo disponível em /demo com campos editáveis
+
+## Logo Atendo Consistente em Todo o Site
+
+- [x] Criar componente de logo reutilizável
+- [x] Atualizar paleta de cores (#175EF0, #FFFFFF, #3D4450)
+- [x] Adicionar logo na Navbar
+- [x] Adicionar logo no Footer
+- [x] Adicionar logo no Dashboard de Precificação
+- [x] Testar responsividade do logo
+- [x] Garantir consistência visual em todas as páginas
+- [x] Logo aparecendo em todas as páginas do site

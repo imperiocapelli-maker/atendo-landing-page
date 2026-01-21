@@ -4,6 +4,7 @@ import { translations } from "@/lib/translations";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
+import { AtendoLogo } from "./AtendoLogo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,8 +23,8 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary transition-all duration-300">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/">
-          <div className="cursor-pointer flex items-center gap-2">
-            <span className="text-white font-bold text-2xl">Atendo</span>
+          <div className="cursor-pointer">
+            <AtendoLogo size="md" showText={true} className="text-white" />
           </div>
         </Link>
 

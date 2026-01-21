@@ -1,6 +1,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/lib/translations";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { AtendoLogo } from "./AtendoLogo";
 
 export default function Footer() {
   const { language } = useLanguage();
@@ -19,8 +20,8 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-1">
-            <div className="mb-4 flex items-center gap-2">
-              <img src="/logo-atendo.png" alt="Atendo Logo" className="h-12 w-auto" />
+            <div className="mb-4">
+              <AtendoLogo size="md" showText={true} />
             </div>
             <p className="text-muted-foreground mb-6">
               {t("footer.description")}

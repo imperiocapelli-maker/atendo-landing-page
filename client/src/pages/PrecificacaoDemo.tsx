@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
 import { LogOut } from "lucide-react";
+import { AtendoLogo } from "@/components/AtendoLogo";
 
 export default function PrecificacaoDemo() {
   const [lucroDesejado, setLucroDesejado] = useState(10);
@@ -70,9 +71,10 @@ export default function PrecificacaoDemo() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b">
+      <div className="bg-primary text-white">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard de Preço 2026</h1>
+          <AtendoLogo size="md" showText={true} className="text-white" />
+          <h1 className="text-2xl font-bold">Dashboard de Preço 2026</h1>
           <Button onClick={handleLogout} variant="outline" size="sm">
             <LogOut className="w-4 h-4 mr-2" />
             Sair
