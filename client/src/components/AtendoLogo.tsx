@@ -12,9 +12,9 @@ export const AtendoLogo: React.FC<AtendoLogoProps> = ({
   className = '',
 }) => {
   const sizeMap = {
-    sm: { icon: 24, text: 16 },
-    md: { icon: 32, text: 20 },
-    lg: { icon: 48, text: 28 },
+    sm: { icon: 28, text: 16 },
+    md: { icon: 40, text: 22 },
+    lg: { icon: 56, text: 32 },
   };
 
   const { icon, text } = sizeMap[size];
@@ -39,12 +39,18 @@ export const AtendoLogo: React.FC<AtendoLogoProps> = ({
           fill="#175EF0"
         />
         
-        {/* Letter A */}
-        <path
-          d="M32 16L44 44H40L37 36H27L24 44H20L32 16Z"
+        {/* Letter A - Maior e mais destacado */}
+        <text
+          x="32"
+          y="48"
+          textAnchor="middle"
+          fontSize="36"
+          fontWeight="bold"
           fill="white"
-        />
-        <rect x="28" y="32" width="8" height="2" fill="#175EF0" />
+          fontFamily="Arial, sans-serif"
+        >
+          A
+        </text>
       </svg>
 
       {/* Logo Text */}

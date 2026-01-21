@@ -162,3 +162,13 @@
 - [x] Testar título em todas as páginas
 - [x] Favicon aparecendo em todas as abas do navegador
 - [x] Título dinâmico funcionando em Home e Dashboard
+
+## Melhorias no Logo Atendo
+
+- [x] Atualizar letra "A" para branco
+- [x] Aumentar tamanho e destaque do logo
+- [x] Atualizar favicon com letra branca
+- [x] Testar logo em todas as páginas
+- [x] Logo com letra branca muito mais destacada
+- [x] Favicon atualizado com letra branca
+- [x] Consistência visual em todas as páginas
