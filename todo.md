@@ -230,3 +230,17 @@
 - [x] Adicionar rota /checkout-success no App.tsx
 - [x] Criar testes de email service (7 testes passando)
 - [ ] Testar fluxo completo: pagamento -> email -> login (manual)
+
+## Debug - Bot\u00e3o de Assinatura n\u00e3o Funciona
+
+- [ ] Verificar console do navegador para erros
+- [ ] Testar endpoint createCheckoutSession
+- [ ] Verificar se email est\u00e1 sendo preenchido corretamente
+- [ ] Corrigir problema e testar novamente
+
+## Debug - Bot\u00f5es de## Debug - Botões de Assinatura não Funcionam
+
+- [x] Identificar qual página de planos está sendo usada (Plans.tsx)
+- [x] Encontrar problema: import de useState faltando
+- [x] Adicionar import de useState ao Plans.tsx
+- [x] Testar botões - FUNCIONANDO 100%
