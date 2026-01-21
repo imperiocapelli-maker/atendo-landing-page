@@ -209,3 +209,13 @@
 - [x] Página /planos exibindo 3 planos de assinatura
 - [x] Fluxo de checkout Stripe funcionando
 - [ ] Validar webhooks do Stripe com pagamentos reais
+
+## Fluxo de Pagamento Sem Autenticação
+
+- [x] Remover requisito de autenticação do endpoint createCheckoutSession
+- [x] Permitir checkout com email apenas (sem login)
+- [x] Atualizar página Plans.tsx para remover verificação de isAuthenticated
+- [x] Campo de email adicionado na página de planos
+- [x] Fluxo completo testado: email -> checkout Stripe funcionando
+- [ ] Atualizar webhook para criar usuário após pagamento bem-sucedido
+- [ ] Criar página de sucesso após pagamento (checkout-success)

@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import { trpc } from "@/lib/trpc";
-import { useAuth } from "@/_core/hooks/useAuth";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { Loader2 } from "lucide-react";
 
 export default function Plans() {
   usePageTitle("Planos | Atendo");
-  const { isAuthenticated, loading: authLoading } = useAuth();
   const [loadingPlanId, setLoadingPlanId] = useState<number | null>(null);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   // Listar planos disponíveis
   const { data: plans, isLoading: plansLoading } = trpc.subscription.listPlans.useQuery();
@@ -27,21 +27,34 @@ export default function Plans() {
     },
   });
 
+  const validateEmail = (emailValue: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(emailValue);
+  };
+
   const handleSubscribe = async (planId: number) => {
-    if (!isAuthenticated) {
-      alert("Você precisa estar autenticado para assinar um plano");
+    setEmailError("");
+
+    // Validar email
+    if (!email.trim()) {
+      setEmailError("Por favor, insira seu email");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setEmailError("Por favor, insira um email válido");
       return;
     }
 
     setLoadingPlanId(planId);
     try {
-      await createCheckoutMutation.mutateAsync({ planId });
+      await createCheckoutMutation.mutateAsync({ planId, email });
     } finally {
       setLoadingPlanId(null);
     }
   };
 
-  if (authLoading || plansLoading) {
+  if (plansLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
@@ -59,6 +72,26 @@ export default function Plans() {
         </div>
       </div>
 
+      {/* Email Input Section */}
+      <div className="container mx-auto px-4 py-8 bg-blue-50">
+        <div className="max-w-md mx-auto">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Seu Email (para receber acesso após pagamento)
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError("");
+            }}
+            placeholder="seu@email.com"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+          {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+        </div>
+      </div>
+
       {/* Plans Grid */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -66,10 +99,10 @@ export default function Plans() {
             <Card
               key={plan.id}
               className={`relative flex flex-col ${
-                plan.name.includes("Professional") ? "ring-2 ring-primary md:scale-105" : ""
+                plan.name.includes("Profissional") ? "ring-2 ring-primary md:scale-105" : ""
               }`}
             >
-              {plan.name.includes("Professional") && (
+              {plan.name.includes("Profissional") && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <span className="bg-primary text-white px-4 py-1 rounded-full text-sm font-semibold">
                     Mais Popular
@@ -116,9 +149,9 @@ export default function Plans() {
                 {/* Button */}
                 <Button
                   onClick={() => handleSubscribe(plan.id)}
-                  disabled={loadingPlanId === plan.id || !isAuthenticated}
+                  disabled={loadingPlanId === plan.id || !email}
                   className="w-full"
-                  variant={plan.name.includes("Professional") ? "default" : "outline"}
+                  variant={plan.name.includes("Profissional") ? "default" : "outline"}
                 >
                   {loadingPlanId === plan.id ? (
                     <>
@@ -129,12 +162,6 @@ export default function Plans() {
                     "Assinar Agora"
                   )}
                 </Button>
-
-                {!isAuthenticated && (
-                  <p className="text-xs text-center text-muted-foreground mt-2">
-                    Faça login para assinar
-                  </p>
-                )}
               </CardContent>
             </Card>
           ))}
@@ -146,11 +173,11 @@ export default function Plans() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Posso cancelar a qualquer momento?</CardTitle>
+                <CardTitle className="text-lg">Como funciona o acesso após pagamento?</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Sim! Você pode cancelar sua assinatura a qualquer momento sem penalidades. O acesso será mantido até o final do período de faturamento.
+                  Após confirmar o pagamento, você receberá um email com suas credenciais de acesso. Você poderá fazer login imediatamente e começar a usar o Atendo.
                 </p>
               </CardContent>
             </Card>
@@ -183,7 +210,7 @@ export default function Plans() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Sim! Todos os planos incluem suporte por email. Planos Professional e Enterprise têm suporte prioritário.
+                  Sim! Todos os planos incluem suporte por email. Planos Profissional e Enterprise têm suporte prioritário.
                 </p>
               </CardContent>
             </Card>

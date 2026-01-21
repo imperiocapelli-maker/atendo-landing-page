@@ -57,9 +57,9 @@ export const subscriptionRouter = router({
     };
   }),
 
-  // Criar sessão de checkout para assinatura
-  createCheckoutSession: protectedProcedure
-    .input(z.object({ planId: z.number() }))
+  // Criar sessão de checkout para assinatura (público - sem requerer login)
+  createCheckoutSession: publicProcedure
+    .input(z.object({ planId: z.number(), email: z.string().email() }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
       if (!db) throw new Error("Database not available");
@@ -67,7 +67,7 @@ export const subscriptionRouter = router({
       if (!plan.length) throw new Error("Plano não encontrado");
 
       const session = await stripe.checkout.sessions.create({
-        customer_email: ctx.user.email || undefined,
+        customer_email: input.email,
         mode: "subscription",
         payment_method_types: ["card"],
         line_items: [
@@ -76,13 +76,11 @@ export const subscriptionRouter = router({
             quantity: 1,
           },
         ],
-        success_url: `${ctx.req.headers.origin}/dashboard/subscription?success=true`,
+        success_url: `${ctx.req.headers.origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${ctx.req.headers.origin}/planos?canceled=true`,
         metadata: {
-          user_id: ctx.user.id.toString(),
           plan_id: input.planId.toString(),
-          customer_email: ctx.user.email || "",
-          customer_name: ctx.user.name || "",
+          customer_email: input.email,
         },
         allow_promotion_codes: true,
       });
@@ -135,7 +133,7 @@ export const subscriptionRouter = router({
   }),
 
   // Obter status de pagamento (para verificar após checkout)
-  getPaymentStatus: protectedProcedure
+  getPaymentStatus: publicProcedure
     .input(z.object({ sessionId: z.string() }))
     .query(async ({ input, ctx }) => {
       const session = await stripe.checkout.sessions.retrieve(input.sessionId);
