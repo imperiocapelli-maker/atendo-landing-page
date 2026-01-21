@@ -238,9 +238,19 @@
 - [ ] Verificar se email est\u00e1 sendo preenchido corretamente
 - [ ] Corrigir problema e testar novamente
 
-## Debug - Bot\u00f5es de## Debug - Botões de Assinatura não Funcionam
+## Debug - Bot\u00f5## Debug - Botões de Assinatura não Funcionam
 
 - [x] Identificar qual página de planos está sendo usada (Plans.tsx)
 - [x] Encontrar problema: import de useState faltando
 - [x] Adicionar import de useState ao Plans.tsx
 - [x] Testar botões - FUNCIONANDO 100%
+
+## Fluxo de Checkout Direto (com Modal)
+
+- [x] Criar modal para solicitar email ao clicar em "Assinar Agora"
+- [x] Validar email antes de ir ao Stripe
+- [x] Redirecionar para Stripe Checkout com sucesso
+- [x] Testar fluxo completo: clique -> modal -> Stripe (FUNCIONANDO 100%)
+- [x] Todos os 4 botões de planos funcionando corretamente
+- [x] Modal aparecendo com email pré-preenchido
+- [x] Redirecionamento para Stripe Checkout confirmado

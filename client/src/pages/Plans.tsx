@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { Loader2 } from "lucide-react";
@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 export default function Plans() {
   usePageTitle("Planos | Atendo");
   const [loadingPlanId, setLoadingPlanId] = useState<number | null>(null);
+  const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
@@ -20,10 +21,12 @@ export default function Plans() {
     onSuccess: (data) => {
       if (data.checkoutUrl) {
         window.open(data.checkoutUrl, "_blank");
+        setSelectedPlanId(null);
+        setEmail("");
       }
     },
     onError: (error) => {
-      alert(`Erro ao criar sessão: ${error.message}`);
+      setEmailError(`Erro ao criar sessão: ${error.message}`);
     },
   });
 
@@ -33,9 +36,14 @@ export default function Plans() {
   };
 
   const handleSubscribe = async (planId: number) => {
+    setSelectedPlanId(planId);
+    setEmail("");
+    setEmailError("");
+  };
+
+  const handleConfirmSubscription = async () => {
     setEmailError("");
 
-    // Validar email
     if (!email.trim()) {
       setEmailError("Por favor, insira seu email");
       return;
@@ -46,9 +54,9 @@ export default function Plans() {
       return;
     }
 
-    setLoadingPlanId(planId);
+    setLoadingPlanId(selectedPlanId);
     try {
-      await createCheckoutMutation.mutateAsync({ planId, email });
+      await createCheckoutMutation.mutateAsync({ planId: selectedPlanId!, email });
     } finally {
       setLoadingPlanId(null);
     }
@@ -69,26 +77,6 @@ export default function Plans() {
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">Planos de Assinatura</h1>
           <p className="text-xl text-blue-100">Escolha o plano perfeito para seu negócio</p>
-        </div>
-      </div>
-
-      {/* Email Input Section */}
-      <div className="container mx-auto px-4 py-8 bg-blue-50">
-        <div className="max-w-md mx-auto">
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
-            Seu Email (para receber acesso após pagamento)
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setEmailError("");
-            }}
-            placeholder="seu@email.com"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-          {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
         </div>
       </div>
 
@@ -149,71 +137,117 @@ export default function Plans() {
                 {/* Button */}
                 <Button
                   onClick={() => handleSubscribe(plan.id)}
-                  disabled={loadingPlanId === plan.id || !email}
-                  className="w-full"
-                  variant={plan.name.includes("Profissional") ? "default" : "outline"}
+                  className="w-full bg-primary hover:bg-primary/90"
                 >
-                  {loadingPlanId === plan.id ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Processando...
-                    </>
-                  ) : (
-                    "Assinar Agora"
-                  )}
+                  Assinar Agora
                 </Button>
               </CardContent>
             </Card>
           ))}
         </div>
+      </div>
 
-        {/* FAQ Section */}
-        <div className="mt-20">
+      {/* Email Modal */}
+      {selectedPlanId && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <Card className="w-full max-w-md">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>Insira seu email</CardTitle>
+              <button
+                onClick={() => {
+                  setSelectedPlanId(null);
+                  setEmail("");
+                  setEmailError("");
+                }}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setEmailError("");
+                  }}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      handleConfirmSubscription();
+                    }
+                  }}
+                  placeholder="seu@email.com"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  autoFocus
+                />
+                {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+              </div>
+              <div className="flex gap-3">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSelectedPlanId(null);
+                    setEmail("");
+                    setEmailError("");
+                  }}
+                  className="flex-1"
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  onClick={handleConfirmSubscription}
+                  disabled={loadingPlanId === selectedPlanId}
+                  className="flex-1 bg-primary hover:bg-primary/90"
+                >
+                  {loadingPlanId === selectedPlanId ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Processando...
+                    </>
+                  ) : (
+                    "Continuar"
+                  )}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* FAQ Section */}
+      <div className="bg-gray-50 py-16">
+        <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-12 text-center">Perguntas Frequentes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Como funciona o acesso após pagamento?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Após confirmar o pagamento, você receberá um email com suas credenciais de acesso. Você poderá fazer login imediatamente e começar a usar o Atendo.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Qual é a política de reembolso?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Oferecemos reembolso de 7 dias se você não estiver satisfeito. Entre em contato com nosso suporte para solicitar.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Posso mudar de plano?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Claro! Você pode fazer upgrade ou downgrade a qualquer momento. A mudança será refletida no próximo período de faturamento.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Vocês oferecem suporte?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Sim! Todos os planos incluem suporte por email. Planos Profissional e Enterprise têm suporte prioritário.
-                </p>
-              </CardContent>
-            </Card>
+            <div>
+              <h3 className="font-semibold mb-2">Como funciona o acesso após pagamento?</h3>
+              <p className="text-sm text-muted-foreground">
+                Após confirmar o pagamento, você receberá um email com suas credenciais de acesso. Você poderá fazer login imediatamente e começar a usar o Atendo.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Qual é a política de reembolso?</h3>
+              <p className="text-sm text-muted-foreground">
+                Oferecemos reembolso de 7 dias se você não estiver satisfeito. Entre em contato com nosso suporte para solicitar.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Posso mudar de plano?</h3>
+              <p className="text-sm text-muted-foreground">
+                Claro! Você pode fazer upgrade ou downgrade a qualquer momento. A mudança será refletida no próximo período de faturamento.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Vocês oferecem suporte?</h3>
+              <p className="text-sm text-muted-foreground">
+                Sim! Todos os planos incluem suporte por email. Planos Profissional e Enterprise têm suporte prioritário.
+              </p>
+            </div>
           </div>
         </div>
       </div>
