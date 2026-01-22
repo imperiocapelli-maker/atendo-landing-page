@@ -115,7 +115,7 @@ export const translations = {
         price: "A partir de R$ 399",
         period: "/mês",
         features: ["Tudo do Premium", "API Customizada", "Integrações Ilimitadas", "Suporte Dedicado", "Treinamento Personalizado"],
-        cta: "Falar com especialista",
+        cta: "Começar Agora",
       },
     },
 
@@ -272,7 +272,7 @@ export const translations = {
         price: "A partir de R$ 399",
         period: "/mes",
         features: ["Todo de Premium", "API Personalizada", "Integraciones Ilimitadas", "Soporte Dedicado", "Capacitación Personalizada"],
-        cta: "Hablar con especialista",
+        cta: "Comenzar Ahora",
       },
     },
 

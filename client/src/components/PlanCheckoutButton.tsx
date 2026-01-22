@@ -16,7 +16,7 @@ const planNameMap: Record<string, string> = {
   essential: "Básico",
   pro: "Profissional",
   premium: "Enterprise",
-  scale: "Enterprise", // Scale é para contato direto
+  scale: "Scale",
 };
 
 export default function PlanCheckoutButton({
@@ -35,7 +35,7 @@ export default function PlanCheckoutButton({
   const { data: plans } = trpc.subscription.listPlans.useQuery();
 
   useEffect(() => {
-    if (plans && planName !== "scale") {
+    if (plans) {
       const realPlanName = planNameMap[planName];
       const plan = plans.find((p) => p.name === realPlanName);
       if (plan) {
@@ -63,11 +63,6 @@ export default function PlanCheckoutButton({
   };
 
   const handleCheckout = () => {
-    // Para o plano Scale, abrir contato direto em vez de checkout
-    if (planName === "scale") {
-      window.open("mailto:contato@atendo.com?subject=Quero%20contratar%20o%20plano%20Scale", "_blank");
-      return;
-    }
     setShowEmailModal(true);
   };
 
@@ -99,7 +94,7 @@ export default function PlanCheckoutButton({
     <>
       <Button
         onClick={handleCheckout}
-        disabled={isLoading || createCheckoutMutation.isPending || (planName !== "scale" && !planId)}
+        disabled={isLoading || createCheckoutMutation.isPending || !planId}
         className={className}
       >
         {isLoading || createCheckoutMutation.isPending ? (

@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, name, price, currency FROM subscriptionPlans;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT id, name, price, currency FROM subscriptionPlans;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Básico",
+      "price": "99.99",
+      "currency": "BRL"
+    },
+    {
+      "id": "2",
+      "name": "Profissional",
+      "price": "199.99",
+      "currency": "BRL"
+    },
+    {
+      "id": "3",
+      "name": "Enterprise",
+      "price": "499.99",
+      "currency": "BRL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tprice\tcurrency\n1\tBásico\t99.99\tBRL\n2\tProfissional\t199.99\tBRL\n3\tEnterprise\t499.99\tBRL\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}
