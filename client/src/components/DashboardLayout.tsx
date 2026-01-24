@@ -26,6 +26,7 @@ import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
+import TrialIndicator from './TrialIndicator';
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Page 1", path: "/" },
@@ -257,7 +258,18 @@ function DashboardLayoutContent({
             </div>
           </div>
         )}
-        <main className="flex-1 p-4">{children}</main>
+        <main className="flex-1 p-4">
+          {user?.isTrialActive === 1 && (
+            <div className="mb-4">
+              <TrialIndicator
+                trialEndDate={user?.trialEndDate}
+                isTrialActive={user?.isTrialActive === 1}
+                onUpgrade={() => window.location.href = '/#planos'}
+              />
+            </div>
+          )}
+          {children}
+        </main>
       </SidebarInset>
     </>
   );

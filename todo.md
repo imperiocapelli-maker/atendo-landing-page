@@ -273,3 +273,10 @@
 - [ ] Testar fluxo completo de trial -> cobrança automática
 - [ ] Criar página de boas-vindas para usuários em trial
 - [ ] Adicionar indicador visual de dias restantes do trial
+
+## Indicador Visual de Trial
+
+- [x] Criar componente de indicador de dias restantes do trial
+- [x] Integrar indicador no painel/dashboard do usuário
+- [x] Adicionar barra de progresso visual
+- [x] Testar indicador em diferentes cenários (1 dia, 7 dias, 14 dias)
