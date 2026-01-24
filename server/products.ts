@@ -50,6 +50,21 @@ export const STRIPE_PRODUCTS = {
       "Integrações ilimitadas",
     ],
   },
+  SCALE: {
+    name: "Scale",
+    description: "Para empresas em crescimento",
+    price: 399.99,
+    stripePriceId: process.env.STRIPE_SCALE_PRICE_ID || "",
+    stripeProductId: process.env.STRIPE_SCALE_PRODUCT_ID || "",
+    billingInterval: "monthly" as const,
+    features: [
+      "Tudo do Premium",
+      "API Customizada",
+      "Integrações Ilimitadas",
+      "Suporte Dedicado",
+      "Treinamento Personalizado",
+    ],
+  },
 };
 
 export const SUBSCRIPTION_PLANS = Object.entries(STRIPE_PRODUCTS).map(([key, plan]) => ({

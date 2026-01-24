@@ -1,0 +1,9 @@
+{
+  "query": "SELECT name, stripePriceId FROM subscriptionPlans WHERE name = 'scale';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT name, stripePriceId FROM subscriptionPlans WHERE name = 'scale';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 58
+}

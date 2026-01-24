@@ -1,0 +1,38 @@
+{
+  "query": "SELECT id, name, price, stripePriceId, stripeProductId FROM subscriptionPlans;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT id, name, price, stripePriceId, stripeProductId FROM subscriptionPlans;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Básico",
+      "price": "99.99",
+      "stripePriceId": "price_1Ss5aNPYlRL7a8fIq6bjzAbV",
+      "stripeProductId": "prod_Tpl6p8t9maNLCJ"
+    },
+    {
+      "id": "2",
+      "name": "Profissional",
+      "price": "199.99",
+      "stripePriceId": "price_1Ss5aXPYlRL7a8fIskwnhC4x",
+      "stripeProductId": "prod_Tpl6klkmNzjNRr"
+    },
+    {
+      "id": "3",
+      "name": "Enterprise",
+      "price": "249.00",
+      "stripePriceId": "price_1Ss5aYPYlRL7a8fI9q6H9csC",
+      "stripeProductId": "prod_Tpl6F4iGZGydxn"
+    },
+    {
+      "id": "30003",
+      "name": "Scale",
+      "price": "399.99",
+      "stripePriceId": "price_1SsXLMPYlRL7a8fIM1jTx7iZ",
+      "stripeProductId": "prod_TqDm0YUmnWx1SZ"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tprice\tstripePriceId\tstripeProductId\n1\tBásico\t99.99\tprice_1Ss5aNPYlRL7a8fIq6bjzAbV\tprod_Tpl6p8t9maNLCJ\n2\tProfissional\t199.99\tprice_1Ss5aXPYlRL7a8fIskwnhC4x\tprod_Tpl6klkmNzjNRr\n3\tEnterprise\t249.00\tprice_1Ss5aYPYlRL7a8fI9q6H9csC\tprod_Tpl6F4iGZGydxn\n30003\tScale\t399.99\tprice_1SsXLMPYlRL7a8fIM1jTx7iZ\tprod_TqDm0YUmnWx1SZ\n",
+  "stderr": "",
+  "execution_time_ms": 73
+}

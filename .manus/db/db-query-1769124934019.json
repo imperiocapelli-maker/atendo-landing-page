@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO subscriptionPlans (name, description, price, stripePriceId, stripeProductId, billingInterval, features, isActive) \nVALUES ('Scale', 'Para empresas em crescimento', 399.99, 'price_1SsXLMPYlRL7a8fIM1jTx7iZ', 'prod_TqDm0YUmnWx1SZ', 'monthly', '[\\\"Tudo do Premium\\\", \\\"API Customizada\\\", \\\"Integrações Ilimitadas\\\", \\\"Suporte Dedicado\\\", \\\"Treinamento Personalizado\\\"]', 1);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute INSERT INTO subscriptionPlans (name, description, price, stripePriceId, stripeProductId, billingInterval, features, isActive) \nVALUES ('Scale', 'Para empresas em crescimento', 399.99, 'price_1SsXLMPYlRL7a8fIM1jTx7iZ', 'prod_TqDm0YUmnWx1SZ', 'monthly', '[\\\"Tudo do Premium\\\", \\\"API Customizada\\\", \\\"Integrações Ilimitadas\\\", \\\"Suporte Dedicado\\\", \\\"Treinamento Personalizado\\\"]', 1);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 64
+}

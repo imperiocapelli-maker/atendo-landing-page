@@ -57,6 +57,18 @@ const plans = [
       "Integrações ilimitadas",
     ],
   },
+  {
+    name: "Scale",
+    description: "Para empresas em crescimento",
+    price: 399.99,
+    features: [
+      "Tudo do Premium",
+      "API Customizada",
+      "Integrações Ilimitadas",
+      "Suporte Dedicado",
+      "Treinamento Personalizado",
+    ],
+  },
 ];
 
 async function seedPlans() {

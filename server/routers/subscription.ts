@@ -142,4 +142,48 @@ export const subscriptionRouter = router({
         subscriptionId: session.subscription,
       };
     }),
+
+  // Iniciar trial de 15 dias
+  startTrial: publicProcedure
+    .input(z.object({ email: z.string().email() }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
+
+      // Calcular data de término do trial (15 dias a partir de agora)
+      const trialEndDate = new Date();
+      trialEndDate.setDate(trialEndDate.getDate() + 15);
+
+      // Verificar se usuário já existe
+      const { users } = await import("../../drizzle/schema");
+      const existingUser = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, input.email));
+
+      if (existingUser.length > 0) {
+        // Usuário já existe, ativar trial
+        await db
+          .update(users)
+          .set({
+            isTrialActive: 1,
+            trialEndDate,
+            trialPlanName: "premium",
+            updatedAt: new Date(),
+          })
+          .where(eq(users.email, input.email));
+
+        return {
+          success: true,
+          message: "Trial ativado com sucesso",
+          trialEndDate,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Trial será ativado após o cadastro",
+        trialEndDate,
+      };
+    }),
 });

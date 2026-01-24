@@ -100,6 +100,20 @@ export default function Home() {
                 </Button>
               </div>
 
+              {/* Botão Destacado de Teste Grátis */}
+              <div className="mt-8 p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl border-2 border-primary/20 backdrop-blur-sm">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-foreground mb-1">{t("hero.trial")}</h3>
+                    <p className="text-muted-foreground">{t("hero.trialSubtitle")}</p>
+                  </div>
+                  <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white text-lg px-8 py-3 rounded-xl shadow-soft hover:shadow-soft-hover transition-all transform hover:-translate-y-1 whitespace-nowrap">
+                    {language === "pt" ? "Começar Teste" : "Comenzar Prueba"}
+                    <ChevronRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </div>
+              </div>
+
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
                 {[t("hero.bullet1"), t("hero.bullet2"), t("hero.bullet3")].map((item: string, i: number) => (
                   <div key={i} className="flex items-center gap-2 text-sm font-medium text-muted-foreground">

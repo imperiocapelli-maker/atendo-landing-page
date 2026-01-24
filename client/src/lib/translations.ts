@@ -19,6 +19,8 @@ export const translations = {
       bullet1: "Agenda inteligente",
       bullet2: "Controle financeiro",
       bullet3: "Relatórios claros",
+      trial: "Teste Grátis por 15 Dias",
+      trialSubtitle: "Acesso completo ao plano Premium. Sem cartão de crédito necessário.",
     },
 
     // Problem
@@ -176,6 +178,8 @@ export const translations = {
       bullet1: "Agenda inteligente",
       bullet2: "Control financiero",
       bullet3: "Reportes claros",
+      trial: "Prueba Gratuita por 15 Días",
+      trialSubtitle: "Acceso completo al plan Premium. Sin tarjeta de crédito necesaria.",
     },
 
     // Problem

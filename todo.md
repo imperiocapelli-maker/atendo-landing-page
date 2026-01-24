@@ -262,3 +262,14 @@
 - [x] Corrigir PlanCheckoutButton.tsx com lógica especial para Scale
 - [x] Testar botão Premium - FUNCIONANDO 100%
 - [x] Todos os 4 botões de planos funcionando perfeitamente
+
+## Teste Grátis por 15 Dias
+
+- [ ] Criar botão destacado na homepage para "Teste Grátis por 15 Dias"
+- [ ] Implementar lógica de trial de 15 dias no banco de dados
+- [ ] Adicionar campo trial_end_date na tabela de usuários
+- [ ] Integrar com Stripe para cobrança automática após 15 dias
+- [ ] Criar webhook para processar fim do trial e cobrar automaticamente
+- [ ] Testar fluxo completo de trial -> cobrança automática
+- [ ] Criar página de boas-vindas para usuários em trial
+- [ ] Adicionar indicador visual de dias restantes do trial

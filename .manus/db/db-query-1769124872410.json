@@ -1,0 +1,66 @@
+{
+  "query": "SELECT * FROM subscriptionPlans;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT * FROM subscriptionPlans;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Básico",
+      "description": "Perfeito para começar",
+      "price": "99.99",
+      "currency": "BRL",
+      "stripePriceId": "price_1Ss5aNPYlRL7a8fIq6bjzAbV",
+      "stripeProductId": "prod_Tpl6p8t9maNLCJ",
+      "billingInterval": "monthly",
+      "features": "[\"Até 10 clientes\",\"Agendamentos básicos\",\"Relatórios simples\",\"Suporte por email\"]",
+      "isActive": "1",
+      "createdAt": "2026-01-21 17:52:56",
+      "updatedAt": "2026-01-21 17:52:56"
+    },
+    {
+      "id": "2",
+      "name": "Profissional",
+      "description": "Mais popular",
+      "price": "199.99",
+      "currency": "BRL",
+      "stripePriceId": "price_1Ss5aXPYlRL7a8fIskwnhC4x",
+      "stripeProductId": "prod_Tpl6klkmNzjNRr",
+      "billingInterval": "monthly",
+      "features": "[\"Até 100 clientes\",\"Agendamentos avançados\",\"Relatórios detalhados\",\"Precificação inteligente\",\"Suporte prioritário\",\"Integrações\"]",
+      "isActive": "1",
+      "createdAt": "2026-01-21 17:53:05",
+      "updatedAt": "2026-01-21 17:53:05"
+    },
+    {
+      "id": "3",
+      "name": "Enterprise",
+      "description": "Para grandes operações",
+      "price": "499.99",
+      "currency": "BRL",
+      "stripePriceId": "price_1Ss5aYPYlRL7a8fI9q6H9csC",
+      "stripeProductId": "prod_Tpl6F4iGZGydxn",
+      "billingInterval": "monthly",
+      "features": "[\"Clientes ilimitados\",\"Todas as funcionalidades\",\"API customizada\",\"Suporte 24/7\",\"Gerenciador dedicado\",\"Integrações ilimitadas\"]",
+      "isActive": "1",
+      "createdAt": "2026-01-21 17:53:06",
+      "updatedAt": "2026-01-21 17:53:06"
+    },
+    {
+      "id": "30002",
+      "name": "Scale",
+      "description": "Para empresas em crescimento",
+      "price": "399.99",
+      "currency": "BRL",
+      "stripePriceId": "price_1SsXLMPYlRL7a8fIM1jTx7iZ",
+      "stripeProductId": "prod_TqDm0YUmnWx1SZ",
+      "billingInterval": "monthly",
+      "features": "[\"Tudo do Premium\", \"API Customizada\", \"Integrações Ilimitadas\", \"Suporte Dedicado\", \"Treinamento Personalizado\"]",
+      "isActive": "1",
+      "createdAt": "2026-01-22 23:31:24",
+      "updatedAt": "2026-01-22 23:31:24"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tdescription\tprice\tcurrency\tstripePriceId\tstripeProductId\tbillingInterval\tfeatures\tisActive\tcreatedAt\tupdatedAt\n1\tBásico\tPerfeito para começar\t99.99\tBRL\tprice_1Ss5aNPYlRL7a8fIq6bjzAbV\tprod_Tpl6p8t9maNLCJ\tmonthly\t[\"Até 10 clientes\",\"Agendamentos básicos\",\"Relatórios simples\",\"Suporte por email\"]\t1\t2026-01-21 17:52:56\t2026-01-21 17:52:56\n2\tProfissional\tMais popular\t199.99\tBRL\tprice_1Ss5aXPYlRL7a8fIskwnhC4x\tprod_Tpl6klkmNzjNRr\tmonthly\t[\"Até 100 clientes\",\"Agendamentos avançados\",\"Relatórios detalhados\",\"Precificação inteligente\",\"Suporte prioritário\",\"Integrações\"]\t1\t2026-01-21 17:53:05\t2026-01-21 17:53:05\n3\tEnterprise\tPara grandes operações\t499.99\tBRL\tprice_1Ss5aYPYlRL7a8fI9q6H9csC\tprod_Tpl6F4iGZGydxn\tmonthly\t[\"Clientes ilimitados\",\"Todas as funcionalidades\",\"API customizada\",\"Suporte 24/7\",\"Gerenciador dedicado\",\"Integrações ilimitadas\"]\t1\t2026-01-21 17:53:06\t2026-01-21 17:53:06\n30002\tScale\tPara empresas em crescimento\t399.99\tBRL\tprice_1SsXLMPYlRL7a8fIM1jTx7iZ\tprod_TqDm0YUmnWx1SZ\tmonthly\t[\"Tudo do Premium\", \"API Customizada\", \"Integrações Ilimitadas\", \"Suporte Dedicado\", \"Treinamento Personalizado\"]\t1\t2026-01-22 23:31:24\t2026-01-22 23:31:24\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

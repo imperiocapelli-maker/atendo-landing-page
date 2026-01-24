@@ -1,0 +1,30 @@
+{
+  "query": "SELECT id, name, stripePriceId FROM subscriptionPlans ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT id, name, stripePriceId FROM subscriptionPlans ORDER BY id;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Básico",
+      "stripePriceId": "price_1Ss5aNPYlRL7a8fIq6bjzAbV"
+    },
+    {
+      "id": "2",
+      "name": "Profissional",
+      "stripePriceId": "price_1Ss5aXPYlRL7a8fIskwnhC4x"
+    },
+    {
+      "id": "3",
+      "name": "Enterprise",
+      "stripePriceId": "price_1Ss5aYPYlRL7a8fI9q6H9csC"
+    },
+    {
+      "id": "30002",
+      "name": "Scale",
+      "stripePriceId": "price_1SsXLMPYlRL7a8fIM1jTx7iZ"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tstripePriceId\n1\tBásico\tprice_1Ss5aNPYlRL7a8fIq6bjzAbV\n2\tProfissional\tprice_1Ss5aXPYlRL7a8fIskwnhC4x\n3\tEnterprise\tprice_1Ss5aYPYlRL7a8fI9q6H9csC\n30002\tScale\tprice_1SsXLMPYlRL7a8fIM1jTx7iZ\n",
+  "stderr": "",
+  "execution_time_ms": 60
+}
