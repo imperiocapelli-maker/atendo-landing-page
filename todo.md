@@ -280,3 +280,7 @@
 - [x] Integrar indicador no painel/dashboard do usuário
 - [x] Adicionar barra de progresso visual
 - [x] Testar indicador em diferentes cenários (1 dia, 7 dias, 14 dias)
+
+## Ícones das Funcionalidades
+
+- [x] Adicionar ícones para as 8 funcionalidades (Agenda, Financeiro, Clientes, Relatórios, Metas, WhatsApp, Assinatura, Precificação)

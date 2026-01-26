@@ -23,7 +23,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { translations } from "@/lib/translations";
-import { Check, ChevronRight, DollarSign, LayoutDashboard, Star, TrendingUp, Users } from "lucide-react";
+import { Check, ChevronRight, DollarSign, LayoutDashboard, Star, TrendingUp, Users, MessageCircle, PenTool, Calculator } from "lucide-react";
 
 export default function Home() {
   usePageTitle('Home');
@@ -227,9 +227,9 @@ export default function Home() {
               { key: "clientes", icon: <Users className="w-6 h-6" /> },
               { key: "relatorios", icon: <TrendingUp className="w-6 h-6" /> },
               { key: "metas", icon: <Star className="w-6 h-6" /> },
-              { key: "whatsapp", icon: <div className="i-lucide-message-circle w-6 h-6" /> },
-              { key: "assinatura", icon: <div className="i-lucide-pen-tool w-6 h-6" /> },
-              { key: "precificacao", icon: <div className="i-lucide-calculator w-6 h-6" /> },
+              { key: "whatsapp", icon: <MessageCircle className="w-6 h-6" /> },
+              { key: "assinatura", icon: <PenTool className="w-6 h-6" /> },
+              { key: "precificacao", icon: <Calculator className="w-6 h-6" /> },
             ].map((feature: any, i: number) => {
               const isClickable = feature.key === "precificacao";
               return (
