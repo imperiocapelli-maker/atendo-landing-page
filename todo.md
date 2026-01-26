@@ -284,3 +284,12 @@
 ## Ícones das Funcionalidades
 
 - [x] Adicionar ícones para as 8 funcionalidades (Agenda, Financeiro, Clientes, Relatórios, Metas, WhatsApp, Assinatura, Precificação)
+
+## Toggle Mensal/Anual com Preços Separados
+
+- [x] Criar toggle "Mensal / Anual" na página de planos
+- [x] Adicionar preços mensais e anuais ao banco de dados
+- [x] Criar preços separados no Stripe (Mensal e Anual)
+- [x] Adicionar badges de economia "Economize 25% no anual"
+- [x] Testar toggle e mudança de preços
+- [ ] Validar checkout com ambos os períodos

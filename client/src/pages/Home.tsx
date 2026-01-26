@@ -24,6 +24,7 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { translations } from "@/lib/translations";
 import { Check, ChevronRight, DollarSign, LayoutDashboard, Star, TrendingUp, Users, MessageCircle, PenTool, Calculator } from "lucide-react";
+import React from "react";
 
 export default function Home() {
   usePageTitle('Home');
@@ -34,6 +35,7 @@ export default function Home() {
   const { language } = useLanguage();
   const { currency, convertPrice, formatPrice } = useCurrency();
   const { isOpen: isCalendlyOpen, open: openCalendly, close: closeCalendly } = useCalendly();
+  const [isAnnual, setIsAnnual] = React.useState(true);
   
   const calendlyUrl = "https://calendly.com/agendo-suporte";
   
@@ -326,6 +328,25 @@ export default function Home() {
             <p className="text-lg text-muted-foreground">
               {t("pricing.subtitle")}
             </p>
+            
+            {/* Toggle Mensal/Anual */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <span className={`text-sm font-medium ${!isAnnual ? 'text-primary' : 'text-muted-foreground'}`}>Mensal</span>
+              <button
+                onClick={() => setIsAnnual(!isAnnual)}
+                className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors ${
+                  isAnnual ? 'bg-primary' : 'bg-gray-300'
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    isAnnual ? 'translate-x-9' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+              <span className={`text-sm font-medium ${isAnnual ? 'text-primary' : 'text-muted-foreground'}`}>Anual</span>
+              {isAnnual && <span className="ml-2 text-xs font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full">Economize 25%</span>}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto animate-slide-in-up">
@@ -336,8 +357,10 @@ export default function Home() {
                 <CardTitle className="text-2xl">{t("pricing.essential.name")}</CardTitle>
                 <CardDescription className="text-base mt-2">{t("pricing.essential.subtitle")}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-3xl font-extrabold">{formatPrice(convertPrice(89))}</span>
-                  <span className="text-muted-foreground">{t("pricing.essential.period")}</span>
+                  <span className="text-3xl font-extrabold">
+                    {formatPrice(convertPrice(isAnnual ? 89 : Math.round(89 * 1.25)))}
+                  </span>
+                  <span className="text-muted-foreground">{isAnnual ? '/mês (anual)' : '/mês'}</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -377,8 +400,10 @@ export default function Home() {
                 <CardTitle className="text-2xl">{t("pricing.pro.name")}</CardTitle>
                 <CardDescription className="text-base mt-2">{t("pricing.pro.subtitle")}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-3xl font-extrabold">{formatPrice(convertPrice(149))}</span>
-                  <span className="text-muted-foreground">{t("pricing.pro.period")}</span>
+                  <span className="text-3xl font-extrabold">
+                    {formatPrice(convertPrice(isAnnual ? 149 : Math.round(149 * 1.25)))}
+                  </span>
+                  <span className="text-muted-foreground">{isAnnual ? '/mês (anual)' : '/mês'}</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -414,8 +439,10 @@ export default function Home() {
                 <CardTitle className="text-2xl text-white">{t("pricing.premium.name")}</CardTitle>
                 <CardDescription className="text-base mt-2 text-gray-400">{t("pricing.premium.subtitle")}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-3xl font-extrabold">{formatPrice(convertPrice(249))}</span>
-                  <span className="text-gray-400">{t("pricing.premium.period")}</span>
+                  <span className="text-3xl font-extrabold">
+                    {formatPrice(convertPrice(isAnnual ? 249 : Math.round(249 * 1.25)))}
+                  </span>
+                  <span className="text-gray-400">{isAnnual ? '/mês (anual)' : '/mês'}</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -453,8 +480,10 @@ export default function Home() {
                 <CardTitle className="text-2xl">{t("pricing.scale.name")}</CardTitle>
                 <CardDescription className="text-base mt-2">{t("pricing.scale.subtitle")}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-3xl font-extrabold text-primary">{formatPrice(convertPrice(399))}+</span>
-                  <span className="text-muted-foreground">{t("pricing.scale.period")}</span>
+                  <span className="text-3xl font-extrabold text-primary">
+                    {formatPrice(convertPrice(isAnnual ? 399 : Math.round(399 * 1.25)))}
+                  </span>
+                  <span className="text-muted-foreground">{isAnnual ? '/mês (anual)' : '/mês'}</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
