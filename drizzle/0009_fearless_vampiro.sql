@@ -1,0 +1,1 @@
+ALTER TABLE `subscriptionPlans` ADD `installments` int DEFAULT 1 NOT NULL;

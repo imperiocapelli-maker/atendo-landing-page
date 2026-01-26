@@ -64,6 +64,13 @@
       "when": 1769218365965,
       "tag": "0008_furry_lady_vermin",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1769450641788,
+      "tag": "0009_fearless_vampiro",
+      "breakpoints": true
     }
   ]
 }

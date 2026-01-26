@@ -1,41 +1,24 @@
-import { createConnection } from 'mysql2/promise';
-import { URL } from 'url';
-import dotenv from 'dotenv';
+import mysql from 'mysql2/promise';
 
-dotenv.config();
-
-function parseDatabaseUrl(url) {
-  const parsed = new URL(url);
-  return {
-    host: parsed.hostname,
-    port: parseInt(parsed.port) || 3306,
-    user: parsed.username,
-    password: parsed.password,
-    database: parsed.pathname.slice(1),
-  };
+const dbUrl = process.env.DATABASE_URL;
+if (!dbUrl) {
+  console.error('DATABASE_URL not set');
+  process.exit(1);
 }
 
-async function checkPlans() {
-  let connection;
-  try {
-    const dbConfig = parseDatabaseUrl(process.env.DATABASE_URL);
-    connection = await createConnection({
-      ...dbConfig,
-      ssl: { rejectUnauthorized: false },
-    });
+const url = new URL(dbUrl);
+const config = {
+  host: url.hostname,
+  user: url.username,
+  password: url.password,
+  database: url.pathname.slice(1),
+  ssl: 'amazon',
+};
 
-    const [plans] = await connection.query('SELECT id, name, price, billingInterval, stripePriceId FROM subscriptionPlans ORDER BY name, billingInterval');
-    
-    console.log('Planos no banco de dados:\n');
-    plans.forEach(p => {
-      console.log(`${p.name} (${p.billingInterval}): R$ ${p.price} - ${p.stripePriceId}`);
-    });
-
-  } catch (error) {
-    console.error('Erro:', error.message);
-  } finally {
-    if (connection) await connection.end();
-  }
-}
-
-checkPlans();
+const conn = await mysql.createConnection(config);
+const [rows] = await conn.execute('SELECT id, name, price, billingInterval, installments, stripePriceId FROM subscriptionPlans ORDER BY name, billingInterval, installments');
+console.log('Planos no banco:');
+rows.forEach(row => {
+  console.log(`  ${row.name} - ${row.billingInterval} - ${row.installments || 'null'} - R$ ${row.price} - ${row.stripePriceId}`);
+});
+await conn.end();

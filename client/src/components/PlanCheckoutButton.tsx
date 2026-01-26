@@ -1,28 +1,26 @@
 import { Button } from "@/components/ui/button";
+import { PaymentOptionsModal } from "@/components/PaymentOptionsModal";
 import { trpc } from "@/lib/trpc";
 import { Loader2 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface PlanCheckoutButtonProps {
   planName: "essential" | "pro" | "premium" | "scale";
-  billingInterval?: "monthly" | "yearly";
   currency?: string;
   language?: string;
   className?: string;
   children?: React.ReactNode;
 }
 
-// Mapeamento de nomes da Home para nomes reais dos planos
 const planNameMap: Record<string, string> = {
-  essential: "Básico",
+  essential: "Essencial",
   pro: "Profissional",
-  premium: "Enterprise",
+  premium: "Premium",
   scale: "Scale",
 };
 
 export default function PlanCheckoutButton({
   planName,
-  billingInterval = "yearly",
   currency,
   language,
   className,
@@ -31,26 +29,17 @@ export default function PlanCheckoutButton({
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [showEmailModal, setShowEmailModal] = useState(false);
-  const [planId, setPlanId] = useState<number | null>(null);
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+  const [selectedPricingId, setSelectedPricingId] = useState<string | null>(null);
 
-  // Buscar planos para encontrar o ID correto
   const { data: plans } = trpc.subscription.listPlans.useQuery();
-
-  useEffect(() => {
-    if (plans) {
-      const realPlanName = planNameMap[planName];
-      const plan = plans.find((p) => p.name === realPlanName && p.billingInterval === billingInterval);
-      if (plan) {
-        setPlanId(plan.id);
-      }
-    }
-  }, [plans, planName, billingInterval]);
 
   const createCheckoutMutation = trpc.subscription.createCheckoutSession.useMutation({
     onSuccess: (data) => {
       if (data.checkoutUrl) {
         window.open(data.checkoutUrl, "_blank");
         setShowEmailModal(false);
+        setShowPaymentOptions(false);
         setEmail("");
       }
     },
@@ -65,6 +54,12 @@ export default function PlanCheckoutButton({
   };
 
   const handleCheckout = () => {
+    setShowPaymentOptions(true);
+  };
+
+  const handlePaymentOptionSelected = async (option: any) => {
+    setSelectedPricingId(option.stripePriceId);
+    setShowPaymentOptions(false);
     setShowEmailModal(true);
   };
 
@@ -79,24 +74,34 @@ export default function PlanCheckoutButton({
       return;
     }
 
-    if (!planId) {
+    if (!selectedPricingId) {
       alert("Plano não encontrado");
       return;
     }
 
     setIsLoading(true);
     try {
-      await createCheckoutMutation.mutateAsync({ planId, email });
+      await createCheckoutMutation.mutateAsync({ 
+        stripePriceId: selectedPricingId, 
+        email 
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
+  const realPlanName = planNameMap[planName];
+  const monthlyPlan = plans?.find((p) => p.name === realPlanName && p.billingInterval === "monthly");
+  const annualPlan = plans?.find((p) => p.name === realPlanName && p.billingInterval === "yearly" && (!p.installments || p.installments === 1));
+  const installmentPlans = plans?.filter((p) => p.name === realPlanName && p.billingInterval === "yearly" && p.installments && p.installments > 1) || [];
+
+  const isReady = monthlyPlan && annualPlan;
+
   return (
     <>
       <Button
         onClick={handleCheckout}
-        disabled={isLoading || createCheckoutMutation.isPending || !planId}
+        disabled={isLoading || createCheckoutMutation.isPending || !isReady}
         className={className || "w-full"}
       >
         {isLoading || createCheckoutMutation.isPending ? (
@@ -109,7 +114,23 @@ export default function PlanCheckoutButton({
         )}
       </Button>
 
-      {/* Email Modal */}
+      <PaymentOptionsModal
+        open={showPaymentOptions}
+        onOpenChange={setShowPaymentOptions}
+        planName={realPlanName}
+        monthlyPrice={typeof monthlyPlan?.price === 'string' ? parseFloat(monthlyPlan.price) : (monthlyPlan?.price || 0)}
+        monthlyStripePriceId={monthlyPlan?.stripePriceId || ""}
+        annualPrice={typeof annualPlan?.price === 'string' ? parseFloat(annualPlan.price) : (annualPlan?.price || 0)}
+        annualStripePriceId={annualPlan?.stripePriceId || ""}
+        installmentPrices={installmentPlans.map((p) => ({
+          installments: p.installments || 1,
+          price: typeof p.price === 'string' ? parseFloat(p.price) : p.price,
+          stripePriceId: p.stripePriceId,
+        }))}
+        onSelectPayment={handlePaymentOptionSelected}
+        isLoading={isLoading}
+      />
+
       {showEmailModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg p-6 max-w-md w-full">

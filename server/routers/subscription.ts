@@ -1,85 +1,55 @@
+import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
-import { subscriptions, subscriptionPlans, payments } from "../../drizzle/schema";
-import { eq, and } from "drizzle-orm";
+import { subscriptionPlans, subscriptions } from "../../drizzle/schema";
+import { eq } from "drizzle-orm";
 import Stripe from "stripe";
-import { SUBSCRIPTION_PLANS } from "../products";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2025-12-15.clover",
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
 export const subscriptionRouter = router({
-  // Listar todos os planos de assinatura disponíveis
+  // Listar planos de assinatura
   listPlans: publicProcedure.query(async () => {
     const db = await getDb();
     if (!db) throw new Error("Database not available");
     const plans = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.isActive, 1));
-    return plans.map((plan: typeof subscriptionPlans.$inferSelect) => ({
+    return plans.map((plan) => ({
       ...plan,
-      features: plan.features ? JSON.parse(plan.features) : [],
+      price: typeof plan.price === "string" ? parseFloat(plan.price) : plan.price,
     }));
   }),
 
   // Obter plano específico
-  getPlan: publicProcedure.input(z.number()).query(async ({ input: planId }) => {
-    const db = await getDb();
-    if (!db) throw new Error("Database not available");
-    const plan = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.id, planId));
-    if (!plan.length) throw new Error("Plano não encontrado");
-    return {
-      ...plan[0],
-      features: plan[0].features ? JSON.parse(plan[0].features) : [],
-    };
-  }),
-
-  // Obter assinatura atual do usuário
-  getCurrentSubscription: protectedProcedure.query(async ({ ctx }) => {
-    const db = await getDb();
-    if (!db) throw new Error("Database not available");
-    const subscription = await db
-      .select()
-      .from(subscriptions)
-      .where(eq(subscriptions.userId, ctx.user.id))
-      .limit(1);
-
-    if (!subscription.length) return null;
-
-    const plan = await db
-      .select()
-      .from(subscriptionPlans)
-      .where(eq(subscriptionPlans.id, subscription[0].planId));
-
-    return {
-      ...subscription[0],
-      plan: plan[0],
-    };
-  }),
-
-  // Criar sessão de checkout para assinatura (público - sem requerer login)
-  createCheckoutSession: publicProcedure
-    .input(z.object({ planId: z.number(), email: z.string().email() }))
-    .mutation(async ({ ctx, input }) => {
+  getPlan: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ input }) => {
       const db = await getDb();
       if (!db) throw new Error("Database not available");
-      const plan = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.id, input.planId));
+      const plan = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.id, input.id));
       if (!plan.length) throw new Error("Plano não encontrado");
+      return {
+        ...plan[0],
+        price: typeof plan[0].price === "string" ? parseFloat(plan[0].price) : plan[0].price,
+      };
+    }),
 
+  // Criar sessão de checkout
+  createCheckoutSession: publicProcedure
+    .input(z.object({ stripePriceId: z.string(), email: z.string().email() }))
+    .mutation(async ({ ctx, input }) => {
       const session = await stripe.checkout.sessions.create({
         customer_email: input.email,
         mode: "subscription",
         payment_method_types: ["card"],
         line_items: [
           {
-            price: plan[0].stripePriceId,
+            price: input.stripePriceId,
             quantity: 1,
           },
         ],
         success_url: `${ctx.req.headers.origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${ctx.req.headers.origin}/planos?canceled=true`,
         metadata: {
-          plan_id: input.planId.toString(),
           customer_email: input.email,
         },
         allow_promotion_codes: true,
@@ -97,93 +67,18 @@ export const subscriptionRouter = router({
     if (!db) throw new Error("Database not available");
     const paymentHistory = await db
       .select()
-      .from(payments)
-      .where(eq(payments.userId, ctx.user.id));
-
-    return paymentHistory.sort((a: typeof payments.$inferSelect, b: typeof payments.$inferSelect) => b.createdAt.getTime() - a.createdAt.getTime());
+      .from(subscriptions)
+      .where(eq(subscriptions.userId, ctx.user.id));
+    return paymentHistory;
   }),
 
   // Cancelar assinatura
-  cancelSubscription: protectedProcedure.mutation(async ({ ctx }) => {
-    const db = await getDb();
-    if (!db) throw new Error("Database not available");
-    const subscription = await db
-      .select()
-      .from(subscriptions)
-      .where(eq(subscriptions.userId, ctx.user.id))
-      .limit(1);
-
-    if (!subscription.length) throw new Error("Nenhuma assinatura ativa encontrada");
-
-    const stripeSubscription = await stripe.subscriptions.cancel(subscription[0].stripeSubscriptionId);
-
-    await db
-      .update(subscriptions)
-      .set({
-        status: "canceled",
-        canceledAt: new Date(),
-        updatedAt: new Date(),
-      })
-      .where(eq(subscriptions.id, subscription[0].id));
-
-    return {
-      success: true,
-      message: "Assinatura cancelada com sucesso",
-    };
-  }),
-
-  // Obter status de pagamento (para verificar após checkout)
-  getPaymentStatus: publicProcedure
-    .input(z.object({ sessionId: z.string() }))
-    .query(async ({ input, ctx }) => {
-      const session = await stripe.checkout.sessions.retrieve(input.sessionId);
-      return {
-        status: session.payment_status,
-        subscriptionId: session.subscription,
-      };
-    }),
-
-  // Iniciar trial de 15 dias
-  startTrial: publicProcedure
-    .input(z.object({ email: z.string().email() }))
+  cancelSubscription: protectedProcedure
+    .input(z.object({ subscriptionId: z.string() }))
     .mutation(async ({ input }) => {
-      const db = await getDb();
-      if (!db) throw new Error("Database not available");
-
-      // Calcular data de término do trial (15 dias a partir de agora)
-      const trialEndDate = new Date();
-      trialEndDate.setDate(trialEndDate.getDate() + 15);
-
-      // Verificar se usuário já existe
-      const { users } = await import("../../drizzle/schema");
-      const existingUser = await db
-        .select()
-        .from(users)
-        .where(eq(users.email, input.email));
-
-      if (existingUser.length > 0) {
-        // Usuário já existe, ativar trial
-        await db
-          .update(users)
-          .set({
-            isTrialActive: 1,
-            trialEndDate,
-            trialPlanName: "premium",
-            updatedAt: new Date(),
-          })
-          .where(eq(users.email, input.email));
-
-        return {
-          success: true,
-          message: "Trial ativado com sucesso",
-          trialEndDate,
-        };
-      }
-
-      return {
-        success: true,
-        message: "Trial será ativado após o cadastro",
-        trialEndDate,
-      };
+      await stripe.subscriptions.update(input.subscriptionId, {
+        cancel_at_period_end: true,
+      });
+      return { success: true };
     }),
 });

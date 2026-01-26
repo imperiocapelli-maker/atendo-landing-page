@@ -293,3 +293,17 @@
 - [x] Adicionar badges de economia "Economize 25% no anual"
 - [x] Testar toggle e mudança de preços
 - [ ] Validar checkout com ambos os períodos
+
+
+## Sistema de Pagamento com Parcelamento (2x, 3x, 6x, 12x)
+
+- [x] Atualizar preços anuais no banco (1.332, 2.232, 3.732, 5.976)
+- [x] Criar preços parcelados no Stripe (2x, 3x, 6x, 12x para cada plano)
+- [x] Implementar modal de checkout com seleção: Mensal vs Anual
+- [x] Se Anual, mostrar opções de parcelamento (2x, 3x, 6x, 12x)
+- [x] Integrar lógica de parcelamento no backend
+- [x] Atualizar PlanCheckoutButton para novo fluxo
+- [x] Criar componente PaymentOptionsModal
+- [x] Testar fluxo completo de pagamento com parcelamento
+- [x] Validar cálculo correto de parcelas sem juros
+- [x] Testes unitários para sistema de parcelamento

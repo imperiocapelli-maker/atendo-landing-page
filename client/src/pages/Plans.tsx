@@ -8,8 +8,8 @@ import { Loader2 } from "lucide-react";
 
 export default function Plans() {
   usePageTitle("Planos | Atendo");
-  const [loadingPlanId, setLoadingPlanId] = useState<number | null>(null);
-  const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
+  const [loadingPlanId, setLoadingPlanId] = useState<string | null>(null);
+  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
@@ -35,8 +35,8 @@ export default function Plans() {
     return emailRegex.test(emailValue);
   };
 
-  const handleSubscribe = async (planId: number) => {
-    setSelectedPlanId(planId);
+  const handleSubscribe = async (stripePriceId: string) => {
+    setSelectedPlanId(stripePriceId);
     setEmail("");
     setEmailError("");
   };
@@ -56,7 +56,7 @@ export default function Plans() {
 
     setLoadingPlanId(selectedPlanId);
     try {
-      await createCheckoutMutation.mutateAsync({ planId: selectedPlanId!, email });
+      await createCheckoutMutation.mutateAsync({ stripePriceId: selectedPlanId || "", email });
     } finally {
       setLoadingPlanId(null);
     }
@@ -136,7 +136,7 @@ export default function Plans() {
 
                 {/* Button */}
                 <Button
-                  onClick={() => handleSubscribe(plan.id)}
+                  onClick={() => handleSubscribe(plan.stripePriceId)}
                   className="w-full bg-primary hover:bg-primary/90"
                 >
                   Assinar Agora

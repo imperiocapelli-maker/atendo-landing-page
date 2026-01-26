@@ -247,6 +247,7 @@ export const subscriptionPlans = mysqlTable("subscriptionPlans", {
   stripePriceId: varchar("stripePriceId", { length: 255 }).notNull().unique(),
   stripeProductId: varchar("stripeProductId", { length: 255 }).notNull(),
   billingInterval: mysqlEnum("billingInterval", ["monthly", "yearly"]).default("monthly").notNull(),
+  installments: int("installments").default(1).notNull(), // Número de parcelas (1 = sem parcelamento)
   features: text("features"), // JSON array de features
   isActive: int("isActive").default(1).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
