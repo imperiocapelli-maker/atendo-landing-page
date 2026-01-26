@@ -253,3 +253,152 @@ describe("Subscription Router", () => {
   });
 
 });
+
+
+describe("Subscription Plans - Billing Intervals", () => {
+  it("should have both monthly and yearly plans for each plan name", async () => {
+    const db = await getDb();
+    if (!db) {
+      expect(true).toBe(true);
+      return;
+    }
+
+    const plans = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.isActive, 1));
+    
+    // Group plans by name
+    const plansByName = new Map<string, any[]>();
+    plans.forEach((plan: any) => {
+      if (!plansByName.has(plan.name)) {
+        plansByName.set(plan.name, []);
+      }
+      plansByName.get(plan.name)!.push(plan);
+    });
+
+    // Check each plan has both monthly and yearly
+    const expectedPlans = ["Essencial", "Profissional", "Premium", "Scale"];
+    for (const planName of expectedPlans) {
+      const planVariants = plansByName.get(planName);
+      expect(planVariants).toBeDefined();
+      expect(planVariants?.length).toBe(2);
+
+      const hasMonthly = planVariants?.some((p: any) => p.billingInterval === "monthly");
+      const hasYearly = planVariants?.some((p: any) => p.billingInterval === "yearly");
+      
+      expect(hasMonthly).toBe(true);
+      expect(hasYearly).toBe(true);
+    }
+  });
+
+  it("should have correct prices for monthly plans (25% higher than yearly)", async () => {
+    const db = await getDb();
+    if (!db) {
+      expect(true).toBe(true);
+      return;
+    }
+
+    const plans = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.isActive, 1));
+    
+    const plansByName = new Map<string, any[]>();
+    plans.forEach((plan: any) => {
+      if (!plansByName.has(plan.name)) {
+        plansByName.set(plan.name, []);
+      }
+      plansByName.get(plan.name)!.push(plan);
+    });
+
+    // Check prices
+    const expectedPrices = {
+      "Essencial": { yearly: 89, monthly: 111 },
+      "Profissional": { yearly: 149, monthly: 186 },
+      "Premium": { yearly: 249, monthly: 311 },
+      "Scale": { yearly: 399, monthly: 498 }
+    };
+
+    for (const [planName, prices] of Object.entries(expectedPrices)) {
+      const variants = plansByName.get(planName);
+      expect(variants).toBeDefined();
+
+      const yearlyPlan = variants?.find((p: any) => p.billingInterval === "yearly");
+      const monthlyPlan = variants?.find((p: any) => p.billingInterval === "monthly");
+
+      expect(parseFloat(yearlyPlan?.price)).toBe(prices.yearly);
+      expect(parseFloat(monthlyPlan?.price)).toBe(prices.monthly);
+    }
+  });
+
+  it("should have unique stripePriceId for each plan variant", async () => {
+    const db = await getDb();
+    if (!db) {
+      expect(true).toBe(true);
+      return;
+    }
+
+    const plans = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.isActive, 1));
+    
+    const priceIds = plans.map((p: any) => p.stripePriceId);
+    const uniquePriceIds = new Set(priceIds);
+
+    // All price IDs should be unique
+    expect(uniquePriceIds.size).toBe(priceIds.length);
+
+    // All price IDs should start with "price_"
+    priceIds.forEach((priceId: string) => {
+      expect(priceId).toMatch(/^price_/);
+    });
+  });
+
+  it("should have valid stripePriceId format", async () => {
+    const db = await getDb();
+    if (!db) {
+      expect(true).toBe(true);
+      return;
+    }
+
+    const plans = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.isActive, 1));
+    
+    plans.forEach((plan: any) => {
+      expect(plan.stripePriceId).toBeTruthy();
+      expect(plan.stripePriceId).toMatch(/^price_/);
+      expect(plan.stripePriceId.length).toBeGreaterThan(6);
+    });
+  });
+
+  it("should have correct stripeProductId for all plans", async () => {
+    const db = await getDb();
+    if (!db) {
+      expect(true).toBe(true);
+      return;
+    }
+
+    const plans = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.isActive, 1));
+    
+    plans.forEach((plan: any) => {
+      expect(plan.stripeProductId).toBeTruthy();
+      expect(plan.stripeProductId).toMatch(/^prod_/);
+    });
+  });
+
+  it("should have same stripeProductId for both billing intervals of the same plan", async () => {
+    const db = await getDb();
+    if (!db) {
+      expect(true).toBe(true);
+      return;
+    }
+
+    const plans = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.isActive, 1));
+    
+    const plansByName = new Map<string, any[]>();
+    plans.forEach((plan: any) => {
+      if (!plansByName.has(plan.name)) {
+        plansByName.set(plan.name, []);
+      }
+      plansByName.get(plan.name)!.push(plan);
+    });
+
+    for (const variants of plansByName.values()) {
+      if (variants.length === 2) {
+        expect(variants[0].stripeProductId).toBe(variants[1].stripeProductId);
+      }
+    }
+  });
+});

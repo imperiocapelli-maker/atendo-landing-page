@@ -379,6 +379,7 @@ export default function Home() {
               <CardFooter className="pt-8">
                 <PlanCheckoutButton
                   planName="essential"
+                  billingInterval={isAnnual ? "yearly" : "monthly"}
                   currency={currency}
                   language={language}
                   className="w-full bg-blue-100 text-primary hover:bg-blue-200 font-bold"
@@ -423,6 +424,7 @@ export default function Home() {
               <CardFooter className="pt-8">
                 <PlanCheckoutButton
                   planName="pro"
+                  billingInterval={isAnnual ? "yearly" : "monthly"}
                   currency={currency}
                   language={language}
                   className="w-full bg-primary text-white hover:bg-primary/90 font-bold shadow-lg"
@@ -464,6 +466,7 @@ export default function Home() {
               <CardFooter className="pt-8">
                 <PlanCheckoutButton
                   planName="premium"
+                  billingInterval={isAnnual ? "yearly" : "monthly"}
                   currency={currency}
                   language={language}
                   className="w-full bg-secondary text-white hover:bg-secondary/90 font-bold shadow-lg border-none"
@@ -503,6 +506,7 @@ export default function Home() {
               <CardFooter className="pt-8">
                 <PlanCheckoutButton
                   planName="scale"
+                  billingInterval={isAnnual ? "yearly" : "monthly"}
                   currency={currency}
                   language={language}
                   className="w-full bg-primary text-white hover:bg-primary/90 font-bold"

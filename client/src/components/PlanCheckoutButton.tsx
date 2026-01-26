@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 
 interface PlanCheckoutButtonProps {
   planName: "essential" | "pro" | "premium" | "scale";
+  billingInterval?: "monthly" | "yearly";
   currency?: string;
   language?: string;
   className?: string;
@@ -21,6 +22,7 @@ const planNameMap: Record<string, string> = {
 
 export default function PlanCheckoutButton({
   planName,
+  billingInterval = "yearly",
   currency,
   language,
   className,
@@ -37,12 +39,12 @@ export default function PlanCheckoutButton({
   useEffect(() => {
     if (plans) {
       const realPlanName = planNameMap[planName];
-      const plan = plans.find((p) => p.name === realPlanName);
+      const plan = plans.find((p) => p.name === realPlanName && p.billingInterval === billingInterval);
       if (plan) {
         setPlanId(plan.id);
       }
     }
-  }, [plans, planName]);
+  }, [plans, planName, billingInterval]);
 
   const createCheckoutMutation = trpc.subscription.createCheckoutSession.useMutation({
     onSuccess: (data) => {
@@ -95,7 +97,7 @@ export default function PlanCheckoutButton({
       <Button
         onClick={handleCheckout}
         disabled={isLoading || createCheckoutMutation.isPending || !planId}
-        className={className}
+        className={className || "w-full"}
       >
         {isLoading || createCheckoutMutation.isPending ? (
           <>
