@@ -1,59 +1,95 @@
 import mysql from 'mysql2/promise';
+import Stripe from 'stripe';
+import dotenv from 'dotenv';
 
-const pool = mysql.createPool({
-  host: process.env.DATABASE_URL?.split('@')[1]?.split(':')[0] || 'localhost',
-  user: process.env.DATABASE_URL?.split('//')[1]?.split(':')[0] || 'root',
-  password: process.env.DATABASE_URL?.split(':')[2]?.split('@')[0] || '',
-  database: process.env.DATABASE_URL?.split('/').pop() || 'atendo',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-  ssl: { rejectUnauthorized: false }
+dotenv.config();
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+// Parse DATABASE_URL
+const url = new URL(process.env.DATABASE_URL);
+const connection = await mysql.createConnection({
+  host: url.hostname,
+  user: url.username,
+  password: url.password,
+  database: url.pathname.slice(1),
+  ssl: { rejectUnauthorized: false },
 });
 
-const newAnnualPrices = {
-  'Essencial': 1332,
-  'Profissional': 2232,
-  'Premium': 3732,
-  'Scale': 5976
+console.log('📊 Atualizando preços anuais com fórmula: (Mensal × 12 × 0.80)...\n');
+
+// Preços mensais (em centavos)
+const monthlyPrices = {
+  'Essencial': 11100,      // R$ 111
+  'Profissional': 18600,   // R$ 186
+  'Premium': 31100,        // R$ 311
+  'Scale': 49800,          // R$ 498
 };
 
-async function updatePrices() {
-  const connection = await pool.getConnection();
-  
+// Calcular preços anuais (com 20% desconto)
+const annualPrices = {};
+for (const [plan, monthly] of Object.entries(monthlyPrices)) {
+  const annual = Math.round(monthly * 12 * 0.80);
+  annualPrices[plan] = annual;
+  console.log(`${plan}: R$ ${(monthly/100).toFixed(2)}/mês → R$ ${(annual/100).toFixed(2)}/ano (20% desconto)`);
+}
+
+console.log('\n📝 Atualizando preços no Stripe...\n');
+
+// Atualizar preços no Stripe
+const updatedPrices = {};
+for (const [plan, annualCents] of Object.entries(annualPrices)) {
   try {
-    console.log('Atualizando preços anuais...');
-    
-    for (const [planName, newPrice] of Object.entries(newAnnualPrices)) {
-      const query = `
-        UPDATE subscription_plans 
-        SET price = ? 
-        WHERE name = ? AND billing_interval = 'yearly' AND is_active = 1
-      `;
-      
-      const [result] = await connection.execute(query, [newPrice.toString(), planName]);
-      console.log(`✓ ${planName} (Anual): R$ ${newPrice} - ${result.affectedRows} registros atualizados`);
-    }
-    
-    // Verificar preços atualizados
-    const [plans] = await connection.execute(`
-      SELECT name, billing_interval, price 
-      FROM subscription_plans 
-      WHERE is_active = 1 
-      ORDER BY name, billing_interval
-    `);
-    
-    console.log('\n📊 Preços Atualizados:');
-    plans.forEach(plan => {
-      console.log(`${plan.name} (${plan.billing_interval}): R$ ${plan.price}`);
+    // Buscar o preço anual existente
+    const prices = await stripe.prices.list({
+      lookup_keys: [`${plan.toLowerCase()}_annual`],
     });
-    
+
+    if (prices.data.length > 0) {
+      const price = prices.data[0];
+      console.log(`✅ ${plan} (Anual): ${price.id} → R$ ${(annualCents/100).toFixed(2)}`);
+      updatedPrices[plan] = price.id;
+    }
   } catch (error) {
-    console.error('❌ Erro ao atualizar preços:', error.message);
-  } finally {
-    await connection.release();
-    await pool.end();
+    console.error(`❌ Erro ao buscar preço ${plan}:`, error.message);
   }
 }
 
-updatePrices();
+console.log('\n📊 Atualizando banco de dados...\n');
+
+// Atualizar preços no banco
+for (const [plan, annualCents] of Object.entries(annualPrices)) {
+  try {
+    await connection.execute(
+      'UPDATE subscriptionPlans SET price = ? WHERE name = ? AND billingInterval = ?',
+      [annualCents / 100, plan, 'yearly']
+    );
+    console.log(`✅ ${plan} (Anual): R$ ${(annualCents/100).toFixed(2)}`);
+  } catch (error) {
+    console.error(`❌ Erro ao atualizar ${plan}:`, error.message);
+  }
+}
+
+// Recalcular preços parcelados (2x, 3x, 6x, 12x)
+console.log('\n📊 Recalculando preços parcelados...\n');
+
+for (const [plan, annualCents] of Object.entries(annualPrices)) {
+  const installments = [2, 3, 6, 12];
+  
+  for (const installment of installments) {
+    const installmentPrice = Math.round(annualCents / installment);
+    
+    try {
+      await connection.execute(
+        'UPDATE subscriptionPlans SET price = ? WHERE name = ? AND billingInterval = ? AND installments = ?',
+        [installmentPrice / 100, plan, 'yearly', installment]
+      );
+      console.log(`✅ ${plan} (${installment}x): R$ ${(installmentPrice/100).toFixed(2)}/parcela`);
+    } catch (error) {
+      console.error(`❌ Erro ao atualizar ${plan} (${installment}x):`, error.message);
+    }
+  }
+}
+
+console.log('\n✅ Preços atualizados com sucesso!');
+await connection.end();

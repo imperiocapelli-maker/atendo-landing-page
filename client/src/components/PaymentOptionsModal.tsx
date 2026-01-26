@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Check } from 'lucide-react';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 interface PaymentOption {
   id: string;
@@ -46,6 +47,7 @@ export function PaymentOptionsModal({
   isLoading = false,
 }: PaymentOptionsModalProps) {
   const [selectedOption, setSelectedOption] = useState<string>('monthly');
+  const { convertPrice, formatPrice } = useCurrency();
 
   // Mostrar opções de parcelamento apenas se Anual foi selecionado
   const showInstallments = selectedOption === 'annual';
@@ -111,7 +113,7 @@ export function PaymentOptionsModal({
                     </div>
                     <div className="text-right">
                       <p className="text-lg font-bold text-primary">
-                        R$ {option.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        {formatPrice(convertPrice(option.price))}
                       </p>
                       {option.billingInterval === 'monthly' && (
                         <p className="text-xs text-muted-foreground">/mês</p>
@@ -160,10 +162,7 @@ export function PaymentOptionsModal({
                 <div className="border-t border-border pt-2 mt-2 flex justify-between">
                   <span className="font-semibold">Total</span>
                   <span className="font-bold text-lg text-primary">
-                    R${' '}
-                    {(
-                      paymentOptions.find((opt) => opt.id === selectedOption)?.price || 0
-                    ).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {formatPrice(convertPrice(paymentOptions.find((opt) => opt.id === selectedOption)?.price || 0))}
                   </span>
                 </div>
               </div>

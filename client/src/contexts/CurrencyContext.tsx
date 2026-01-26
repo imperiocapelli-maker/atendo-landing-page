@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-export type Currency = "BRL" | "ARS" | "PYG";
+export type Currency = "BRL" | "USD" | "ARS" | "PYG";
 
 interface ExchangeRates {
   BRL: number;
+  USD: number;
   ARS: number;
   PYG: number;
 }
@@ -23,19 +24,26 @@ const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined
 // Última atualização: Janeiro 2026
 const DEFAULT_RATES: ExchangeRates = {
   BRL: 1,
-  ARS: 45, // 1 BRL ≈ 45 ARS
-  PYG: 7500, // 1 BRL ≈ 7500 PYG
+  USD: 0.20,  // 1 USD ≈ 5 BRL
+  ARS: 0.022, // 1 ARS ≈ 45 BRL
+  PYG: 0.00013, // 1 PYG ≈ 7500 BRL
 };
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const [currency, setCurrency] = useState<Currency>("BRL");
   const [rates, setRates] = useState<ExchangeRates>(DEFAULT_RATES);
 
-  // Detectar localização do usuário e definir moeda padrão
+  // Carregar moeda salva do localStorage ou detectar localização
   useEffect(() => {
+    const savedCurrency = localStorage.getItem("selectedCurrency") as Currency | null;
+    if (savedCurrency && ["BRL", "USD", "ARS", "PYG"].includes(savedCurrency)) {
+      setCurrency(savedCurrency);
+      return;
+    }
+
+    // Se não houver moeda salva, detectar localização
     const detectCurrency = async () => {
       try {
-        // Usar geolocalização do navegador ou API de IP
         const response = await fetch("https://ipapi.co/json/");
         const data = await response.json();
         const country = data.country_code;
@@ -48,7 +56,6 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
           setCurrency("BRL");
         }
       } catch (error) {
-        // Em caso de erro, manter BRL como padrão
         setCurrency("BRL");
       }
     };
@@ -68,6 +75,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         if (data.rates) {
           setRates({
             BRL: 1,
+            USD: data.rates.USD || DEFAULT_RATES.USD,
             ARS: data.rates.ARS || DEFAULT_RATES.ARS,
             PYG: data.rates.PYG || DEFAULT_RATES.PYG,
           });
@@ -89,6 +97,8 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const formatPrice = (price: number): string => {
     if (currency === "BRL") {
       return `R$ ${price.toFixed(2).replace(".", ",")}`;
+    } else if (currency === "USD") {
+      return `$ ${price.toFixed(2)}`;
     } else if (currency === "ARS") {
       return `$${price.toFixed(2).replace(".", ",")}`;
     } else {
@@ -98,15 +108,22 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
 
   const getCurrencySymbol = (): string => {
     if (currency === "BRL") return "R$";
+    if (currency === "USD") return "$";
     if (currency === "ARS") return "$";
     return "₲";
+  };
+
+  // Salvar moeda no localStorage quando mudar
+  const handleSetCurrency = (newCurrency: Currency) => {
+    setCurrency(newCurrency);
+    localStorage.setItem("selectedCurrency", newCurrency);
   };
 
   return (
     <CurrencyContext.Provider
       value={{
         currency,
-        setCurrency,
+        setCurrency: handleSetCurrency,
         rates,
         convertPrice,
         formatPrice,
