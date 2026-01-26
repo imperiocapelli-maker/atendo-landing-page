@@ -307,3 +307,30 @@
 - [x] Testar fluxo completo de pagamento com parcelamento
 - [x] Validar cálculo correto de parcelas sem juros
 - [x] Testes unitários para sistema de parcelamento
+
+
+## Seletor de Moeda Multi-Moeda (BRL, USD, ARS, PYG)
+
+- [x] Criar contexto de moeda com suporte a múltiplas moedas
+- [x] Adicionar seletor de moeda no header
+- [x] Integrar conversão de preços em tempo real
+- [x] Salvar preferência de moeda no localStorage
+- [x] Testar conversão em todos os planos
+
+## Correção de Preços Anuais com Desconto de 20%
+
+- [x] Atualizar fórmula: Preço Anual = (Mensal × 12 × 0.80)
+- [x] Essencial: R$ 1.065,60/ano (R$ 111 × 12 × 0.80)
+- [x] Profissional: R$ 1.785,60/ano (R$ 186 × 12 × 0.80)
+- [x] Premium: R$ 2.985,60/ano (R$ 311 × 12 × 0.80)
+- [x] Scale: R$ 4.780,80/ano (R$ 498 × 12 × 0.80)
+- [x] Recalcular preços parcelados com novos valores anuais
+- [x] Testar conversão de moedas com novos preços
+
+## Bug Fix: Opções de Parcelamento Duplicadas
+
+- [x] Identificar duplicação de planos parcelados no banco (64 registros)
+- [x] Remover planos parcelados duplicados (64 -> 16)
+- [x] Testar fluxo de pagamento sem duplicação
+- [x] Confirmar que aparecem apenas 6 opções (Mensal, Anual, 2x, 3x, 6x, 12x)
+- [x] Validar preços corretos em todas as moedas (BRL, USD, ARS, PYG)

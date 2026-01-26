@@ -1,0 +1,522 @@
+{
+  "query": "SELECT id, name, billingInterval, installments, price, stripePriceId FROM subscriptionPlans WHERE installments > 1 ORDER BY name, installments;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT id, name, billingInterval, installments, price, stripePriceId FROM subscriptionPlans WHERE installments > 1 ORDER BY name, installments;",
+  "rows": [
+    {
+      "id": "60055",
+      "name": "Essencial",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "532.80",
+      "stripePriceId": "price_1StuG1PYlRL7a8fIMoLZfx4u"
+    },
+    {
+      "id": "60071",
+      "name": "Essencial",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "532.80",
+      "stripePriceId": "price_1StuGCPYlRL7a8fIIWSWVaJU"
+    },
+    {
+      "id": "60072",
+      "name": "Essencial",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "355.20",
+      "stripePriceId": "price_1StuGCPYlRL7a8fIP2v0tuqa"
+    },
+    {
+      "id": "60056",
+      "name": "Essencial",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "355.20",
+      "stripePriceId": "price_1StuG1PYlRL7a8fIInIzfNHO"
+    },
+    {
+      "id": "60057",
+      "name": "Essencial",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "177.60",
+      "stripePriceId": "price_1StuG2PYlRL7a8fI1UftYX1F"
+    },
+    {
+      "id": "60073",
+      "name": "Essencial",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "177.60",
+      "stripePriceId": "price_1StuGCPYlRL7a8fIVMZPdZWV"
+    },
+    {
+      "id": "60074",
+      "name": "Essencial",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "88.80",
+      "stripePriceId": "price_1StuGDPYlRL7a8fILJL1569G"
+    },
+    {
+      "id": "60058",
+      "name": "Essencial",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "88.80",
+      "stripePriceId": "price_1StuG2PYlRL7a8fIgBQjfkHK"
+    },
+    {
+      "id": "60026",
+      "name": "Essencial - 12x",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "111.00",
+      "stripePriceId": "price_1Stu97PYlRL7a8fIj2hVk4Mn"
+    },
+    {
+      "id": "60042",
+      "name": "Essencial - 12x",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "111.00",
+      "stripePriceId": "price_1Stu9GPYlRL7a8fIgtBcYnIC"
+    },
+    {
+      "id": "60039",
+      "name": "Essencial - 2x",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "666.00",
+      "stripePriceId": "price_1Stu9FPYlRL7a8fIFxajmKrW"
+    },
+    {
+      "id": "60023",
+      "name": "Essencial - 2x",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "666.00",
+      "stripePriceId": "price_1Stu96PYlRL7a8fIZlLG4IG7"
+    },
+    {
+      "id": "60024",
+      "name": "Essencial - 3x",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "444.00",
+      "stripePriceId": "price_1Stu97PYlRL7a8fIko67zu9F"
+    },
+    {
+      "id": "60040",
+      "name": "Essencial - 3x",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "444.00",
+      "stripePriceId": "price_1Stu9FPYlRL7a8fI8h4zhmBC"
+    },
+    {
+      "id": "60041",
+      "name": "Essencial - 6x",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "222.00",
+      "stripePriceId": "price_1Stu9FPYlRL7a8fI9sxZFZwg"
+    },
+    {
+      "id": "60025",
+      "name": "Essencial - 6x",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "222.00",
+      "stripePriceId": "price_1Stu97PYlRL7a8fI7bJIIHow"
+    },
+    {
+      "id": "60079",
+      "name": "Premium",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "1492.80",
+      "stripePriceId": "price_1StuGEPYlRL7a8fIIl5Er533"
+    },
+    {
+      "id": "60063",
+      "name": "Premium",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "1492.80",
+      "stripePriceId": "price_1StuG3PYlRL7a8fIVVH61kRy"
+    },
+    {
+      "id": "60080",
+      "name": "Premium",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "995.20",
+      "stripePriceId": "price_1StuGEPYlRL7a8fIZArQluel"
+    },
+    {
+      "id": "60064",
+      "name": "Premium",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "995.20",
+      "stripePriceId": "price_1StuG3PYlRL7a8fI3kWO5i0M"
+    },
+    {
+      "id": "60065",
+      "name": "Premium",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "497.60",
+      "stripePriceId": "price_1StuG4PYlRL7a8fIgPqa5xEX"
+    },
+    {
+      "id": "60081",
+      "name": "Premium",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "497.60",
+      "stripePriceId": "price_1StuGEPYlRL7a8fIMU0vXVgE"
+    },
+    {
+      "id": "60066",
+      "name": "Premium",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "248.80",
+      "stripePriceId": "price_1StuG4PYlRL7a8fIo6jwiaFX"
+    },
+    {
+      "id": "60082",
+      "name": "Premium",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "248.80",
+      "stripePriceId": "price_1StuGEPYlRL7a8fInyo4lcD2"
+    },
+    {
+      "id": "60050",
+      "name": "Premium - 12x",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "311.00",
+      "stripePriceId": "price_1Stu9IPYlRL7a8fIuUaL7ACF"
+    },
+    {
+      "id": "60034",
+      "name": "Premium - 12x",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "311.00",
+      "stripePriceId": "price_1Stu99PYlRL7a8fIkJMNQxvg"
+    },
+    {
+      "id": "60047",
+      "name": "Premium - 2x",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "1866.00",
+      "stripePriceId": "price_1Stu9HPYlRL7a8fIEAepfCJb"
+    },
+    {
+      "id": "60031",
+      "name": "Premium - 2x",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "1866.00",
+      "stripePriceId": "price_1Stu98PYlRL7a8fIMyzoUGxj"
+    },
+    {
+      "id": "60048",
+      "name": "Premium - 3x",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "1244.00",
+      "stripePriceId": "price_1Stu9HPYlRL7a8fIvoXg5ldp"
+    },
+    {
+      "id": "60032",
+      "name": "Premium - 3x",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "1244.00",
+      "stripePriceId": "price_1Stu98PYlRL7a8fIBqSEfoZI"
+    },
+    {
+      "id": "60033",
+      "name": "Premium - 6x",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "622.00",
+      "stripePriceId": "price_1Stu99PYlRL7a8fIKb2Xe0Kr"
+    },
+    {
+      "id": "60049",
+      "name": "Premium - 6x",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "622.00",
+      "stripePriceId": "price_1Stu9HPYlRL7a8fIyMB8imQc"
+    },
+    {
+      "id": "60059",
+      "name": "Profissional",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "892.80",
+      "stripePriceId": "price_1StuG2PYlRL7a8fIPAqyRnAz"
+    },
+    {
+      "id": "60075",
+      "name": "Profissional",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "892.80",
+      "stripePriceId": "price_1StuGDPYlRL7a8fIWs0E7TSk"
+    },
+    {
+      "id": "60076",
+      "name": "Profissional",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "595.20",
+      "stripePriceId": "price_1StuGDPYlRL7a8fIfPfk8RbY"
+    },
+    {
+      "id": "60060",
+      "name": "Profissional",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "595.20",
+      "stripePriceId": "price_1StuG2PYlRL7a8fIs40gQUcw"
+    },
+    {
+      "id": "60061",
+      "name": "Profissional",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "297.60",
+      "stripePriceId": "price_1StuG3PYlRL7a8fIRfAsTvsy"
+    },
+    {
+      "id": "60077",
+      "name": "Profissional",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "297.60",
+      "stripePriceId": "price_1StuGDPYlRL7a8fIReQZwDXz"
+    },
+    {
+      "id": "60062",
+      "name": "Profissional",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "148.80",
+      "stripePriceId": "price_1StuG3PYlRL7a8fI7PMOQxsU"
+    },
+    {
+      "id": "60078",
+      "name": "Profissional",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "148.80",
+      "stripePriceId": "price_1StuGEPYlRL7a8fI3V249qGO"
+    },
+    {
+      "id": "60030",
+      "name": "Profissional - 12x",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "186.00",
+      "stripePriceId": "price_1Stu98PYlRL7a8fIrQMd2zFc"
+    },
+    {
+      "id": "60046",
+      "name": "Profissional - 12x",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "186.00",
+      "stripePriceId": "price_1Stu9HPYlRL7a8fIn6X1zgTc"
+    },
+    {
+      "id": "60043",
+      "name": "Profissional - 2x",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "1116.00",
+      "stripePriceId": "price_1Stu9GPYlRL7a8fIkwk7RN19"
+    },
+    {
+      "id": "60027",
+      "name": "Profissional - 2x",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "1116.00",
+      "stripePriceId": "price_1Stu97PYlRL7a8fIpM9qo5xo"
+    },
+    {
+      "id": "60044",
+      "name": "Profissional - 3x",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "744.00",
+      "stripePriceId": "price_1Stu9GPYlRL7a8fIkO8VfShQ"
+    },
+    {
+      "id": "60028",
+      "name": "Profissional - 3x",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "744.00",
+      "stripePriceId": "price_1Stu98PYlRL7a8fIaf3gL3k1"
+    },
+    {
+      "id": "60045",
+      "name": "Profissional - 6x",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "372.00",
+      "stripePriceId": "price_1Stu9GPYlRL7a8fIxiGy7zBn"
+    },
+    {
+      "id": "60029",
+      "name": "Profissional - 6x",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "372.00",
+      "stripePriceId": "price_1Stu98PYlRL7a8fIQRpkbkb3"
+    },
+    {
+      "id": "60067",
+      "name": "Scale",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "2390.40",
+      "stripePriceId": "price_1StuG4PYlRL7a8fITjDAdR0Z"
+    },
+    {
+      "id": "60083",
+      "name": "Scale",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "2390.40",
+      "stripePriceId": "price_1StuGFPYlRL7a8fIS8wBZV7r"
+    },
+    {
+      "id": "60068",
+      "name": "Scale",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "1593.60",
+      "stripePriceId": "price_1StuG4PYlRL7a8fIJTt0xuIV"
+    },
+    {
+      "id": "60084",
+      "name": "Scale",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "1593.60",
+      "stripePriceId": "price_1StuGFPYlRL7a8fI6m0D0KEO"
+    },
+    {
+      "id": "60069",
+      "name": "Scale",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "796.80",
+      "stripePriceId": "price_1StuG5PYlRL7a8fIcQ4lEEL8"
+    },
+    {
+      "id": "60085",
+      "name": "Scale",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "796.80",
+      "stripePriceId": "price_1StuGFPYlRL7a8fIiCes4LnC"
+    },
+    {
+      "id": "60070",
+      "name": "Scale",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "398.40",
+      "stripePriceId": "price_1StuG5PYlRL7a8fIs4sTdCn2"
+    },
+    {
+      "id": "60086",
+      "name": "Scale",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "398.40",
+      "stripePriceId": "price_1StuGFPYlRL7a8fIt8Q9m6QP"
+    },
+    {
+      "id": "60038",
+      "name": "Scale - 12x",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "498.00",
+      "stripePriceId": "price_1Stu9APYlRL7a8fILxqWNNVm"
+    },
+    {
+      "id": "60054",
+      "name": "Scale - 12x",
+      "billingInterval": "yearly",
+      "installments": "12",
+      "price": "498.00",
+      "stripePriceId": "price_1Stu9JPYlRL7a8fIcdmVBLZZ"
+    },
+    {
+      "id": "60051",
+      "name": "Scale - 2x",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "2988.00",
+      "stripePriceId": "price_1Stu9IPYlRL7a8fIT0TOSapE"
+    },
+    {
+      "id": "60035",
+      "name": "Scale - 2x",
+      "billingInterval": "yearly",
+      "installments": "2",
+      "price": "2988.00",
+      "stripePriceId": "price_1Stu99PYlRL7a8fIRmX23OwZ"
+    },
+    {
+      "id": "60052",
+      "name": "Scale - 3x",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "1992.00",
+      "stripePriceId": "price_1Stu9IPYlRL7a8fIKIa1waVe"
+    },
+    {
+      "id": "60036",
+      "name": "Scale - 3x",
+      "billingInterval": "yearly",
+      "installments": "3",
+      "price": "1992.00",
+      "stripePriceId": "price_1Stu99PYlRL7a8fIguTi6uR4"
+    },
+    {
+      "id": "60037",
+      "name": "Scale - 6x",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "996.00",
+      "stripePriceId": "price_1Stu9APYlRL7a8fILiHtAQ2d"
+    },
+    {
+      "id": "60053",
+      "name": "Scale - 6x",
+      "billingInterval": "yearly",
+      "installments": "6",
+      "price": "996.00",
+      "stripePriceId": "price_1Stu9IPYlRL7a8fIz14u915E"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tbillingInterval\tinstallments\tprice\tstripePriceId\n60055\tEssencial\tyearly\t2\t532.80\tprice_1StuG1PYlRL7a8fIMoLZfx4u\n60071\tEssencial\tyearly\t2\t532.80\tprice_1StuGCPYlRL7a8fIIWSWVaJU\n60072\tEssencial\tyearly\t3\t355.20\tprice_1StuGCPYlRL7a8fIP2v0tuqa\n60056\tEssencial\tyearly\t3\t355.20\tprice_1StuG1PYlRL7a8fIInIzfNHO\n60057\tEssencial\tyearly\t6\t177.60\tprice_1StuG2PYlRL7a8fI1UftYX1F\n60073\tEssencial\tyearly\t6\t177.60\tprice_1StuGCPYlRL7a8fIVMZPdZWV\n60074\tEssencial\tyearly\t12\t88.80\tprice_1StuGDPYlRL7a8fILJL1569G\n60058\tEssencial\tyearly\t12\t88.80\tprice_1StuG2PYlRL7a8fIgBQjfkHK\n60026\tEssencial - 12x\tyearly\t12\t111.00\tprice_1Stu97PYlRL7a8fIj2hVk4Mn\n60042\tEssencial - 12x\tyearly\t12\t111.00\tprice_1Stu9GPYlRL7a8fIgtBcYnIC\n60039\tEssencial - 2x\tyearly\t2\t666.00\tprice_1Stu9FPYlRL7a8fIFxajmKrW\n60023\tEssencial - 2x\tyearly\t2\t666.00\tprice_1Stu96PYlRL7a8fIZlLG4IG7\n60024\tEssencial - 3x\tyearly\t3\t444.00\tprice_1Stu97PYlRL7a8fIko67zu9F\n60040\tEssencial - 3x\tyearly\t3\t444.00\tprice_1Stu9FPYlRL7a8fI8h4zhmBC\n60041\tEssencial - 6x\tyearly\t6\t222.00\tprice_1Stu9FPYlRL7a8fI9sxZFZwg\n60025\tEssencial - 6x\tyearly\t6\t222.00\tprice_1Stu97PYlRL7a8fI7bJIIHow\n60079\tPremium\tyearly\t2\t1492.80\tprice_1StuGEPYlRL7a8fIIl5Er533\n60063\tPremium\tyearly\t2\t1492.80\tprice_1StuG3PYlRL7a8fIVVH61kRy\n60080\tPremium\tyearly\t3\t995.20\tprice_1StuGEPYlRL7a8fIZArQluel\n60064\tPremium\tyearly\t3\t995.20\tprice_1StuG3PYlRL7a8fI3kWO5i0M\n60065\tPremium\tyearly\t6\t497.60\tprice_1StuG4PYlRL7a8fIgPqa5xEX\n60081\tPremium\tyearly\t6\t497.60\tprice_1StuGEPYlRL7a8fIMU0vXVgE\n60066\tPremium\tyearly\t12\t248.80\tprice_1StuG4PYlRL7a8fIo6jwiaFX\n60082\tPremium\tyearly\t12\t248.80\tprice_1StuGEPYlRL7a8fInyo4lcD2\n60050\tPremium - 12x\tyearly\t12\t311.00\tprice_1Stu9IPYlRL7a8fIuUaL7ACF\n60034\tPremium - 12x\tyearly\t12\t311.00\tprice_1Stu99PYlRL7a8fIkJMNQxvg\n60047\tPremium - 2x\tyearly\t2\t1866.00\tprice_1Stu9HPYlRL7a8fIEAepfCJb\n60031\tPremium - 2x\tyearly\t2\t1866.00\tprice_1Stu98PYlRL7a8fIMyzoUGxj\n60048\tPremium - 3x\tyearly\t3\t1244.00\tprice_1Stu9HPYlRL7a8fIvoXg5ldp\n60032\tPremium - 3x\tyearly\t3\t1244.00\tprice_1Stu98PYlRL7a8fIBqSEfoZI\n60033\tPremium - 6x\tyearly\t6\t622.00\tprice_1Stu99PYlRL7a8fIKb2Xe0Kr\n60049\tPremium - 6x\tyearly\t6\t622.00\tprice_1Stu9HPYlRL7a8fIyMB8imQc\n60059\tProfissional\tyearly\t2\t892.80\tprice_1StuG2PYlRL7a8fIPAqyRnAz\n60075\tProfissional\tyearly\t2\t892.80\tprice_1StuGDPYlRL7a8fIWs0E7TSk\n60076\tProfissional\tyearly\t3\t595.20\tprice_1StuGDPYlRL7a8fIfPfk8RbY\n60060\tProfissional\tyearly\t3\t595.20\tprice_1StuG2PYlRL7a8fIs40gQUcw\n60061\tProfissional\tyearly\t6\t297.60\tprice_1StuG3PYlRL7a8fIRfAsTvsy\n60077\tProfissional\tyearly\t6\t297.60\tprice_1StuGDPYlRL7a8fIReQZwDXz\n60062\tProfissional\tyearly\t12\t148.80\tprice_1StuG3PYlRL7a8fI7PMOQxsU\n60078\tProfissional\tyearly\t12\t148.80\tprice_1StuGEPYlRL7a8fI3V249qGO\n60030\tProfissional - 12x\tyearly\t12\t186.00\tprice_1Stu98PYlRL7a8fIrQMd2zFc\n60046\tProfissional - 12x\tyearly\t12\t186.00\tprice_1Stu9HPYlRL7a8fIn6X1zgTc\n60043\tProfissional - 2x\tyearly\t2\t1116.00\tprice_1Stu9GPYlRL7a8fIkwk7RN19\n60027\tProfissional - 2x\tyearly\t2\t1116.00\tprice_1Stu97PYlRL7a8fIpM9qo5xo\n60044\tProfissional - 3x\tyearly\t3\t744.00\tprice_1Stu9GPYlRL7a8fIkO8VfShQ\n60028\tProfissional - 3x\tyearly\t3\t744.00\tprice_1Stu98PYlRL7a8fIaf3gL3k1\n60045\tProfissional - 6x\tyearly\t6\t372.00\tprice_1Stu9GPYlRL7a8fIxiGy7zBn\n60029\tProfissional - 6x\tyearly\t6\t372.00\tprice_1Stu98PYlRL7a8fIQRpkbkb3\n60067\tScale\tyearly\t2\t2390.40\tprice_1StuG4PYlRL7a8fITjDAdR0Z\n60083\tScale\tyearly\t2\t2390.40\tprice_1StuGFPYlRL7a8fIS8wBZV7r\n60068\tScale\tyearly\t3\t1593.60\tprice_1StuG4PYlRL7a8fIJTt0xuIV\n60084\tScale\tyearly\t3\t1593.60\tprice_1StuGFPYlRL7a8fI6m0D0KEO\n60069\tScale\tyearly\t6\t796.80\tprice_1StuG5PYlRL7a8fIcQ4lEEL8\n60085\tScale\tyearly\t6\t796.80\tprice_1StuGFPYlRL7a8fIiCes4LnC\n60070\tScale\tyearly\t12\t398.40\tprice_1StuG5PYlRL7a8fIs4sTdCn2\n60086\tScale\tyearly\t12\t398.40\tprice_1StuGFPYlRL7a8fIt8Q9m6QP\n60038\tScale - 12x\tyearly\t12\t498.00\tprice_1Stu9APYlRL7a8fILxqWNNVm\n60054\tScale - 12x\tyearly\t12\t498.00\tprice_1Stu9JPYlRL7a8fIcdmVBLZZ\n60051\tScale - 2x\tyearly\t2\t2988.00\tprice_1Stu9IPYlRL7a8fIT0TOSapE\n60035\tScale - 2x\tyearly\t2\t2988.00\tprice_1Stu99PYlRL7a8fIRmX23OwZ\n60052\tScale - 3x\tyearly\t3\t1992.00\tprice_1Stu9IPYlRL7a8fIKIa1waVe\n60036\tScale - 3x\tyearly\t3\t1992.00\tprice_1Stu99PYlRL7a8fIguTi6uR4\n60037\tScale - 6x\tyearly\t6\t996.00\tprice_1Stu9APYlRL7a8fILiHtAQ2d\n60053\tScale - 6x\tyearly\t6\t996.00\tprice_1Stu9IPYlRL7a8fIz14u915E\n",
+  "stderr": "",
+  "execution_time_ms": 402
+}
