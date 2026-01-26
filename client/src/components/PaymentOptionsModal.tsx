@@ -47,6 +47,9 @@ export function PaymentOptionsModal({
 }: PaymentOptionsModalProps) {
   const [selectedOption, setSelectedOption] = useState<string>('monthly');
 
+  // Mostrar opções de parcelamento apenas se Anual foi selecionado
+  const showInstallments = selectedOption === 'annual';
+  
   const paymentOptions: PaymentOption[] = [
     {
       id: 'monthly',
@@ -64,7 +67,7 @@ export function PaymentOptionsModal({
       stripePriceId: annualStripePriceId,
       billingInterval: 'yearly',
     },
-    ...installmentPrices.map((ip) => ({
+    ...(showInstallments ? installmentPrices.map((ip) => ({
       id: `installment_${ip.installments}x`,
       label: `${ip.installments}x sem juros`,
       description: `${ip.installments} parcelas de R$ ${(ip.price).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
@@ -72,7 +75,7 @@ export function PaymentOptionsModal({
       stripePriceId: ip.stripePriceId,
       billingInterval: 'yearly' as const,
       installments: ip.installments,
-    })),
+    })) : []),
   ];
 
   const handleContinue = () => {
