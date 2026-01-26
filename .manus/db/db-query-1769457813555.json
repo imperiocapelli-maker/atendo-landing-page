@@ -1,0 +1,38 @@
+{
+  "query": "SELECT code, discountType, discountValue, applicablePlans, isActive FROM coupons;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT code, discountType, discountValue, applicablePlans, isActive FROM coupons;",
+  "rows": [
+    {
+      "code": "DESCONTO10",
+      "discountType": "percentage",
+      "discountValue": "10.00",
+      "applicablePlans": "[1,2,3,4]",
+      "isActive": "1"
+    },
+    {
+      "code": "ANNUAL20",
+      "discountType": "percentage",
+      "discountValue": "20.00",
+      "applicablePlans": "[1,2,3,4]",
+      "isActive": "1"
+    },
+    {
+      "code": "SAVE50",
+      "discountType": "fixed",
+      "discountValue": "50.00",
+      "applicablePlans": "[1,2,3,4]",
+      "isActive": "1"
+    },
+    {
+      "code": "EXCLUSIVE25",
+      "discountType": "percentage",
+      "discountValue": "25.00",
+      "applicablePlans": "[3,4]",
+      "isActive": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "code\tdiscountType\tdiscountValue\tapplicablePlans\tisActive\nDESCONTO10\tpercentage\t10.00\t[1,2,3,4]\t1\nANNUAL20\tpercentage\t20.00\t[1,2,3,4]\t1\nSAVE50\tfixed\t50.00\t[1,2,3,4]\t1\nEXCLUSIVE25\tpercentage\t25.00\t[3,4]\t1\n",
+  "stderr": "",
+  "execution_time_ms": 351
+}

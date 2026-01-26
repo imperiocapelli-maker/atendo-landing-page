@@ -334,3 +334,19 @@
 - [x] Testar fluxo de pagamento sem duplicação
 - [x] Confirmar que aparecem apenas 6 opções (Mensal, Anual, 2x, 3x, 6x, 12x)
 - [x] Validar preços corretos em todas as moedas (BRL, USD, ARS, PYG)
+
+
+## Sistema de Cupom de Desconto
+
+- [x] Criar tabela de cupons no banco de dados
+- [x] Criar API para validar e aplicar cupons
+- [x] Adicionar componente de input de cupom no modal de pagamento
+- [x] Integrar desconto no resumo e checkout do Stripe
+- [x] Testar fluxo completo de cupom de desconto
+- [x] Criar cupons de teste (ex: DESCONTO10, PROMO20)
+- [x] Testar cupom TESTE10 (10% desconto universal)
+- [x] Validar desconto em plano Mensal
+- [x] Validar desconto em plano Anual
+- [x] Validar desconto em parcelamento (2x, 3x, 6x, 12x)
+- [x] Criar cupom universal sem restrição de plano
+- [x] Verificar cálculo correto de desconto em todas as moedas

@@ -334,3 +334,36 @@ export const pendingUsers = mysqlTable("pendingUsers", {
 
 export type PendingUser = typeof pendingUsers.$inferSelect;
 export type InsertPendingUser = typeof pendingUsers.$inferInsert;
+
+// Tabela de Cupons de Desconto
+export const coupons = mysqlTable("coupons", {
+  id: int("id").autoincrement().primaryKey(),
+  code: varchar("code", { length: 50 }).notNull().unique(),
+  description: text("description"),
+  
+  // Tipo de Desconto
+  discountType: mysqlEnum("discountType", ["percentage", "fixed"]).default("percentage").notNull(),
+  discountValue: decimal("discountValue", { precision: 10, scale: 2 }).notNull(),
+  
+  // Limites
+  maxUses: int("maxUses"), // null = ilimitado
+  currentUses: int("currentUses").default(0).notNull(),
+  minPurchaseAmount: decimal("minPurchaseAmount", { precision: 10, scale: 2 }), // Compra mínima para usar
+  
+  // Validade
+  validFrom: timestamp("validFrom").defaultNow().notNull(),
+  validUntil: timestamp("validUntil"), // null = sem expiração
+  
+  // Restrições
+  applicablePlans: text("applicablePlans"), // JSON array de IDs de planos (null = todos)
+  
+  // Status
+  isActive: int("isActive").default(1).notNull(),
+  
+  // Metadados
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Coupon = typeof coupons.$inferSelect;
+export type InsertCoupon = typeof coupons.$inferInsert;

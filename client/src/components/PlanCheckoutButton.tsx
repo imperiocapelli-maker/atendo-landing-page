@@ -118,6 +118,7 @@ export default function PlanCheckoutButton({
         open={showPaymentOptions}
         onOpenChange={setShowPaymentOptions}
         planName={realPlanName}
+        planId={monthlyPlan?.id || 0}
         monthlyPrice={typeof monthlyPlan?.price === 'string' ? parseFloat(monthlyPlan.price) : (monthlyPlan?.price || 0)}
         monthlyStripePriceId={monthlyPlan?.stripePriceId || ""}
         annualPrice={typeof annualPlan?.price === 'string' ? parseFloat(annualPlan.price) : (annualPlan?.price || 0)}

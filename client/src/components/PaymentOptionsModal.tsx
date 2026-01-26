@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { Check } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Check, Loader2 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { trpc } from '@/lib/trpc';
 
 interface PaymentOption {
   id: string;
@@ -21,6 +23,7 @@ interface PaymentOptionsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   planName: string;
+  planId: number;
   monthlyPrice: number;
   monthlyStripePriceId: string;
   annualPrice: number;
@@ -38,6 +41,7 @@ export function PaymentOptionsModal({
   open,
   onOpenChange,
   planName,
+  planId,
   monthlyPrice,
   monthlyStripePriceId,
   annualPrice,
@@ -47,12 +51,16 @@ export function PaymentOptionsModal({
   isLoading = false,
 }: PaymentOptionsModalProps) {
   const [selectedOption, setSelectedOption] = useState<string>('monthly');
+  const [couponCode, setCouponCode] = useState<string>('');
+  const [appliedCoupon, setAppliedCoupon] = useState<any>(null);
+  const [couponError, setCouponError] = useState<string>('');
+  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
   const { convertPrice, formatPrice } = useCurrency();
 
-  // Mostrar opções de parcelamento apenas se Anual foi selecionado
-  const showInstallments = selectedOption === 'annual';
+  // Mostrar opções de parcelamento apenas se Anual foi selecionado ou se um parcelamento está selecionado
+  const showInstallments = selectedOption === 'annual' || selectedOption.startsWith('installment_');
   
-  const paymentOptions: PaymentOption[] = [
+  const paymentOptions: PaymentOption[] = useMemo(() => [
     {
       id: 'monthly',
       label: 'Mensal',
@@ -78,12 +86,61 @@ export function PaymentOptionsModal({
       billingInterval: 'yearly' as const,
       installments: ip.installments,
     })) : []),
-  ];
+  ], [showInstallments, monthlyPrice, monthlyStripePriceId, annualPrice, annualStripePriceId, installmentPrices]);
+
+  const selectedPaymentOption = paymentOptions.find((opt) => opt.id === selectedOption);
+  const totalAmount = selectedPaymentOption?.price || 0;
+  const finalAmount = appliedCoupon ? appliedCoupon.finalAmount : totalAmount;
+
+  const validateCouponMutation = trpc.coupon.validateCoupon.useQuery(
+    { code: couponCode, planId, totalAmount },
+    { enabled: false }
+  );
+
+  const handleValidateCoupon = async () => {
+    if (!couponCode.trim()) {
+      setCouponError('Digite um código de cupom');
+      return;
+    }
+
+    setIsValidatingCoupon(true);
+    setCouponError('');
+
+    try {
+      const result = await validateCouponMutation.refetch();
+      
+      if (result.data?.valid) {
+        setAppliedCoupon(result.data);
+        setCouponError('');
+      } else {
+        setCouponError(result.data?.error || 'Cupom inválido');
+        setAppliedCoupon(null);
+      }
+    } catch (error) {
+      setCouponError('Erro ao validar cupom');
+      setAppliedCoupon(null);
+    } finally {
+      setIsValidatingCoupon(false);
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponCode('');
+    setCouponError('');
+  };
 
   const handleContinue = () => {
     const selected = paymentOptions.find((opt) => opt.id === selectedOption);
     if (selected) {
-      onSelectPayment(selected);
+      // Passar informações do cupom junto com a opção de pagamento
+      const paymentData = {
+        ...selected,
+        couponCode: appliedCoupon ? couponCode : undefined,
+        couponDiscount: appliedCoupon?.discountAmount,
+        finalAmount: finalAmount,
+      };
+      onSelectPayment(paymentData as any);
     }
   };
 
@@ -131,6 +188,55 @@ export function PaymentOptionsModal({
             ))}
           </RadioGroup>
 
+          {/* Campo de Cupom de Desconto */}
+          <Card className="bg-blue-50 border-blue-200">
+            <CardContent className="pt-6">
+              <div className="space-y-3">
+                <Label className="text-sm font-semibold">Código de Cupom (Opcional)</Label>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Digite seu código de cupom"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                    disabled={isValidatingCoupon || !!appliedCoupon}
+                    className="flex-1"
+                  />
+                  {!appliedCoupon ? (
+                    <Button
+                      onClick={handleValidateCoupon}
+                      disabled={isValidatingCoupon || !couponCode.trim()}
+                      variant="outline"
+                      className="w-24"
+                    >
+                      {isValidatingCoupon ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        'Aplicar'
+                      )}
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleRemoveCoupon}
+                      variant="outline"
+                      className="w-24"
+                    >
+                      Remover
+                    </Button>
+                  )}
+                </div>
+                {couponError && (
+                  <p className="text-sm text-red-600">{couponError}</p>
+                )}
+                {appliedCoupon && (
+                  <div className="flex items-center gap-2 text-green-600 text-sm">
+                    <Check className="w-4 h-4" />
+                    <span>Cupom aplicado! Desconto de {appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountValue}%` : `R$ ${appliedCoupon.discountValue}`}</span>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Resumo do total */}
           <Card className="bg-muted/50">
             <CardContent className="pt-6">
@@ -159,10 +265,22 @@ export function PaymentOptionsModal({
                     </span>
                   </div>
                 )}
+                {appliedCoupon && (
+                  <>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Subtotal</span>
+                      <span className="font-medium">{formatPrice(convertPrice(totalAmount))}</span>
+                    </div>
+                    <div className="flex justify-between text-sm text-green-600">
+                      <span>Desconto ({appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountValue}%` : `R$ ${appliedCoupon.discountValue}`})</span>
+                      <span className="font-medium">-{formatPrice(convertPrice(appliedCoupon.discountAmount))}</span>
+                    </div>
+                  </>
+                )}
                 <div className="border-t border-border pt-2 mt-2 flex justify-between">
                   <span className="font-semibold">Total</span>
                   <span className="font-bold text-lg text-primary">
-                    {formatPrice(convertPrice(paymentOptions.find((opt) => opt.id === selectedOption)?.price || 0))}
+                    {formatPrice(convertPrice(finalAmount))}
                   </span>
                 </div>
               </div>

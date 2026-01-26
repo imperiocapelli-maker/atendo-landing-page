@@ -9,6 +9,7 @@ import { pricingRouter } from "./routers/pricing";
 import { servicesRouter } from "./routers/services";
 import { authTestRouter } from "./routers/auth-test";
 import { subscriptionRouter } from "./routers/subscription";
+import { couponRouter } from "./routers/coupon";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -28,6 +29,7 @@ export const appRouter = router({
   leads: leadsRouter,
   calendly: calendlyRouter,
   pricing: pricingRouter,
+  coupon: router(couponRouter),
   services: servicesRouter,
   authTest: authTestRouter,
   subscription: subscriptionRouter,
