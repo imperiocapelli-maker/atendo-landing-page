@@ -32,7 +32,7 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-4">
           <a href="#funcionalidades" className="navbar-link text-white/80 hover:text-white font-medium transition-colors">{t("navbar.funcionalidades")}</a>
-          <a href="#planos" className="navbar-link text-white/80 hover:text-white font-medium transition-colors">{t("navbar.planos")}</a>
+
           <a href="#sobre" className="navbar-link text-white/80 hover:text-white font-medium transition-colors">{t("navbar.sobre")}</a>
           <CurrencySelector />
           <Button variant="ghost" className="navbar-button font-bold text-white hover:bg-white/10">{t("navbar.entrar")}</Button>
@@ -54,7 +54,7 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border p-4 flex flex-col gap-4 shadow-xl animate-in slide-in-from-top-5">
           <a href="#funcionalidades" className="text-lg font-medium p-2 hover:bg-muted rounded-lg" onClick={() => setIsOpen(false)}>{t("navbar.funcionalidades")}</a>
-          <a href="#planos" className="text-lg font-medium p-2 hover:bg-muted rounded-lg" onClick={() => setIsOpen(false)}>{t("navbar.planos")}</a>
+
           <a href="#sobre" className="text-lg font-medium p-2 hover:bg-muted rounded-lg" onClick={() => setIsOpen(false)}>{t("navbar.sobre")}</a>
           <div className="flex flex-col gap-2 mt-2">
             <Button variant="outline" className="w-full justify-center">{t("navbar.entrar")}</Button>

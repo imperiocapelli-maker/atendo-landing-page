@@ -374,3 +374,13 @@
 - [x] Validar se preço enviado para Stripe está correto
 - [x] Testar fluxo: escolher plano → escolher parcelas → prosseguir → validar preço
 - [x] Preços agora corretos em todas as opções de pagamento
+
+## Remover Página de Planos Desnecessária
+
+- [x] Excluir arquivo client/src/pages/Plans.tsx
+- [x] Remover rota /planos do App.tsx
+- [x] Remover link "Planos" da navegação (Navbar)
+- [x] Footer usa links dinâmicos (não precisa alterar)
+- [x] Testar navegação e verificar links quebrados
+- [x] Validar que fluxo de pagamento funciona apenas pela home
+- [x] Página de planos removida com sucesso
