@@ -350,3 +350,11 @@
 - [x] Validar desconto em parcelamento (2x, 3x, 6x, 12x)
 - [x] Criar cupom universal sem restrição de plano
 - [x] Verificar cálculo correto de desconto em todas as moedas
+
+## Bug: Botão "Continuar para Pagamento" Não Aparece
+
+- [x] Diagnosticar por que botão estava fora da área visível
+- [x] Corrigir altura/scroll do modal (adicionado max-h-[90vh] overflow-y-auto)
+- [x] Testar se botão aparece em todas as resoluções
+- [x] Validar fluxo completo de pagamento
+- [x] Botão agora visível e acessível no modal
