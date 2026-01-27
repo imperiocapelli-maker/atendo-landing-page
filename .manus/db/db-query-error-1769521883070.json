@@ -1,0 +1,8 @@
+{
+  "query": "SELECT id, name, description, monthly_price, annual_price, billing_interval, installments, stripe_price_id FROM plans ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT id, name, description, monthly_price, annual_price, billing_interval, installments, stripe_price_id FROM plans ORDER BY id;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1146 (42S02) at line 1: Table 'pt8ffdtu6ktqczejjthtyk.plans' doesn't exist"
+  ]
+}

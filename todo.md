@@ -358,3 +358,19 @@
 - [x] Testar se botão aparece em todas as resoluções
 - [x] Validar fluxo completo de pagamento
 - [x] Botão agora visível e acessível no modal
+
+## Bug: Página de Planos com Duplicação e Nomes Errados
+
+- [x] Investigar por que aparecem planos duplicados (Premium - 6x, Scale - 2x, etc)
+- [x] Limpar dados duplicados do banco de dados (58 registros -> 28 corretos)
+- [x] Recriar planos com preços corretos
+- [x] Testar se página exibe apenas 4 planos principais
+- [x] Página de planos agora exibindo corretamente
+
+## Bug: Preço Diferente ao Escolher Parcelamento e Prosseguir
+
+- [x] Investigar por que preço mudava ao escolher parcelamento (problema de centavos)
+- [x] Corrigir cálculo de preço: dividir por 100 na API
+- [x] Validar se preço enviado para Stripe está correto
+- [x] Testar fluxo: escolher plano → escolher parcelas → prosseguir → validar preço
+- [x] Preços agora corretos em todas as opções de pagamento

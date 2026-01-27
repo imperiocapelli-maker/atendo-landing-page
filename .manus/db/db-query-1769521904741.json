@@ -1,0 +1,416 @@
+{
+  "query": "SELECT id, name, price, billingInterval, installments FROM subscriptionPlans ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT id, name, price, billingInterval, installments FROM subscriptionPlans ORDER BY id;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Essencial",
+      "price": "1065.60",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "2",
+      "name": "Profissional",
+      "price": "1785.60",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "3",
+      "name": "Premium",
+      "price": "2985.60",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "30003",
+      "name": "Scale",
+      "price": "4780.80",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60001",
+      "name": "Essencial",
+      "price": "111.00",
+      "billingInterval": "monthly",
+      "installments": "1"
+    },
+    {
+      "id": "60002",
+      "name": "Profissional",
+      "price": "186.00",
+      "billingInterval": "monthly",
+      "installments": "1"
+    },
+    {
+      "id": "60003",
+      "name": "Premium",
+      "price": "311.00",
+      "billingInterval": "monthly",
+      "installments": "1"
+    },
+    {
+      "id": "60004",
+      "name": "Scale",
+      "price": "498.00",
+      "billingInterval": "monthly",
+      "installments": "1"
+    },
+    {
+      "id": "60005",
+      "name": "Básico",
+      "price": "99.99",
+      "billingInterval": "monthly",
+      "installments": "1"
+    },
+    {
+      "id": "60006",
+      "name": "Enterprise",
+      "price": "499.99",
+      "billingInterval": "monthly",
+      "installments": "1"
+    },
+    {
+      "id": "60007",
+      "name": "Essencial - 2x",
+      "price": "666.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60008",
+      "name": "Essencial - 3x",
+      "price": "444.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60009",
+      "name": "Essencial - 6x",
+      "price": "222.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60010",
+      "name": "Essencial - 12x",
+      "price": "111.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60011",
+      "name": "Profissional - 2x",
+      "price": "1116.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60012",
+      "name": "Profissional - 3x",
+      "price": "744.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60013",
+      "name": "Profissional - 6x",
+      "price": "372.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60014",
+      "name": "Profissional - 12x",
+      "price": "186.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60015",
+      "name": "Premium - 2x",
+      "price": "1866.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60016",
+      "name": "Premium - 3x",
+      "price": "1244.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60017",
+      "name": "Premium - 6x",
+      "price": "622.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60018",
+      "name": "Premium - 12x",
+      "price": "311.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60019",
+      "name": "Scale - 2x",
+      "price": "2988.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60020",
+      "name": "Scale - 3x",
+      "price": "1992.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60021",
+      "name": "Scale - 6x",
+      "price": "996.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60022",
+      "name": "Scale - 12x",
+      "price": "498.00",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "60023",
+      "name": "Essencial - 2x",
+      "price": "666.00",
+      "billingInterval": "yearly",
+      "installments": "2"
+    },
+    {
+      "id": "60024",
+      "name": "Essencial - 3x",
+      "price": "444.00",
+      "billingInterval": "yearly",
+      "installments": "3"
+    },
+    {
+      "id": "60025",
+      "name": "Essencial - 6x",
+      "price": "222.00",
+      "billingInterval": "yearly",
+      "installments": "6"
+    },
+    {
+      "id": "60026",
+      "name": "Essencial - 12x",
+      "price": "111.00",
+      "billingInterval": "yearly",
+      "installments": "12"
+    },
+    {
+      "id": "60027",
+      "name": "Profissional - 2x",
+      "price": "1116.00",
+      "billingInterval": "yearly",
+      "installments": "2"
+    },
+    {
+      "id": "60028",
+      "name": "Profissional - 3x",
+      "price": "744.00",
+      "billingInterval": "yearly",
+      "installments": "3"
+    },
+    {
+      "id": "60029",
+      "name": "Profissional - 6x",
+      "price": "372.00",
+      "billingInterval": "yearly",
+      "installments": "6"
+    },
+    {
+      "id": "60030",
+      "name": "Profissional - 12x",
+      "price": "186.00",
+      "billingInterval": "yearly",
+      "installments": "12"
+    },
+    {
+      "id": "60031",
+      "name": "Premium - 2x",
+      "price": "1866.00",
+      "billingInterval": "yearly",
+      "installments": "2"
+    },
+    {
+      "id": "60032",
+      "name": "Premium - 3x",
+      "price": "1244.00",
+      "billingInterval": "yearly",
+      "installments": "3"
+    },
+    {
+      "id": "60033",
+      "name": "Premium - 6x",
+      "price": "622.00",
+      "billingInterval": "yearly",
+      "installments": "6"
+    },
+    {
+      "id": "60034",
+      "name": "Premium - 12x",
+      "price": "311.00",
+      "billingInterval": "yearly",
+      "installments": "12"
+    },
+    {
+      "id": "60035",
+      "name": "Scale - 2x",
+      "price": "2988.00",
+      "billingInterval": "yearly",
+      "installments": "2"
+    },
+    {
+      "id": "60036",
+      "name": "Scale - 3x",
+      "price": "1992.00",
+      "billingInterval": "yearly",
+      "installments": "3"
+    },
+    {
+      "id": "60037",
+      "name": "Scale - 6x",
+      "price": "996.00",
+      "billingInterval": "yearly",
+      "installments": "6"
+    },
+    {
+      "id": "60038",
+      "name": "Scale - 12x",
+      "price": "498.00",
+      "billingInterval": "yearly",
+      "installments": "12"
+    },
+    {
+      "id": "60055",
+      "name": "Essencial",
+      "price": "532.80",
+      "billingInterval": "yearly",
+      "installments": "2"
+    },
+    {
+      "id": "60056",
+      "name": "Essencial",
+      "price": "355.20",
+      "billingInterval": "yearly",
+      "installments": "3"
+    },
+    {
+      "id": "60057",
+      "name": "Essencial",
+      "price": "177.60",
+      "billingInterval": "yearly",
+      "installments": "6"
+    },
+    {
+      "id": "60058",
+      "name": "Essencial",
+      "price": "88.80",
+      "billingInterval": "yearly",
+      "installments": "12"
+    },
+    {
+      "id": "60059",
+      "name": "Profissional",
+      "price": "892.80",
+      "billingInterval": "yearly",
+      "installments": "2"
+    },
+    {
+      "id": "60060",
+      "name": "Profissional",
+      "price": "595.20",
+      "billingInterval": "yearly",
+      "installments": "3"
+    },
+    {
+      "id": "60061",
+      "name": "Profissional",
+      "price": "297.60",
+      "billingInterval": "yearly",
+      "installments": "6"
+    },
+    {
+      "id": "60062",
+      "name": "Profissional",
+      "price": "148.80",
+      "billingInterval": "yearly",
+      "installments": "12"
+    },
+    {
+      "id": "60063",
+      "name": "Premium",
+      "price": "1492.80",
+      "billingInterval": "yearly",
+      "installments": "2"
+    },
+    {
+      "id": "60064",
+      "name": "Premium",
+      "price": "995.20",
+      "billingInterval": "yearly",
+      "installments": "3"
+    },
+    {
+      "id": "60065",
+      "name": "Premium",
+      "price": "497.60",
+      "billingInterval": "yearly",
+      "installments": "6"
+    },
+    {
+      "id": "60066",
+      "name": "Premium",
+      "price": "248.80",
+      "billingInterval": "yearly",
+      "installments": "12"
+    },
+    {
+      "id": "60067",
+      "name": "Scale",
+      "price": "2390.40",
+      "billingInterval": "yearly",
+      "installments": "2"
+    },
+    {
+      "id": "60068",
+      "name": "Scale",
+      "price": "1593.60",
+      "billingInterval": "yearly",
+      "installments": "3"
+    },
+    {
+      "id": "60069",
+      "name": "Scale",
+      "price": "796.80",
+      "billingInterval": "yearly",
+      "installments": "6"
+    },
+    {
+      "id": "60070",
+      "name": "Scale",
+      "price": "398.40",
+      "billingInterval": "yearly",
+      "installments": "12"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tprice\tbillingInterval\tinstallments\n1\tEssencial\t1065.60\tyearly\t1\n2\tProfissional\t1785.60\tyearly\t1\n3\tPremium\t2985.60\tyearly\t1\n30003\tScale\t4780.80\tyearly\t1\n60001\tEssencial\t111.00\tmonthly\t1\n60002\tProfissional\t186.00\tmonthly\t1\n60003\tPremium\t311.00\tmonthly\t1\n60004\tScale\t498.00\tmonthly\t1\n60005\tBásico\t99.99\tmonthly\t1\n60006\tEnterprise\t499.99\tmonthly\t1\n60007\tEssencial - 2x\t666.00\tyearly\t1\n60008\tEssencial - 3x\t444.00\tyearly\t1\n60009\tEssencial - 6x\t222.00\tyearly\t1\n60010\tEssencial - 12x\t111.00\tyearly\t1\n60011\tProfissional - 2x\t1116.00\tyearly\t1\n60012\tProfissional - 3x\t744.00\tyearly\t1\n60013\tProfissional - 6x\t372.00\tyearly\t1\n60014\tProfissional - 12x\t186.00\tyearly\t1\n60015\tPremium - 2x\t1866.00\tyearly\t1\n60016\tPremium - 3x\t1244.00\tyearly\t1\n60017\tPremium - 6x\t622.00\tyearly\t1\n60018\tPremium - 12x\t311.00\tyearly\t1\n60019\tScale - 2x\t2988.00\tyearly\t1\n60020\tScale - 3x\t1992.00\tyearly\t1\n60021\tScale - 6x\t996.00\tyearly\t1\n60022\tScale - 12x\t498.00\tyearly\t1\n60023\tEssencial - 2x\t666.00\tyearly\t2\n60024\tEssencial - 3x\t444.00\tyearly\t3\n60025\tEssencial - 6x\t222.00\tyearly\t6\n60026\tEssencial - 12x\t111.00\tyearly\t12\n60027\tProfissional - 2x\t1116.00\tyearly\t2\n60028\tProfissional - 3x\t744.00\tyearly\t3\n60029\tProfissional - 6x\t372.00\tyearly\t6\n60030\tProfissional - 12x\t186.00\tyearly\t12\n60031\tPremium - 2x\t1866.00\tyearly\t2\n60032\tPremium - 3x\t1244.00\tyearly\t3\n60033\tPremium - 6x\t622.00\tyearly\t6\n60034\tPremium - 12x\t311.00\tyearly\t12\n60035\tScale - 2x\t2988.00\tyearly\t2\n60036\tScale - 3x\t1992.00\tyearly\t3\n60037\tScale - 6x\t996.00\tyearly\t6\n60038\tScale - 12x\t498.00\tyearly\t12\n60055\tEssencial\t532.80\tyearly\t2\n60056\tEssencial\t355.20\tyearly\t3\n60057\tEssencial\t177.60\tyearly\t6\n60058\tEssencial\t88.80\tyearly\t12\n60059\tProfissional\t892.80\tyearly\t2\n60060\tProfissional\t595.20\tyearly\t3\n60061\tProfissional\t297.60\tyearly\t6\n60062\tProfissional\t148.80\tyearly\t12\n60063\tPremium\t1492.80\tyearly\t2\n60064\tPremium\t995.20\tyearly\t3\n60065\tPremium\t497.60\tyearly\t6\n60066\tPremium\t248.80\tyearly\t12\n60067\tScale\t2390.40\tyearly\t2\n60068\tScale\t1593.60\tyearly\t3\n60069\tScale\t796.80\tyearly\t6\n60070\tScale\t398.40\tyearly\t12\n",
+  "stderr": "",
+  "execution_time_ms": 355
+}

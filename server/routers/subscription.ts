@@ -13,10 +13,13 @@ export const subscriptionRouter = router({
     const db = await getDb();
     if (!db) throw new Error("Database not available");
     const plans = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.isActive, 1));
-    return plans.map((plan) => ({
-      ...plan,
-      price: typeof plan.price === "string" ? parseFloat(plan.price) : plan.price,
-    }));
+    return plans.map((plan) => {
+      const price = typeof plan.price === "string" ? parseFloat(plan.price) : plan.price;
+      return {
+        ...plan,
+        price: price / 100, // Converter de centavos para reais
+      };
+    });
   }),
 
   // Obter plano específico
@@ -27,9 +30,10 @@ export const subscriptionRouter = router({
       if (!db) throw new Error("Database not available");
       const plan = await db.select().from(subscriptionPlans).where(eq(subscriptionPlans.id, input.id));
       if (!plan.length) throw new Error("Plano não encontrado");
+      const price = typeof plan[0].price === "string" ? parseFloat(plan[0].price) : plan[0].price;
       return {
         ...plan[0],
-        price: typeof plan[0].price === "string" ? parseFloat(plan[0].price) : plan[0].price,
+        price: price / 100, // Converter de centavos para reais
       };
     }),
 
