@@ -384,3 +384,27 @@
 - [x] Testar navegação e verificar links quebrados
 - [x] Validar que fluxo de pagamento funciona apenas pela home
 - [x] Página de planos removida com sucesso
+
+## Corrigir Valores de Preços
+
+- [x] Atualizar preços no banco de dados (111, 186, 311, 498)
+- [x] Corrigir cálculo de conversão de moeda
+- [x] Testar preços em todas as moedas
+- [x] Validar que preços aparecem corretos na página
+- [x] Preços agora exibindo corretamente: Essencial $30.698,16, Profissional $51.440,16, Premium $86.010,16, Scale $137.726,88
+
+
+## Otimização de Taxa de Conversão
+
+- [ ] Analisar funil de conversão atual (visitantes → clientes pagantes)
+- [ ] Otimizar CTAs (Call-to-Action) - textos mais persuasivos
+- [ ] Melhorar destaque da proposta de valor na home
+- [ ] Adicionar mais depoimentos e social proof
+- [ ] Otimizar formulário de checkout (remover campos desnecessários)
+- [ ] Adicionar garantia de satisfação ou período de teste
+- [ ] Implementar urgência (ex: "Oferta válida até...")
+- [ ] Testar variações de cores nos botões
+- [ ] Testar variações de textos nos CTAs
+- [ ] Adicionar FAQ mais visível na home
+- [ ] Implementar live chat para suporte em tempo real
+- [ ] Criar página de objeções comuns e respostas

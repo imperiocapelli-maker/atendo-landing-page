@@ -358,7 +358,7 @@ export default function Home() {
                 <CardDescription className="text-base mt-2">{t("pricing.essential.subtitle")}</CardDescription>
                 <div className="mt-4">
                   <span className="text-3xl font-extrabold">
-                    {formatPrice(convertPrice(isAnnual ? 89 : Math.round(89 * 1.25)))}
+                    {formatPrice(convertPrice(isAnnual ? 111 : Math.round(111 * 1.25)))}
                   </span>
                   <span className="text-muted-foreground">{isAnnual ? '/mês (anual)' : '/mês'}</span>
                 </div>
@@ -401,7 +401,7 @@ export default function Home() {
                 <CardDescription className="text-base mt-2">{t("pricing.pro.subtitle")}</CardDescription>
                 <div className="mt-4">
                   <span className="text-3xl font-extrabold">
-                    {formatPrice(convertPrice(isAnnual ? 149 : Math.round(149 * 1.25)))}
+                    {formatPrice(convertPrice(isAnnual ? 186 : Math.round(186 * 1.25)))}
                   </span>
                   <span className="text-muted-foreground">{isAnnual ? '/mês (anual)' : '/mês'}</span>
                 </div>
@@ -440,7 +440,7 @@ export default function Home() {
                 <CardDescription className="text-base mt-2 text-gray-400">{t("pricing.premium.subtitle")}</CardDescription>
                 <div className="mt-4">
                   <span className="text-3xl font-extrabold">
-                    {formatPrice(convertPrice(isAnnual ? 249 : Math.round(249 * 1.25)))}
+                    {formatPrice(convertPrice(isAnnual ? 311 : Math.round(311 * 1.25)))}
                   </span>
                   <span className="text-gray-400">{isAnnual ? '/mês (anual)' : '/mês'}</span>
                 </div>
@@ -481,7 +481,7 @@ export default function Home() {
                 <CardDescription className="text-base mt-2">{t("pricing.scale.subtitle")}</CardDescription>
                 <div className="mt-4">
                   <span className="text-3xl font-extrabold text-primary">
-                    {formatPrice(convertPrice(isAnnual ? 399 : Math.round(399 * 1.25)))}
+                    {formatPrice(convertPrice(isAnnual ? 498 : Math.round(498 * 1.25)))}
                   </span>
                   <span className="text-muted-foreground">{isAnnual ? '/mês (anual)' : '/mês'}</span>
                 </div>

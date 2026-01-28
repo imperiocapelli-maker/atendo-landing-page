@@ -1,0 +1,52 @@
+{
+  "query": "SELECT id, name, price, billingInterval, installments FROM subscriptionPlans WHERE name = 'Essencial' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT id, name, price, billingInterval, installments FROM subscriptionPlans WHERE name = 'Essencial' LIMIT 10;",
+  "rows": [
+    {
+      "id": "90001",
+      "name": "Essencial",
+      "price": "111.00",
+      "billingInterval": "monthly",
+      "installments": "1"
+    },
+    {
+      "id": "90002",
+      "name": "Essencial",
+      "price": "1065.60",
+      "billingInterval": "yearly",
+      "installments": "1"
+    },
+    {
+      "id": "90003",
+      "name": "Essencial",
+      "price": "532.80",
+      "billingInterval": "yearly",
+      "installments": "2"
+    },
+    {
+      "id": "90004",
+      "name": "Essencial",
+      "price": "355.20",
+      "billingInterval": "yearly",
+      "installments": "3"
+    },
+    {
+      "id": "90005",
+      "name": "Essencial",
+      "price": "177.60",
+      "billingInterval": "yearly",
+      "installments": "6"
+    },
+    {
+      "id": "90006",
+      "name": "Essencial",
+      "price": "88.80",
+      "billingInterval": "yearly",
+      "installments": "12"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tprice\tbillingInterval\tinstallments\n90001\tEssencial\t111.00\tmonthly\t1\n90002\tEssencial\t1065.60\tyearly\t1\n90003\tEssencial\t532.80\tyearly\t2\n90004\tEssencial\t355.20\tyearly\t3\n90005\tEssencial\t177.60\tyearly\t6\n90006\tEssencial\t88.80\tyearly\t12\n",
+  "stderr": "",
+  "execution_time_ms": 355
+}

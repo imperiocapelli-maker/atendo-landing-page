@@ -17,7 +17,7 @@ export const subscriptionRouter = router({
       const price = typeof plan.price === "string" ? parseFloat(plan.price) : plan.price;
       return {
         ...plan,
-        price: price / 100, // Converter de centavos para reais
+        price: price, // Preços já estão em reais no banco
       };
     });
   }),
@@ -33,7 +33,7 @@ export const subscriptionRouter = router({
       const price = typeof plan[0].price === "string" ? parseFloat(plan[0].price) : plan[0].price;
       return {
         ...plan[0],
-        price: price / 100, // Converter de centavos para reais
+        price: price, // Preços já estão em reais no banco
       };
     }),
 

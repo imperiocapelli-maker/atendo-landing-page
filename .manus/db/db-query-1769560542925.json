@@ -1,0 +1,70 @@
+{
+  "query": "SELECT id, name, price, billingInterval FROM subscriptionPlans LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT id, name, price, billingInterval FROM subscriptionPlans LIMIT 10;",
+  "rows": [
+    {
+      "id": "90001",
+      "name": "Essencial",
+      "price": "11100.00",
+      "billingInterval": "monthly"
+    },
+    {
+      "id": "90002",
+      "name": "Essencial",
+      "price": "1065.60",
+      "billingInterval": "yearly"
+    },
+    {
+      "id": "90003",
+      "name": "Essencial",
+      "price": "53280.00",
+      "billingInterval": "yearly"
+    },
+    {
+      "id": "90004",
+      "name": "Essencial",
+      "price": "35520.00",
+      "billingInterval": "yearly"
+    },
+    {
+      "id": "90005",
+      "name": "Essencial",
+      "price": "17760.00",
+      "billingInterval": "yearly"
+    },
+    {
+      "id": "90006",
+      "name": "Essencial",
+      "price": "8880.00",
+      "billingInterval": "yearly"
+    },
+    {
+      "id": "90007",
+      "name": "Profissional",
+      "price": "18600.00",
+      "billingInterval": "monthly"
+    },
+    {
+      "id": "90008",
+      "name": "Profissional",
+      "price": "1785.60",
+      "billingInterval": "yearly"
+    },
+    {
+      "id": "90009",
+      "name": "Profissional",
+      "price": "89280.00",
+      "billingInterval": "yearly"
+    },
+    {
+      "id": "90010",
+      "name": "Profissional",
+      "price": "59520.00",
+      "billingInterval": "yearly"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tprice\tbillingInterval\n90001\tEssencial\t11100.00\tmonthly\n90002\tEssencial\t1065.60\tyearly\n90003\tEssencial\t53280.00\tyearly\n90004\tEssencial\t35520.00\tyearly\n90005\tEssencial\t17760.00\tyearly\n90006\tEssencial\t8880.00\tyearly\n90007\tProfissional\t18600.00\tmonthly\n90008\tProfissional\t1785.60\tyearly\n90009\tProfissional\t89280.00\tyearly\n90010\tProfissional\t59520.00\tyearly\n",
+  "stderr": "",
+  "execution_time_ms": 350
+}
