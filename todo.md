@@ -384,6 +384,14 @@
 - [x] Testar fluxo completo: aplicar cupom → checkout → Stripe
 - [x] Validar que o cliente vê o desconto refletido no Stripe Checkout
 
+## 🔧 CORREÇÃO: CONFLITO ENTRE allow_promotion_codes E discounts
+
+- [x] Diagnosticar erro: "You may only specify one of these parameters: allow_promotion_codes, discounts"
+- [x] Corrigir lógica em subscription.ts para usar APENAS discounts quando cupom aplicado
+- [x] Usar allow_promotion_codes APENAS quando sem cupom aplicado
+- [x] Testar fluxo corrigido no navegador
+- [x] ✅ SUCESSO: Desconto refletido corretamente no Stripe Checkout
+
 ## Remover Página de Planos Desnecessária
 
 - [x] Excluir arquivo client/src/pages/Plans.tsx

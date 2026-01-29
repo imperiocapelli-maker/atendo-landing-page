@@ -103,7 +103,9 @@ export const subscriptionRouter = router({
         }
       }
       
-      const session = await stripe.checkout.sessions.create({
+      // Construir objeto de sessao dinamicamente
+      // Nota: Stripe nao permite usar allow_promotion_codes E discounts simultaneamente
+      const sessionConfig: any = {
         customer_email: input.email,
         mode: "subscription",
         payment_method_types: ["card"],
@@ -119,9 +121,16 @@ export const subscriptionRouter = router({
           customer_email: input.email,
           couponCode: input.couponCode || '',
         },
-        allow_promotion_codes: true,
-        discounts: discounts.length > 0 ? discounts : undefined,
-      });
+      };
+      
+      // Se houver cupom aplicado, usar discounts. Caso contrario, permitir cupons de promocao
+      if (discounts.length > 0) {
+        sessionConfig.discounts = discounts;
+      } else {
+        sessionConfig.allow_promotion_codes = true;
+      }
+      
+      const session = await stripe.checkout.sessions.create(sessionConfig);
 
       return {
         checkoutUrl: session.url,
