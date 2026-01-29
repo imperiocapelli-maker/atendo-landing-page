@@ -408,3 +408,25 @@
 - [ ] Adicionar FAQ mais visível na home
 - [ ] Implementar live chat para suporte em tempo real
 - [ ] Criar página de objeções comuns e respostas
+
+
+## Atualizar Pre\u00e7os Confirmados pelo Usu\u00e1rio
+
+- [ ] Atualizar pre\u00e7os no banco de dados para os valores confirmados
+- [ ] Atualizar pre\u00e7os hardcoded na p\u00e1gina Home.tsx
+- [ ] Testar pre\u00e7os em todas as moedas (BRL, ARS, PYG)
+- [ ] Validar modal de pagamento com novos pre\u00e7os
+- [ ] Validar cupom de desconto com novos pre\u00e7os
+- [ ] Fazer checkpoint final com pre\u00e7os corretos
+
+
+## Atualizar Preços Confirmados
+
+- [x] Atualizar preços no banco de dados (111, 186, 311, 498)
+- [x] Atualizar preços hardcoded na página Home.tsx
+- [x] Testar preços em BRL
+- [x] Validar modal de pagamento
+- [x] Validar todas as opções de parcelamento
+- [x] Preços confirmados: Essencial R$ 111, Profissional R$ 186, Premium R$ 311, Scale R$ 498
+- [x] Todos os preços exibindo corretamente em BRL
+- [x] Parcelamento funcionando: 2x R$ 532,80, 3x R$ 355,20, 6x R$ 177,60, 12x R$ 88,80
