@@ -138,7 +138,10 @@ export function PaymentOptionsModal({
         ...selected,
         couponCode: appliedCoupon ? couponCode : undefined,
         couponDiscount: appliedCoupon?.discountAmount,
+        couponId: appliedCoupon?.couponId,
         finalAmount: finalAmount,
+        discountType: appliedCoupon?.discountType,
+        discountValue: appliedCoupon?.discountValue,
       };
       onSelectPayment(paymentData as any);
     }

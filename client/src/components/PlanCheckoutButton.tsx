@@ -59,6 +59,17 @@ export default function PlanCheckoutButton({
 
   const handlePaymentOptionSelected = async (option: any) => {
     setSelectedPricingId(option.stripePriceId);
+    if (option.couponCode) {
+      localStorage.setItem('appliedCoupon', JSON.stringify({
+        code: option.couponCode,
+        couponId: option.couponId,
+        discountType: option.discountType,
+        discountValue: option.discountValue,
+        finalAmount: option.finalAmount,
+      }));
+    } else {
+      localStorage.removeItem('appliedCoupon');
+    }
     setShowPaymentOptions(false);
     setShowEmailModal(true);
   };
@@ -81,10 +92,17 @@ export default function PlanCheckoutButton({
 
     setIsLoading(true);
     try {
+      const appliedCouponStr = localStorage.getItem('appliedCoupon');
+      const appliedCoupon = appliedCouponStr ? JSON.parse(appliedCouponStr) : null;
+      
       await createCheckoutMutation.mutateAsync({ 
         stripePriceId: selectedPricingId, 
-        email 
+        email,
+        couponCode: appliedCoupon?.code,
+        couponId: appliedCoupon?.couponId,
       });
+      
+      localStorage.removeItem('appliedCoupon');
     } finally {
       setIsLoading(false);
     }

@@ -375,6 +375,15 @@
 - [x] Testar fluxo: escolher plano → escolher parcelas → prosseguir → validar preço
 - [x] Preços agora corretos em todas as opções de pagamento
 
+## 🔄 INTEGRAÇÃO STRIPE COM CUPOM DE DESCONTO
+
+- [x] Analisar estrutura atual de checkout
+- [x] Atualizar endpoint POST /api/checkout para validar e aplicar cupom
+- [x] Implementar lógica de desconto no Stripe (discount object)
+- [x] Adicionar testes vitest para validação de desconto
+- [x] Testar fluxo completo: aplicar cupom → checkout → Stripe
+- [x] Validar que o cliente vê o desconto refletido no Stripe Checkout
+
 ## Remover Página de Planos Desnecessária
 
 - [x] Excluir arquivo client/src/pages/Plans.tsx
@@ -447,3 +456,12 @@
 - [x] Testado e validado: R$ 1.065,60 -> R$ 745,92
 - [x] Desconto aplicado: R$ 319,68 (30%)
 - [x] Sistema 100% funcional
+
+## 🔄 INTEGRAÇÃO STRIPE COM CUPOM DE DESCONTO
+
+- [ ] Analisar estrutura atual de checkout
+- [ ] Atualizar endpoint POST /api/checkout para validar e aplicar cupom
+- [ ] Implementar lógica de desconto no Stripe (discount object)
+- [ ] Adicionar testes vitest para validação de desconto
+- [ ] Testar fluxo completo: aplicar cupom → checkout → Stripe
+- [ ] Validar que o cliente vê o desconto refletido no Stripe Checkout

@@ -1,7 +1,7 @@
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
 import { z } from "zod";
 import { getDb } from "../db";
-import { subscriptionPlans, subscriptions } from "../../drizzle/schema";
+import { subscriptionPlans, subscriptions, coupons } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
 import Stripe from "stripe";
 
@@ -39,8 +39,70 @@ export const subscriptionRouter = router({
 
   // Criar sessão de checkout
   createCheckoutSession: publicProcedure
-    .input(z.object({ stripePriceId: z.string(), email: z.string().email() }))
+    .input(z.object({ 
+      stripePriceId: z.string(), 
+      email: z.string().email(),
+      couponCode: z.string().optional(),
+      couponId: z.number().optional(),
+    }))
     .mutation(async ({ ctx, input }) => {
+      // Validar e aplicar cupom se fornecido
+      let discounts: any[] = [];
+      
+      if (input.couponCode && input.couponId) {
+        try {
+          const db = await getDb();
+          if (db) {
+            // Validar cupom no banco de dados
+            const coupon = await db
+              .select()
+              .from(coupons)
+              .where(eq(coupons.id, input.couponId))
+              .limit(1);
+
+            if (coupon.length > 0 && coupon[0].isActive) {
+              const couponData = coupon[0];
+              
+              // Verificar validade
+              const now = new Date();
+              if (couponData.validFrom && new Date(couponData.validFrom) > now) {
+                throw new Error("Cupom ainda não está válido");
+              }
+              if (couponData.validUntil && new Date(couponData.validUntil) < now) {
+                throw new Error("Cupom expirado");
+              }
+              
+              // Criar ou recuperar cupom do Stripe
+              let stripeCoupon = await stripe.coupons.list({ limit: 100 });
+              let existingCoupon = stripeCoupon.data.find(c => c.metadata?.couponId === input.couponId?.toString());
+              
+              if (!existingCoupon) {
+                // Criar novo cupom no Stripe
+                const discountValue = parseFloat(couponData.discountValue.toString());
+                const discountType = couponData.discountType;
+                
+                existingCoupon = await stripe.coupons.create({
+                  percent_off: discountType === 'percentage' ? discountValue : undefined,
+                  amount_off: discountType === 'fixed' ? Math.round(discountValue * 100) : undefined,
+                  currency: discountType === 'fixed' ? 'brl' : undefined,
+                  metadata: {
+                    couponId: input.couponId?.toString() || '',
+                    couponCode: input.couponCode || '',
+                  },
+                });
+              }
+              
+              if (existingCoupon) {
+                discounts = [{ coupon: existingCoupon.id }];
+              }
+            }
+          }
+        } catch (error) {
+          console.error("Erro ao aplicar cupom:", error);
+          // Continuar sem cupom se houver erro
+        }
+      }
+      
       const session = await stripe.checkout.sessions.create({
         customer_email: input.email,
         mode: "subscription",
@@ -55,8 +117,10 @@ export const subscriptionRouter = router({
         cancel_url: `${ctx.req.headers.origin}/planos?canceled=true`,
         metadata: {
           customer_email: input.email,
+          couponCode: input.couponCode || '',
         },
         allow_promotion_codes: true,
+        discounts: discounts.length > 0 ? discounts : undefined,
       });
 
       return {
