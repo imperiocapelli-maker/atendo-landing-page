@@ -92,14 +92,16 @@ export const couponRouter = {
       }
 
       // Verificar se cupom é aplicável ao plano
-      if (couponData.applicablePlans) {
+      if (couponData.applicablePlans && couponData.applicablePlans.trim() !== '') {
         try {
           const applicablePlans = JSON.parse(couponData.applicablePlans);
-          if (!applicablePlans.includes(planId)) {
-            return {
-              valid: false,
-              error: "Cupom não é válido para este plano",
-            };
+          if (Array.isArray(applicablePlans) && applicablePlans.length > 0) {
+            if (!applicablePlans.includes(planId)) {
+              return {
+                valid: false,
+                error: "Cupom não é válido para este plano",
+              };
+            }
           }
         } catch {
           // Se não conseguir fazer parse, considerar como válido para todos

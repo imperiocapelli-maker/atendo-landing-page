@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM coupons WHERE code = 'HOMEPRO'; INSERT INTO coupons (code, discountType, discountValue, applicablePlans, isActive) VALUES ('HOMEPRO', 'percentage', 30, NULL, 1)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute DELETE FROM coupons WHERE code = 'HOMEPRO'; INSERT INTO coupons (code, discountType, discountValue, applicablePlans, isActive) VALUES ('HOMEPRO', 'percentage', 30, NULL, 1)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 411
+}

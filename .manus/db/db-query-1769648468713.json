@@ -1,0 +1,26 @@
+{
+  "query": "SELECT * FROM coupons WHERE code = 'HOMEPRO'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 296ivcngTEGWqDy.root --database PT8FFdtU6KTqcZejJTHTYK --execute SELECT * FROM coupons WHERE code = 'HOMEPRO'",
+  "rows": [
+    {
+      "id": "30001",
+      "code": "HOMEPRO",
+      "description": "NULL",
+      "discountType": "percentage",
+      "discountValue": "30.00",
+      "maxUses": "NULL",
+      "currentUses": "0",
+      "minPurchaseAmount": "NULL",
+      "validFrom": "2026-01-29 00:58:53",
+      "validUntil": "NULL",
+      "applicablePlans": "[\"annual\"]",
+      "isActive": "1",
+      "createdAt": "2026-01-29 00:58:53",
+      "updatedAt": "2026-01-29 00:58:53"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcode\tdescription\tdiscountType\tdiscountValue\tmaxUses\tcurrentUses\tminPurchaseAmount\tvalidFrom\tvalidUntil\tapplicablePlans\tisActive\tcreatedAt\tupdatedAt\n30001\tHOMEPRO\tNULL\tpercentage\t30.00\tNULL\t0\tNULL\t2026-01-29 00:58:53\tNULL\t[\"annual\"]\t1\t2026-01-29 00:58:53\t2026-01-29 00:58:53\n",
+  "stderr": "",
+  "execution_time_ms": 350
+}

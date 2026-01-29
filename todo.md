@@ -430,3 +430,20 @@
 - [x] Preços confirmados: Essencial R$ 111, Profissional R$ 186, Premium R$ 311, Scale R$ 498
 - [x] Todos os preços exibindo corretamente em BRL
 - [x] Parcelamento funcionando: 2x R$ 532,80, 3x R$ 355,20, 6x R$ 177,60, 12x R$ 88,80
+
+
+## Criar Cupom HOMEPRO (30% Desconto Anual)
+
+- [ ] Criar cupom HOMEPRO no banco de dados
+- [ ] Configurar desconto de 30% apenas para planos anuais
+- [ ] Testar cupom HOMEPRO no modal de pagamento
+- [ ] Validar desconto em todos os 4 planos anuais
+- [ ] Confirmar cálculo correto: Anual - 30% = novo valor
+
+
+## ✅ CUPOM HOMEPRO CRIADO E TESTADO COM SUCESSO
+
+- [x] Cupom HOMEPRO com 30% de desconto no plano anual
+- [x] Testado e validado: R$ 1.065,60 -> R$ 745,92
+- [x] Desconto aplicado: R$ 319,68 (30%)
+- [x] Sistema 100% funcional
