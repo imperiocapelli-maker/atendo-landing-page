@@ -143,14 +143,15 @@ export default function Home() {
       </section>
 
       {/* BEFORE/AFTER SECTION */}
-      <section className="py-20 bg-white relative overflow-hidden">
+      {/* FREE TRIAL SECTION */}
+      <section className="py-20 bg-gradient-to-b from-white to-blue-50 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-16 animate-slide-in-up">
             <img 
-              src="/antes_depois.png" 
-              alt="Transformacao: Antes Caos vs Depois Organizacao com Atendo" 
+              src={language === "pt" ? "/teste_gratis_pt.png" : "/teste_gratis_es.png"}
+              alt={language === "pt" ? "Teste Grátis por 7 Dias" : "Prueba Gratis por 7 Días"}
               loading="lazy"
-              className="w-full h-auto rounded-2xl shadow-2xl"
+              className="w-full h-auto rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
             />
           </div>
         </div>
