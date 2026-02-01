@@ -130,15 +130,34 @@ export default function Home() {
 
             <div className="relative lg:h-auto flex items-center justify-center animate-slide-in-right" style={{ animationDelay: "0.2s" }}>
               <div className="relative z-10 w-full">
-                <DemoCarousel />
+                <img 
+                  src="/hero_atendo.png" 
+                  alt="Atendo Dashboard - Sistema de Agendamento com Controle Financeiro" 
+                  loading="lazy"
+                  className="w-full h-auto rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* PROBLEM SECTION */}
+      {/* BEFORE/AFTER SECTION */}
       <section className="py-20 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto mb-16 animate-slide-in-up">
+            <img 
+              src="/antes_depois_atendo.png" 
+              alt="Transformacao: Antes Caos vs Depois Organizacao com Atendo" 
+              loading="lazy"
+              className="w-full h-auto rounded-2xl shadow-2xl"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* PROBLEM SECTION */}
+      <section className="py-20 bg-muted/30 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-slide-in-up">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
@@ -203,6 +222,20 @@ export default function Home() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES VISUAL SECTION */}
+      <section className="py-20 bg-muted/20 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto mb-16 animate-slide-in-up">
+            <img 
+              src="/funcionalidades_atendo.png" 
+              alt="4 Funcionalidades Principais do Atendo: Agenda Online, Controle de Clientes, Relatorios Financeiros, Lembretes Automaticos" 
+              loading="lazy"
+              className="w-full h-auto rounded-2xl shadow-2xl"
+            />
           </div>
         </div>
       </section>
