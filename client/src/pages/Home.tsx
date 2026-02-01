@@ -147,7 +147,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-16 animate-slide-in-up">
             <img 
-              src="/antes_depois_atendo.png" 
+              src="/antes_depois.png" 
               alt="Transformacao: Antes Caos vs Depois Organizacao com Atendo" 
               loading="lazy"
               className="w-full h-auto rounded-2xl shadow-2xl"
