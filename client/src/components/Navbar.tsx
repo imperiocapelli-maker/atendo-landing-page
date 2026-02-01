@@ -43,8 +43,9 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-white p-2"
+          className="md:hidden text-white p-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label="Menu"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -52,13 +53,13 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border p-4 flex flex-col gap-4 shadow-xl animate-in slide-in-from-top-5">
-          <a href="#funcionalidades" className="text-lg font-medium p-2 hover:bg-muted rounded-lg" onClick={() => setIsOpen(false)}>{t("navbar.funcionalidades")}</a>
+        <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border p-4 flex flex-col gap-3 shadow-xl animate-in slide-in-from-top-5 max-h-[calc(100vh-70px)] overflow-y-auto">
+          <a href="#funcionalidades" className="text-base font-medium p-3 hover:bg-muted rounded-lg transition-colors min-h-[44px] flex items-center" onClick={() => setIsOpen(false)}>{t("navbar.funcionalidades")}</a>
 
-          <a href="#sobre" className="text-lg font-medium p-2 hover:bg-muted rounded-lg" onClick={() => setIsOpen(false)}>{t("navbar.sobre")}</a>
+          <a href="#sobre" className="text-base font-medium p-3 hover:bg-muted rounded-lg transition-colors min-h-[44px] flex items-center" onClick={() => setIsOpen(false)}>{t("navbar.sobre")}</a>
           <div className="flex flex-col gap-2 mt-2">
-            <Button variant="outline" className="w-full justify-center">{t("navbar.entrar")}</Button>
-            <Button className="w-full justify-center bg-white text-primary font-bold">{t("navbar.comecaAgora")}</Button>
+            <Button variant="outline" className="w-full justify-center h-12">{t("navbar.entrar")}</Button>
+            <Button className="w-full justify-center bg-white text-primary font-bold h-12">{t("navbar.comecaAgora")}</Button>
           </div>
         </div>
       )}

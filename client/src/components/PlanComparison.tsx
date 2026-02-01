@@ -278,7 +278,8 @@ export default function PlanComparison() {
       </div>
 
       {/* Comparison Table */}
-      <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-soft">
+      {/* Desktop View */}
+      <div className="hidden md:block overflow-x-auto rounded-2xl border border-gray-200 shadow-soft">
         <table className="w-full">
           {/* Header */}
           <thead>
@@ -329,6 +330,33 @@ export default function PlanComparison() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile View - Cards */}
+      <div className="md:hidden space-y-6">
+        {plans.map((plan) => (
+          <div key={plan.id} className="border border-gray-200 rounded-2xl overflow-hidden shadow-soft">
+            <div className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200 px-4 py-4">
+              <h3 className="text-lg font-bold text-gray-900">{plan.name}</h3>
+              <p className="text-sm font-semibold text-gray-600 mt-1">
+                {plan.id === "essential" && "R$ 89/mês"}
+                {plan.id === "pro" && "R$ 149/mês"}
+                {plan.id === "premium" && "R$ 249/mês"}
+                {plan.id === "scale" && "A partir de R$ 399/mês"}
+              </p>
+            </div>
+            <div className="divide-y divide-gray-200">
+              {filteredFeatures.map((feature) => (
+                <div key={feature.id} className="px-4 py-3 flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-700">{feature.name}</span>
+                  <div className="ml-2">
+                    <FeatureIcon value={getFeatureValue(feature, plan.id)} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Summary Section */}

@@ -176,7 +176,8 @@ export default function Home() {
             <div className="order-2 lg:order-1 animate-slide-in-left" style={{ animationDelay: "0.2s" }}>
               <img 
                 src="/images/hero-salon.jpg" 
-                alt="Salon" 
+                alt="Imagem de um salão de beleza moderno com profissionais atendendo clientes" 
+                loading="lazy"
                 className="rounded-3xl shadow-2xl object-cover h-[500px] w-full"
               />
             </div>
