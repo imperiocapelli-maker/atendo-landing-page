@@ -1,5 +1,5 @@
 
-import LanguageSwitcher from "@/components/LanguageSwitcher";
+
 import CurrencySwitcher from "@/components/CurrencySwitcher";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -51,7 +51,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background font-sans selection:bg-primary/20">
       <Navbar />
-      <LanguageSwitcher />
       <CurrencySwitcher />
       
       {/* HERO SECTION */}
