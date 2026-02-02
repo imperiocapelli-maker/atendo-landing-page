@@ -28,6 +28,10 @@ export default function CurrencySelector() {
 
   const currentCurrency = CURRENCY_OPTIONS.find((opt) => opt.value === currency);
 
+  const handleLanguageChange = (lang: 'pt' | 'es') => {
+    setLanguage(lang);
+  };
+
   return (
     <div className="flex items-center gap-2">
       {/* Language Selector - Only Flags */}
@@ -35,8 +39,9 @@ export default function CurrencySelector() {
         {LANGUAGE_OPTIONS.map((option) => (
           <button
             key={option.value}
-            onClick={() => setLanguage(option.value)}
-            className={`text-xl px-3 py-2 rounded-full transition-all duration-300 ${
+            type="button"
+            onClick={() => handleLanguageChange(option.value)}
+            className={`text-xl px-3 py-2 rounded-full transition-all duration-300 cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center ${
               language === option.value
                 ? 'bg-primary/20 scale-110'
                 : 'hover:bg-gray-100 dark:hover:bg-gray-800'
