@@ -148,12 +148,6 @@ export const translations = {
       madeWith: "Feito com ❤️ para empreendedores.",
     },
 
-    // Testimonials
-    testimonials: {
-      title: "Confie em Quem Já Transformou Seu Negócio",
-      subtitle: "Milhares de proprietários e gerentes já aumentaram sua receita com o Atendo",
-    },
-
     // WhatsApp
     whatsapp: {
       greeting: "Olá! 👋",
@@ -311,12 +305,6 @@ export const translations = {
       legalLinks: ["Términos de Uso", "Privacidad", "Cookies"],
       copyright: "© {year} Atendo. Todos los derechos reservados.",
       madeWith: "Hecho con ❤️ para emprendedores.",
-    },
-
-    // Testimonials
-    testimonials: {
-      title: "Confía en Quién Ya Transformó Su Negocio",
-      subtitle: "Miles de propietarios y gerentes ya han aumentado sus ingresos con Atendo",
     },
 
     // WhatsApp
