@@ -17,9 +17,10 @@ const CURRENCY_OPTIONS: { value: Currency; label: string; flag: string }[] = [
   { value: 'PYG', label: '🇵🇾 PYG', flag: '🇵🇾' },
 ];
 
-const LANGUAGE_OPTIONS: { value: 'pt' | 'es'; flag: string }[] = [
-  { value: 'pt', flag: '🇧🇷' },
-  { value: 'es', flag: '🇦🇷' },
+const LANGUAGE_OPTIONS: { value: 'pt' | 'es'; flag: string; country: string }[] = [
+  { value: 'pt', flag: '🇧🇷', country: 'Brasil' },
+  { value: 'es', flag: '🇦🇷', country: 'Argentina' },
+  { value: 'es', flag: '🇵🇾', country: 'Paraguai' },
 ];
 
 export default function CurrencySelector() {
@@ -36,17 +37,17 @@ export default function CurrencySelector() {
     <div className="flex items-center gap-2">
       {/* Language Selector - Only Flags */}
       <div className="flex items-center gap-1 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md rounded-full p-1 shadow-lg border border-border">
-        {LANGUAGE_OPTIONS.map((option) => (
+        {LANGUAGE_OPTIONS.map((option, index) => (
           <button
-            key={option.value}
+            key={`${option.flag}-${index}`}
             type="button"
             onClick={() => handleLanguageChange(option.value)}
             className={`text-xl px-3 py-2 rounded-full transition-all duration-300 cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center ${
-              language === option.value
+              language === option.value && (option.flag === '🇧🇷' || (option.flag === '🇦🇷' && index === 1) || (option.flag === '🇵🇾'))
                 ? 'bg-primary/20 scale-110'
                 : 'hover:bg-gray-100 dark:hover:bg-gray-800'
             }`}
-            title={option.value === 'pt' ? 'Português' : 'Español'}
+            title={`${option.country} - ${option.value === 'pt' ? 'Português' : 'Español'}`}
           >
             {option.flag}
           </button>
