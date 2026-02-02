@@ -230,12 +230,12 @@ export default function Home() {
       {/* FEATURES VISUAL SECTION */}
       <section className="py-20 bg-muted/20 relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto mb-16 animate-slide-in-up">
+          <div className="max-w-2xl mx-auto mb-16 animate-slide-in-up flex justify-center">
             <img 
-              src="/funcionalidades_atendo.png" 
-              alt="4 Funcionalidades Principais do Atendo: Agenda Online, Controle de Clientes, Relatorios Financeiros, Lembretes Automaticos" 
+              src={language === 'es' ? '/atendo_features_es.png' : '/atendo_features_pt.png'} 
+              alt={language === 'es' ? "App Atendo mostrando Agenda Inteligente en smartphone" : "App Atendo mostrando Agenda Inteligente em smartphone"} 
               loading="lazy"
-              className="w-full h-auto rounded-2xl shadow-2xl"
+              className="w-full max-w-sm h-auto rounded-2xl shadow-2xl"
             />
           </div>
         </div>
