@@ -17,6 +17,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 import FooterImproved from "@/components/FooterImproved";
 import { useCalendly } from "@/hooks/useCalendly";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { useGeoLocation } from "@/hooks/useGeoLocation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -28,6 +29,7 @@ import React from "react";
 
 export default function Home() {
   usePageTitle('Home');
+  useGeoLocation(); // Detectar país e configurar idioma/moeda automaticamente
   // The userAuth hooks provides authentication state
   // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
   let { user, loading, error, isAuthenticated, logout } = useAuth();
