@@ -283,7 +283,7 @@ export default function PlanComparison() {
         <table className="w-full">
           {/* Header */}
           <thead>
-            <tr className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+            <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
               <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 w-1/4">
                 Funcionalidade
               </th>
@@ -311,7 +311,7 @@ export default function PlanComparison() {
             {filteredFeatures.map((feature, idx) => (
               <tr
                 key={feature.id}
-                className={`border-b border-gray-200 transition-colors hover:bg-gray-50 ${
+                className={`transition-colors hover:bg-gray-50 ${
                   idx % 2 === 0 ? "bg-white" : "bg-gray-50/50"
                 }`}
               >
@@ -336,7 +336,7 @@ export default function PlanComparison() {
       <div className="md:hidden space-y-6">
         {plans.map((plan) => (
           <div key={plan.id} className="border border-gray-200 rounded-2xl overflow-hidden shadow-soft">
-            <div className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200 px-4 py-4">
+            <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-4 py-4">
               <h3 className="text-lg font-bold text-gray-900">{plan.name}</h3>
               <p className="text-sm font-semibold text-gray-600 mt-1">
                 {plan.id === "essential" && "R$ 89/mês"}
