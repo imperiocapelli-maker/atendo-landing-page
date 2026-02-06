@@ -434,13 +434,22 @@ img[loading="lazy"] {
 
 /* Contrast Improvements */
 a {
-  color: inherit;
+  color: var(--primary);
   text-decoration: none;
 }
 
 a:hover {
-  color: inherit;
+  color: var(--primary);
   opacity: 0.8;
+}
+
+/* Footer Links */
+footer a {
+  color: inherit;
+}
+
+footer a:hover {
+  color: inherit;
 }
 
 /* Button Accessibility */
