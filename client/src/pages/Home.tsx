@@ -132,8 +132,8 @@ export default function Home() {
             <div className="relative lg:h-auto flex items-center justify-center animate-slide-in-right" style={{ animationDelay: "0.2s" }}>
               <div className="relative z-10 w-full">
                 <img 
-                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/EcbivdHZndbLmZUu.png" 
-                  alt="Atendo Dashboard - Sistema de Agendamento com Controle Financeiro" 
+                  src={language === "pt" ? "https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/dcvScFNlqoIhutFF.png" : "https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/NyzEiuUJWnRUrBQk.png"}
+                  alt={language === "pt" ? "Mulher usando Atendo no tablet e celular" : "Mujer usando Atendo en tablet y celular"}
                   loading="lazy"
                   className="w-full h-auto rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
                 />
