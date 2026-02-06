@@ -143,21 +143,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BEFORE/AFTER SECTION */}
-      {/* FREE TRIAL SECTION */}
-      <section className="py-20 bg-gradient-to-b from-white to-blue-50 relative overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto mb-16 animate-slide-in-up">
-            <img 
-              src={language === "pt" ? "https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/jQQqIBGcLoHXCYPB.png" : "https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/NyzEiuUJWnRUrBQk.png"}
-              alt={language === "pt" ? "Teste Grátis por 7 Dias" : "Prueba Gratis por 7 Días"}
-              loading="lazy"
-              className="w-full h-auto rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* PROBLEM SECTION */}
       <section className="py-20 bg-muted/30 relative overflow-hidden">
         <div className="container mx-auto px-4">
