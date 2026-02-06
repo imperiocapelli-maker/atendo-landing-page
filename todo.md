@@ -374,12 +374,18 @@
 - [x] Validar se preço enviado para Stripe está correto
 - [x] Testar fluxo: escolher plano → escolher parcelas → prosseguir → validar preço
 - [x] Preços agora corretos em todas as opções de pagamento
-
 ## 🔄 INTEGRAÇÃO STRIPE COM CUPOM DE DESCONTO
 
 - [x] Analisar estrutura atual de checkout
 - [x] Atualizar endpoint POST /api/checkout para validar e aplicar cupom
-- [x] Implementar lógica de desconto no Stripe (discount object)
+
+## 🎨 AJUSTES VISUAIS - LANDING PAGE
+
+- [x] Corrigir imagem do salão que não está aparecendo (/images/hero-salon.jpg)
+- [x] Corrigir overflow/clipping de conteúdo nas seções
+- [x] Adicionar ícones nas funcionalidades (features section)
+- [x] Melhorar responsividade mobile para imagens
+- [x] Validar todas as imagens estão carregando corretamente lógica de desconto no Stripe (discount object)
 - [x] Adicionar testes vitest para validação de desconto
 - [x] Testar fluxo completo: aplicar cupom → checkout → Stripe
 - [x] Validar que o cliente vê o desconto refletido no Stripe Checkout

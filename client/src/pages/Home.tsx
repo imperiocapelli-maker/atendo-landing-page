@@ -132,7 +132,7 @@ export default function Home() {
             <div className="relative lg:h-auto flex items-center justify-center animate-slide-in-right" style={{ animationDelay: "0.2s" }}>
               <div className="relative z-10 w-full">
                 <img 
-                  src="/hero_atendo.png" 
+                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/EcbivdHZndbLmZUu.png" 
                   alt="Atendo Dashboard - Sistema de Agendamento com Controle Financeiro" 
                   loading="lazy"
                   className="w-full h-auto rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
@@ -149,7 +149,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-16 animate-slide-in-up">
             <img 
-              src={language === "pt" ? "/teste_gratis_pt.png" : "/teste_gratis_es.png"}
+              src={language === "pt" ? "https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/jQQqIBGcLoHXCYPB.png" : "https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/NyzEiuUJWnRUrBQk.png"}
               alt={language === "pt" ? "Teste Grátis por 7 Dias" : "Prueba Gratis por 7 Días"}
               loading="lazy"
               className="w-full h-auto rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
@@ -196,7 +196,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1 animate-slide-in-left" style={{ animationDelay: "0.2s" }}>
               <img 
-                src="/images/hero-salon.jpg" 
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/spnrBWyVjKihSLqc.jpg" 
                 alt="Imagem de um salão de beleza moderno com profissionais atendendo clientes" 
                 loading="lazy"
                 className="rounded-3xl shadow-2xl object-cover h-[500px] w-full"
@@ -233,7 +233,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto mb-16 animate-slide-in-up flex justify-center">
             <img 
-              src={language === 'es' ? '/atendo_features_es.png' : '/atendo_features_pt.png'} 
+              src={language === 'es' ? 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/MnpbwsVHwIQbzoRr.png' : 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/oteDJKbVFlZbbpyl.png'} 
               alt={language === 'es' ? "App Atendo mostrando Agenda Inteligente en smartphone" : "App Atendo mostrando Agenda Inteligente em smartphone"} 
               loading="lazy"
               className="w-full max-w-sm h-auto rounded-2xl shadow-2xl"
@@ -281,14 +281,14 @@ export default function Home() {
                 className={isClickable ? "cursor-pointer" : ""}
               >
                 <Card
-                  className="border-none shadow-soft hover:shadow-soft-hover transition-all duration-300 hover:-translate-y-1 bg-muted/20 animate-slide-in-up feature-card"
+                  className="border-none shadow-soft hover:shadow-soft-hover transition-all duration-300 hover:-translate-y-1 bg-muted/20 animate-slide-in-up feature-card group"
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
                   <CardHeader>
-                    <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary mb-2">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 shadow-md flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
                       {feature.icon}
                     </div>
-                    <CardTitle className="text-lg">{t(`features.${feature.key}.title`)}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">{t(`features.${feature.key}.title`)}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground text-sm">{t(`features.${feature.key}.desc`)}</p>
