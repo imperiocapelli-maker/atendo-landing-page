@@ -435,9 +435,7 @@ img[loading="lazy"] {
 /* Contrast Improvements */
 a {
   color: var(--primary);
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
+  text-decoration: none;
 }
 
 a:hover {
