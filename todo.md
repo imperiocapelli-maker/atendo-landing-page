@@ -479,3 +479,11 @@
 - [ ] Adicionar testes vitest para validação de desconto
 - [ ] Testar fluxo completo: aplicar cupom → checkout → Stripe
 - [ ] Validar que o cliente vê o desconto refletido no Stripe Checkout
+
+## Correções Mobile - Landing Page v2
+
+- [x] Corrigir tamanho do título hero no mobile (text-3xl sm:text-4xl lg:text-6xl)
+- [x] Aumentar tamanho dos ícones no mobile (w-8 h-8, container w-16 h-16)
+- [x] Reduzir padding das seções no mobile (py-12 md:py-16 lg:py-24)
+- [x] Reduzir gap entre colunas no mobile (gap-8 md:gap-12 lg:gap-16)
+- [x] Corrigir altura da imagem do salão no mobile (h-[300px] md:h-[400px] lg:h-[500px])

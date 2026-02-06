@@ -74,7 +74,7 @@ export default function Home() {
                 {t("hero.badge")}
               </div>
               
-              <h1 className="text-5xl lg:text-6xl font-heading font-extrabold leading-tight text-foreground">
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-heading font-extrabold leading-tight text-foreground">
                 {t("hero.headline").split(" ").map((word: string, i: number) => 
                   word === "lucro" || word === "ganancias" ? (
                     <span key={i} className="text-primary relative">
@@ -191,15 +191,15 @@ export default function Home() {
       </section>
 
       {/* SOLUTION SECTION */}
-      <section className="py-24 bg-muted/30 relative overflow-hidden">
+      <section className="py-12 md:py-16 lg:py-24 bg-muted/30 relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             <div className="order-2 lg:order-1 animate-slide-in-left" style={{ animationDelay: "0.2s" }}>
               <img 
                 src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663290393052/spnrBWyVjKihSLqc.jpg" 
                 alt="Imagem de um salão de beleza moderno com profissionais atendendo clientes" 
                 loading="lazy"
-                className="rounded-3xl shadow-2xl object-cover h-[500px] w-full"
+                className="rounded-3xl shadow-2xl object-cover h-[300px] md:h-[400px] lg:h-[500px] w-full"
               />
             </div>
             <div className="order-1 lg:order-2 space-y-8 animate-slide-in-right">
@@ -243,7 +243,7 @@ export default function Home() {
       </section>
 
       {/* FEATURES SECTION */}
-      <section id="funcionalidades" className="py-24 bg-white relative overflow-hidden">
+      <section id="funcionalidades" className="py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         {/* Background Decorations */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"></div>
@@ -260,14 +260,14 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { key: "agenda", icon: <LayoutDashboard className="w-6 h-6" /> },
-              { key: "financeiro", icon: <DollarSign className="w-6 h-6" /> },
-              { key: "clientes", icon: <Users className="w-6 h-6" /> },
-              { key: "relatorios", icon: <TrendingUp className="w-6 h-6" /> },
-              { key: "metas", icon: <Star className="w-6 h-6" /> },
-              { key: "whatsapp", icon: <MessageCircle className="w-6 h-6" /> },
-              { key: "assinatura", icon: <PenTool className="w-6 h-6" /> },
-              { key: "precificacao", icon: <Calculator className="w-6 h-6" /> },
+              { key: "agenda", icon: <LayoutDashboard className="w-8 h-8" /> },
+              { key: "financeiro", icon: <DollarSign className="w-8 h-8" /> },
+              { key: "clientes", icon: <Users className="w-8 h-8" /> },
+              { key: "relatorios", icon: <TrendingUp className="w-8 h-8" /> },
+              { key: "metas", icon: <Star className="w-8 h-8" /> },
+              { key: "whatsapp", icon: <MessageCircle className="w-8 h-8" /> },
+              { key: "assinatura", icon: <PenTool className="w-8 h-8" /> },
+              { key: "precificacao", icon: <Calculator className="w-8 h-8" /> },
             ].map((feature: any, i: number) => {
               const isClickable = feature.key === "precificacao";
               return (
@@ -285,7 +285,7 @@ export default function Home() {
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
                   <CardHeader>
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 shadow-md flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 shadow-md flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
                       {feature.icon}
                     </div>
                     <CardTitle className="text-lg font-semibold">{t(`features.${feature.key}.title`)}</CardTitle>
@@ -303,13 +303,13 @@ export default function Home() {
       </section>
 
       {/* DIFFERENTIALS SECTION */}
-      <section className="py-24 bg-primary text-white relative overflow-hidden">
+      <section className="py-12 md:py-16 lg:py-24 bg-primary text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
           <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full bg-white blur-3xl"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             <div className="space-y-6 animate-slide-in-left">
               <h2 className="text-4xl font-heading font-bold">
                 {t("differentials.pricing.title")}
